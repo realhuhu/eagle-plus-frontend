@@ -42,6 +42,10 @@
       <div class="w-full bg-[var(--theme-dark-2)] m-2 rounded p-4">
         <interaction-all-filter v-if="active==='1'" v-model:params="params"/>
         <interaction-message-filter v-else-if="active==='2'" v-model:params="params"/>
+        <interaction-guard-filter v-else-if="active==='3'" v-model:params="params"/>
+        <interaction-gift-filter v-else-if="active==='4'" v-model:params="params"/>
+        <interaction-entry-filter v-else-if="active==='5'" v-model:params="params"/>
+        <interaction-chat-filter v-else-if="active==='6'" v-model:params="params"/>
         {{ params }}
         <interaction-table :table="table" :params="params" @change_page="get_data" @change_size="refresh_data"/>
       </div>
@@ -56,7 +60,7 @@ import {build_params} from "@/assets/lib/utils";
 import InteractionMessageFilter from "@/components/filter/InteractionMessageFilter.vue";
 
 const today = new Date(new Date().toLocaleDateString()).getTime()
-const active = ref<"1" | "2">("1")
+const active = ref<"1" | "2" | "3" | "4" | "5" | "6">("1")
 
 const params = ref<InteractionParams>({
   page: 1,
@@ -69,7 +73,9 @@ const params = ref<InteractionParams>({
   ordering: "-timestamp",
   interaction: [0, 1, 2, 3, 4],
   admin_type: [0, 1, 2],
-  medal: ""
+  medal: "",
+  gift: "",
+  gift_coin: [0, 1],
 })
 
 const table = ref<InteractionTable>({
@@ -85,12 +91,20 @@ const get_data = async () => {
       url: {
         "1": "interaction/all",
         "2": "interaction/message",
+        "3": "interaction/guard",
+        "4": "interaction/gift",
+        "5": "interaction/entry",
+        "6": "interaction/chat",
       }[active.value],
       params: build_params(
           params.value,
           {
-            "1": ["page", "size", "start", "end", "uid", "search", "guard", "ordering", "interaction"],
-            "2": ["page", "size", "start", "end", "uid", "search", "guard", "ordering", "admin_type", "medal"],
+            "1": ["page", "size", "start", "end", "uid", "guard", "ordering", "search", "interaction"],
+            "2": ["page", "size", "start", "end", "uid", "guard", "ordering", "search", "admin_type", "medal"],
+            "3": ["page", "size", "start", "end", "uid", "guard", "ordering"],
+            "4": ["page", "size", "start", "end", "uid", "guard", "ordering", "gift", "gift_coin"],
+            "5": ["page", "size", "start", "end", "uid", "guard", "ordering", "medal"],
+            "6": ["page", "size", "start", "end", "uid", "guard", "ordering", "search"]
           }[active.value]
       )
     })
@@ -121,8 +135,11 @@ watch(active, () => {
     ordering: "-timestamp",
     interaction: [0, 1, 2, 3, 4],
     admin_type: [0, 1, 2],
-    medal: ""
+    medal: "",
+    gift: "",
+    gift_coin: [0, 1],
   }
+  if (active.value === "3") params.value.guard = [1, 2, 3]
   refresh_data()
 })
 </script>

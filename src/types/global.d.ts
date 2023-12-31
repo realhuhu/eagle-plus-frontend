@@ -27,6 +27,8 @@ declare global {
     interaction: number[]
     admin_type: number[]
     medal: string
+    gift: string
+    gift_coin: number[]
   }
 
   type InteractionTable = {
@@ -43,6 +45,7 @@ declare global {
     guard: Guard | null
     gift: Gift | null
     entry: Entry | null
+    chat: Chat | null
   }
 
   type Message = {
@@ -90,13 +93,7 @@ declare global {
   }
 
   type Chat = {
-    uid: number
-    avatar: string
-    username: string
-    level: number
-    privilege_type: 0 | 1 | 2 | 3
-    chat_id: string
-    chat_name: string
+    user_level: number
     chat_price: number
     chat_message: string
     chat_icon: string
@@ -104,7 +101,6 @@ declare global {
     chat_color: string
     chat_price_color: string
     chat_bottom_color: string
-    timestamp_start: number
   }
 
   type Award = {

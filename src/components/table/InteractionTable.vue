@@ -11,6 +11,7 @@
           <guard-record v-if="interaction.guard" :interaction="interaction" :guard="interaction.guard"/>
           <gift-record v-else-if="interaction.gift" :interaction="interaction" :gift="interaction.gift"/>
           <entry-record v-else-if="interaction.entry" :interaction="interaction" :entry="interaction.entry"/>
+          <chat-record v-else-if="interaction.chat" :interaction="interaction" :chat="interaction.chat"/>
         </div>
 
         <div class="flex justify-end" v-if="table.count">

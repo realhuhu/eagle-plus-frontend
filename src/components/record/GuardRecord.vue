@@ -12,7 +12,6 @@
           {{ interaction.user.current_name }}
         </div>
 
-        <div class="mr-2 text-white">{{ guard.guard_name }}×{{ guard.guard_num }}</div>
       </div>
 
       <div class="flex-shrink-0 bg-yellow-200 text-yellow-600 rounded border border-amber-500 px-0.5">

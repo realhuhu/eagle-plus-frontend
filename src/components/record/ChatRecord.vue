@@ -3,9 +3,11 @@
     <div class="text-[12px] md:text-[14px] flex-shrink-0 mr-2 text-bold"> {{ time }}</div>
     <div class="card-detail">
       <div class="card-head" :style="`background-color:${chat.chat_color};border-color: ${chat.chat_bottom_color}`">
-        <privilege-avatar :avatar="chat.avatar" :privilege_type="chat.privilege_type"/>
+        <privilege-avatar :avatar="interaction.user.current_avatar" :privilege_type="interaction.guard_type"/>
         <div class="card-info">
-          <div class="card-name" @click="open_url(`https://space.bilibili.com/${chat.uid}/`)">{{ chat.username }}</div>
+          <div class="card-name" @click="open_url(`https://space.bilibili.com/${interaction.user.uid}/`)">
+            {{ interaction.user.current_name }}
+          </div>
           <div class="card-price">
             <div class="card-price-inner">{{ chat.chat_price * 10 }}电池</div>
           </div>
@@ -24,8 +26,8 @@
 import {DateParser, open_url} from "@/assets/lib/utils";
 import {computed} from "vue";
 
-const props = defineProps<{ chat: Chat }>()
-const time = computed(() => (new DateParser(props.chat.timestamp_start)).monthDayHoursMinutes())
+const props = defineProps<{ interaction: Interaction, chat: Chat }>()
+const time = computed(() => (new DateParser(props.interaction.timestamp)).monthDayHoursMinutes())
 </script>
 
 <style scoped lang="less">

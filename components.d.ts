@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ChatRecord: typeof import('./src/components/record/ChatRecord.vue')['default']
+    DebounceInput: typeof import('./src/components/input/DebounceInput.vue')['default']
     EntryRecord: typeof import('./src/components/record/EntryRecord.vue')['default']
     GiftRecord: typeof import('./src/components/record/GiftRecord.vue')['default']
     GuardRecord: typeof import('./src/components/record/GuardRecord.vue')['default']
@@ -19,6 +20,11 @@ declare module 'vue' {
     IBxsSun: typeof import('~icons/bxs/sun')['default']
     IBxsUser: typeof import('~icons/bxs/user')['default']
     InteractionAllFilter: typeof import('./src/components/filter/InteractionAllFilter.vue')['default']
+    InteractionBaseFilter: typeof import('./src/components/filter/InteractionBaseFilter.vue')['default']
+    InteractionChatFilter: typeof import('./src/components/filter/InteractionChatFilter.vue')['default']
+    InteractionEntryFilter: typeof import('./src/components/filter/InteractionEntryFilter.vue')['default']
+    InteractionGiftFilter: typeof import('./src/components/filter/InteractionGiftFilter.vue')['default']
+    InteractionGuardFilter: typeof import('./src/components/filter/InteractionGuardFilter.vue')['default']
     InteractionMessageFilter: typeof import('./src/components/filter/InteractionMessageFilter.vue')['default']
     InteractionTable: typeof import('./src/components/table/InteractionTable.vue')['default']
     MedalChip: typeof import('./src/components/chip/MedalChip.vue')['default']
