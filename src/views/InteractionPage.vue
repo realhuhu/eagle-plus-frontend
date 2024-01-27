@@ -46,10 +46,12 @@
         <interaction-gift-filter v-else-if="active==='4'" v-model:params="params"/>
         <interaction-entry-filter v-else-if="active==='5'" v-model:params="params"/>
         <interaction-chat-filter v-else-if="active==='6'" v-model:params="params"/>
-        {{ params }}
-        <interaction-table :table="table" :params="params" @change_page="get_data" @change_size="refresh_data"/>
+        <interaction-table :table="table" v-model:params="params" @refresh="refresh_data" @change_page="get_data"
+                           @change_size="refresh_data" @user_click="pop_modal"/>
       </div>
     </div>
+
+    <user-interaction-modal v-if="modal.user" :user="modal.user" v-model:visible="modal.visible" :params="params"/>
   </div>
 </template>
 
@@ -57,17 +59,20 @@
 import {ref, watch} from "vue";
 import {client} from "@/assets/lib/request";
 import {build_params} from "@/assets/lib/utils";
-import InteractionMessageFilter from "@/components/filter/InteractionMessageFilter.vue";
 
 const today = new Date(new Date().toLocaleDateString()).getTime()
 const active = ref<"1" | "2" | "3" | "4" | "5" | "6">("1")
+const modal = ref<{ visible: boolean, user: User | null }>({
+  visible: false,
+  user: null
+})
 
 const params = ref<InteractionParams>({
   page: 1,
   size: 20,
   start: new Date(today),
   end: new Date(today + 24 * 60 * 60 * 1000 - 1),
-  uid: null,
+  uid: 0,
   search: "",
   guard: [0, 1, 2, 3],
   ordering: "-timestamp",
@@ -81,13 +86,15 @@ const params = ref<InteractionParams>({
 const table = ref<InteractionTable>({
   count: 0,
   loading: false,
+  extra: {price: 0, total: 0},
   interactions: []
 })
 
 const get_data = async () => {
   table.value.loading = true
+  table.value.extra = {price: 0, total: 0}
   try {
-    const res = await client.get<PaginatedResponse<Interaction>>({
+    const res = await client.get<PaginatedResponse<Interaction, InteractionResponseExtra>>({
       url: {
         "1": "interaction/all",
         "2": "interaction/message",
@@ -109,6 +116,7 @@ const get_data = async () => {
       )
     })
     table.value.count = res.data.count
+    table.value.extra = res.data.extra
     table.value.interactions = res.data.results
   } finally {
     table.value.loading = false
@@ -120,16 +128,20 @@ const refresh_data = async () => {
   await get_data()
 }
 
-get_data()
+const pop_modal = (user: User) => {
+  modal.value.user = user
+  modal.value.visible = true
+}
+
 
 watch(params, () => get_data(), {deep: true})
 watch(active, () => {
   params.value = {
     page: 1,
     size: 20,
-    start: new Date(today),
-    end: new Date(today + 24 * 60 * 60 * 1000 - 1),
-    uid: null,
+    start: params.value.start,
+    end: params.value.end,
+    uid: 0,
     search: "",
     guard: [0, 1, 2, 3],
     ordering: "-timestamp",
@@ -142,6 +154,8 @@ watch(active, () => {
   if (active.value === "3") params.value.guard = [1, 2, 3]
   refresh_data()
 })
+
+get_data()
 </script>
 
 <style scoped lang="less">

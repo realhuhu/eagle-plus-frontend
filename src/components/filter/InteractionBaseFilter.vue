@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
 withDefaults(
-    defineProps<{ orderings: { field: string, text: string }[], only_guard: boolean, search_disable: boolean }>(),
+    defineProps<{ orderings?: { field: string, text: string }[], only_guard?: boolean, search_disable?: boolean }>(),
     {
       orderings: () => [
         {field: "-timestamp", text: "最新"},

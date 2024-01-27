@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "user",
     component: () => import("@/views/UserPage.vue"),
     meta: {
-      active: "2"
+      active: "3"
     }
   },
   {

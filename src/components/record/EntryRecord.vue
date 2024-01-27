@@ -4,7 +4,7 @@
 
     <a-image width="20" v-if="interaction.guard_type" :src="privilege_image(interaction.guard_type)"/>
 
-    <div  @click="open_url(`https://space.bilibili.com/${interaction.user.uid}/`)"
+    <div @click="emit('user_click',interaction.user)"
          class="font-bold hover:text-[#4ebaee] cursor-pointer duration-100  truncate">
       {{ interaction.user.current_name }}
     </div>
@@ -17,9 +17,10 @@
 
 <script setup lang="ts">
 import {computed} from "vue";
-import {DateParser, open_url, privilege_image} from "@/assets/lib/utils";
+import {DateParser, privilege_image} from "@/assets/lib/utils";
 
 const props = defineProps<{ interaction: Interaction, entry: Entry }>()
+const emit = defineEmits(["user_click"])
 const time = computed(() => (new DateParser(props.interaction.timestamp)).monthDayHoursMinutes())
 </script>
 

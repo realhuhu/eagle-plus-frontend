@@ -1,10 +1,11 @@
 export {}
 
 declare global {
-  type PaginatedResponse<T> = {
+  type PaginatedResponse<T, R extends {} = {}> = {
     count: number
     next: string | null
     previous: string | null
+    extra: R
     results: T[]
   }
 
@@ -20,7 +21,7 @@ declare global {
     size: number
     start: Date
     end: Date
-    uid: number | null
+    uid: number
     search: string
     guard: number[]
     ordering: string
@@ -31,9 +32,15 @@ declare global {
     gift_coin: number[]
   }
 
+  type InteractionResponseExtra = {
+    price: number
+    total: number
+  }
+
   type InteractionTable = {
     count: number
     loading: boolean
+    extra: InteractionResponseExtra
     interactions: Interaction[]
   }
 
@@ -66,7 +73,6 @@ declare global {
       width: number
     }
     admin_type: 0 | 1 | 2
-    is_lottery: boolean
   }
 
   type Guard = {
@@ -103,26 +109,18 @@ declare global {
     chat_bottom_color: string
   }
 
-  type Award = {
-    award_name: string
-    award_users: {
-      num: number
-      uid: number
-      face: string
-      color: number
-      uname: string
-      level: number
-    }[]
-    timestamp: number
+  type TopItem = {
+    user__uid: number
+    user__current_name: string
+    user__current_avatar: string
+    num: number
   }
 
-  type Point = {
-    timestamp: number
-    count: number
-  }
-
-  type Live = {
-    timestamp_start: number
-    timestamp_end: number | null
+  type UserInfo = {
+    uid: number
+    current_name: string
+    current_avatar: string
+    history_names: { name: string, timestamp: string }[]
+    history_avatars: { avatar: string, timestamp: string }[]
   }
 }

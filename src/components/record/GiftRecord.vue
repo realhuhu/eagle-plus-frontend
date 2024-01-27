@@ -6,7 +6,7 @@
       <privilege-avatar :avatar="interaction.user.current_avatar" :privilege_type="interaction.guard_type" :size="34"
                         class="mr-2"/>
 
-      <div @click="open_url(`https://space.bilibili.com/${interaction.user.uid}/`)"
+      <div @click="emit('user_click',interaction.user)"
            class="font-bold hover:text-[#4ebaee] cursor-pointer duration-100  truncate">
         {{ interaction.user.current_name }}
       </div>
@@ -31,9 +31,10 @@
 
 <script setup lang="ts">
 import {computed} from "vue";
-import {DateParser, open_url} from "@/assets/lib/utils";
+import {DateParser} from "@/assets/lib/utils";
 
 const props = defineProps<{ interaction: Interaction, gift: Gift }>()
+const emit = defineEmits(["user_click"])
 const time = computed(() => (new DateParser(props.interaction.timestamp)).monthDayHoursMinutes())
 </script>
 

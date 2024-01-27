@@ -7,12 +7,12 @@
                         class="mr-2"/>
 
       <div v-if="message.admin_type==1"
-           class="p-0.5 rounded-md text-[#FFB027] border border-[#FFB027]  flex-shrink-0  mr-1">房
+           class="p-0.5 rounded-md text-[#FFB027] border border-[#FFB027] flex-shrink-0 mr-1">房
       </div>
 
       <div :style="{color:`${message.name_color}`}"
-           @click="open_url(`https://space.bilibili.com/${interaction.user.uid}/`)"
-           class="font-bold hover:text-[#4ebaee] cursor-pointer duration-100  truncate mr-1">
+           @click="emit('user_click',interaction.user)"
+           class="font-bold hover:text-[#4ebaee] cursor-pointer duration-100 truncate mr-1">
         {{ interaction.user.current_name }}
       </div>
 
@@ -41,10 +41,11 @@
 </template>
 
 <script setup lang="ts">
-import {DateParser, number_to_color, open_url, proxy_url} from "@/assets/lib/utils";
+import {DateParser, number_to_color, proxy_url} from "@/assets/lib/utils";
 import {computed} from "vue";
 
 const props = defineProps<{ interaction: Interaction, message: Message }>()
+const emit = defineEmits(["user_click"])
 const time = computed(() => (new DateParser(props.interaction.timestamp)).monthDayHoursMinutes())
 </script>
 

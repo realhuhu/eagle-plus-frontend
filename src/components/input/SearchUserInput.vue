@@ -1,6 +1,9 @@
 <template>
-  <a-select :options="options" :loading="loading" placeholder="输入UID或用户名" allow-search :filter-option="false"
-            allow-clear @change="update" @search="handle_search" @clear="uid = null">
+  <a-select v-model:model-value="search" v-model:popup-visible="visible" v-model:options="options" :loading="loading"
+            allow-search :filter-option="false" @change="update" @search="handle_search" placeholder="输入UID或用户名">
+    <template #prefix>
+      <div @click.stop="clear" class="cursor-pointer">清空</div>
+    </template>
   </a-select>
 </template>
 
@@ -8,11 +11,13 @@
 import {ref} from "vue";
 import {client} from "@/assets/lib/request";
 
-const uid = defineModel("uid")
-
+const uid = defineModel<number>("uid", {required: true})
+const search = defineModel<string>("search")
+const visible = ref(false)
 const options = ref<string[]>([])
 const users = ref<SimpleUser[]>([])
 const loading = ref(false)
+
 const handle_search = async (value: string) => {
   if (!value) {
     return
@@ -37,8 +42,16 @@ const update = (value: any) => {
   for (const user of users.value) {
     if (value === user.current_name) {
       uid.value = user.uid
+      search.value = user.current_name
     }
   }
+}
+
+const clear = () => {
+  uid.value = 0
+  search.value = ""
+  users.value = []
+  options.value = []
 }
 </script>
 

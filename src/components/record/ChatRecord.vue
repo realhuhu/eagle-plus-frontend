@@ -5,7 +5,7 @@
       <div class="card-head" :style="`background-color:${chat.chat_color};border-color: ${chat.chat_bottom_color}`">
         <privilege-avatar :avatar="interaction.user.current_avatar" :privilege_type="interaction.guard_type"/>
         <div class="card-info">
-          <div class="card-name" @click="open_url(`https://space.bilibili.com/${interaction.user.uid}/`)">
+          <div class="card-name" @click="emit('user_click',interaction.user)">
             {{ interaction.user.current_name }}
           </div>
           <div class="card-price">
@@ -23,10 +23,11 @@
 </template>
 
 <script setup lang="ts">
-import {DateParser, open_url} from "@/assets/lib/utils";
+import {DateParser} from "@/assets/lib/utils";
 import {computed} from "vue";
 
 const props = defineProps<{ interaction: Interaction, chat: Chat }>()
+const emit = defineEmits(["user_click"])
 const time = computed(() => (new DateParser(props.interaction.timestamp)).monthDayHoursMinutes())
 </script>
 

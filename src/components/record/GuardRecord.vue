@@ -8,7 +8,7 @@
                           class="mr-2"/>
 
         <div class="font-bold hover:text-[#4ebaee] cursor-pointer duration-100  truncate mr-1 text-yellow-400"
-             @click="open_url(`https://space.bilibili.com/${interaction.user.uid}/`)">
+             @click="emit('user_click',interaction.user)">
           {{ interaction.user.current_name }}
         </div>
 
@@ -26,6 +26,7 @@ import {computed} from "vue";
 import {DateParser, open_url} from "@/assets/lib/utils";
 
 const props = defineProps<{ interaction: Interaction, guard: Guard }>()
+const emit = defineEmits(["user_click"])
 const time = computed(() => (new DateParser(props.interaction.timestamp)).monthDayHoursMinutes())
 const background = computed(() => {
   switch (props.interaction.guard_type) {

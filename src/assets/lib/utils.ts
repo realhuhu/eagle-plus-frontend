@@ -140,6 +140,8 @@ export const build_params = (
 ): Record<(typeof fields)[number], string | number> => {
   const res: Record<(typeof fields)[number], string | number> = {}
   for (const key of fields) {
+    if (!params[key]) continue
+
     if (typeof params[key] === "string" || typeof params[key] === "number") {
       res[key] = params[key] as string | number
     } else if (params[key] instanceof Date) {
