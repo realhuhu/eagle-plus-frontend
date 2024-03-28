@@ -39,7 +39,6 @@ declare module 'vue' {
     UserInteractionCard: typeof import('./src/components/card/UserInteractionCard.vue')['default']
     UserInteractionFilter: typeof import('./src/components/filter/UserInteractionFilter.vue')['default']
     UserInteractionModal: typeof import('./src/components/modal/UserInteractionModal.vue')['default']
-    UserInteractionTable: typeof import('./src/components/table/UserInteractionTable.vue')['default']
     UserTable: typeof import('./src/components/table/UserTable.vue')['default']
   }
 }

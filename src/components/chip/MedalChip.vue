@@ -24,7 +24,7 @@ import {number_to_color, open_url} from "@/assets/lib/utils";
 defineProps<{
   medal: {
     medal_name: string
-    medal_level: string
+    medal_level: number
     medal_color: number
     medal_roomer?: string
     medal_room_id: number

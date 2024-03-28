@@ -12,7 +12,7 @@
         </div>
 
         <div class="flex justify-end items-center gap-2 flex-shrink-0">
-          <a-button type="primary" status="normal" size="mini" @click="router.replace(`/user?uid=${user.uid}`)">
+          <a-button type="primary" status="normal" size="mini" @click="to_detail">
             更多信息
           </a-button>
         </div>
@@ -81,10 +81,11 @@ import {build_params, open_url} from "@/assets/lib/utils";
 import {UseStore} from "@/store";
 import {useRouter} from "vue-router";
 
-const props = defineProps<{ user: User, params: InteractionParams }>()
 const store = UseStore()
 const router = useRouter()
-const visible = defineModel<boolean>("visible", {required: true})
+const visible = ref(true)
+const props = defineProps<{ user: User, params: InteractionParams, unmount: () => void }>()
+
 
 const table = ref<InteractionTable>({
   count: 0,
@@ -128,13 +129,19 @@ const refresh_data = async () => {
   await get_data()
 }
 
-const change = (current: number) => {
+const change = async (current: number) => {
   params.value.page = current
-  get_data()
+  await get_data()
+}
+
+const to_detail = () => {
+  router.push(`/user?uid=${props.user.uid}`)
+  visible.value = false
+  props.unmount()
 }
 
 watch(visible, (new_val: boolean) => {
-  if (new_val) refresh_data()
+  if (!new_val) props.unmount()
 })
 
 get_data()

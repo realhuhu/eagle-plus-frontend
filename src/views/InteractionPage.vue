@@ -4,14 +4,13 @@
 
     <div class="flex flex-col justify-start items-center">
       <div class="md:flex justify-between items-center w-full">
-        <a-tabs type="capsule" size="large" hide-content v-model:active-key="active">
-          <a-tab-pane key="1" title="全部"/>
-          <a-tab-pane key="2" title="弹幕"/>
-          <a-tab-pane key="3" title="上舰"/>
-          <a-tab-pane key="4" title="礼物"/>
-          <a-tab-pane key="5" title="入场"/>
-          <a-tab-pane key="6" title="留言"/>
-          <a-tab-pane key="7" title="抽奖"/>
+        <a-tabs type="capsule" size="large" hide-content :active-key="route.meta.interaction_key" @change="switch_data">
+          <a-tab-pane key="all" title="全部"/>
+          <a-tab-pane key="message" title="弹幕"/>
+          <a-tab-pane key="guard" title="上舰"/>
+          <a-tab-pane key="gift" title="礼物"/>
+          <a-tab-pane key="entry" title="入场"/>
+          <a-tab-pane key="chat" title="留言"/>
         </a-tabs>
 
         <div class="md:flex justify-end items-center pt-4">
@@ -40,32 +39,31 @@
       </div>
 
       <div class="w-full bg-[var(--theme-dark-2)] m-2 rounded p-4">
-        <interaction-all-filter v-if="active==='1'" v-model:params="params"/>
-        <interaction-message-filter v-else-if="active==='2'" v-model:params="params"/>
-        <interaction-guard-filter v-else-if="active==='3'" v-model:params="params"/>
-        <interaction-gift-filter v-else-if="active==='4'" v-model:params="params"/>
-        <interaction-entry-filter v-else-if="active==='5'" v-model:params="params"/>
-        <interaction-chat-filter v-else-if="active==='6'" v-model:params="params"/>
-        <interaction-table :table="table" v-model:params="params" @refresh="refresh_data" @change_page="get_data"
-                           @change_size="refresh_data" @user_click="pop_modal"/>
+        <router-view v-model:params="params"/>
+        <interaction-table
+            :table="table"
+            v-model:params="params"
+            @refresh="refresh_data"
+            @change_page="get_data"
+            @change_size="refresh_data"
+            @user_click="pop_modal"
+        />
       </div>
     </div>
 
-    <user-interaction-modal v-if="modal.user" :user="modal.user" v-model:visible="modal.visible" :params="params"/>
   </div>
 </template>
 
 <script setup lang="ts">
 import {ref, watch} from "vue";
 import {client} from "@/assets/lib/request";
-import {build_params} from "@/assets/lib/utils";
+import {assertNotEmpty, build_params} from "@/assets/lib/utils";
+import {useRoute, useRouter} from "vue-router";
+import {showUserInteractionModal} from "@/components/modal/UserInteractionModal";
 
+const route = useRoute()
+const router = useRouter()
 const today = new Date(new Date().toLocaleDateString()).getTime()
-const active = ref<"1" | "2" | "3" | "4" | "5" | "6">("1")
-const modal = ref<{ visible: boolean, user: User | null }>({
-  visible: false,
-  user: null
-})
 
 const params = ref<InteractionParams>({
   page: 1,
@@ -95,25 +93,8 @@ const get_data = async () => {
   table.value.extra = {price: 0, total: 0}
   try {
     const res = await client.get<PaginatedResponse<Interaction, InteractionResponseExtra>>({
-      url: {
-        "1": "interaction/all",
-        "2": "interaction/message",
-        "3": "interaction/guard",
-        "4": "interaction/gift",
-        "5": "interaction/entry",
-        "6": "interaction/chat",
-      }[active.value],
-      params: build_params(
-          params.value,
-          {
-            "1": ["page", "size", "start", "end", "uid", "guard", "ordering", "search", "interaction"],
-            "2": ["page", "size", "start", "end", "uid", "guard", "ordering", "search", "admin_type", "medal"],
-            "3": ["page", "size", "start", "end", "uid", "guard", "ordering"],
-            "4": ["page", "size", "start", "end", "uid", "guard", "ordering", "gift", "gift_coin"],
-            "5": ["page", "size", "start", "end", "uid", "guard", "ordering", "medal"],
-            "6": ["page", "size", "start", "end", "uid", "guard", "ordering", "search"]
-          }[active.value]
-      )
+      url: assertNotEmpty(route.meta.interaction_url, "url为空"),
+      params: build_params(params.value, assertNotEmpty(route.meta.interaction_param_fields, "fields为空"))
     })
     table.value.count = res.data.count
     table.value.extra = res.data.extra
@@ -128,14 +109,8 @@ const refresh_data = async () => {
   await get_data()
 }
 
-const pop_modal = (user: User) => {
-  modal.value.user = user
-  modal.value.visible = true
-}
-
-
-watch(params, () => get_data(), {deep: true})
-watch(active, () => {
+const switch_data = async (key: string | number) => {
+  await router.replace(key.toString())
   params.value = {
     page: 1,
     size: 20,
@@ -143,7 +118,7 @@ watch(active, () => {
     end: params.value.end,
     uid: 0,
     search: "",
-    guard: [0, 1, 2, 3],
+    guard: route.meta.interaction_key === "guard" ? [1, 2, 3] : [0, 1, 2, 3],
     ordering: "-timestamp",
     interaction: [0, 1, 2, 3, 4],
     admin_type: [0, 1, 2],
@@ -151,9 +126,14 @@ watch(active, () => {
     gift: "",
     gift_coin: [0, 1],
   }
-  if (active.value === "3") params.value.guard = [1, 2, 3]
-  refresh_data()
-})
+  await refresh_data()
+}
+
+const pop_modal = (user: User) => {
+  showUserInteractionModal(user, params.value)
+}
+
+watch(params, () => get_data(), {deep: true})
 
 get_data()
 </script>

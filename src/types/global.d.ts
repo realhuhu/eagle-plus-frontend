@@ -61,7 +61,7 @@ declare global {
     level_color: number
     level_rank: string
     medal_name: string
-    medal_level: string
+    medal_level: number
     medal_color: number
     medal_roomer: string
     medal_room_id: number
@@ -93,7 +93,7 @@ declare global {
 
   type Entry = {
     medal_name: string
-    medal_level: string
+    medal_level: number
     medal_color: number
     medal_room_id: number
   }

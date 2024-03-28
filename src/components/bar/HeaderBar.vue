@@ -4,25 +4,25 @@
       <span class="w-9"/>
 
       <a-tabs type="text" hide-content :active-key="route.meta.active" @change="change">
-        <a-tab-pane key="1">
+        <a-tab-pane key="home">
           <template #title>
             <i-bxs-home class="inline"/>
             <span class="hidden md:inline ml-1">首页</span>
           </template>
         </a-tab-pane>
-        <a-tab-pane key="2">
+        <a-tab-pane key="interaction">
           <template #title>
             <i-bxs-chat class="inline"/>
             <span class="hidden md:inline ml-1">互动</span>
           </template>
         </a-tab-pane>
-        <a-tab-pane key="3">
+        <a-tab-pane key="user">
           <template #title>
             <i-bxs-user class="inline"/>
             <span class="hidden md:inline ml-1">用户</span>
           </template>
         </a-tab-pane>
-        <a-tab-pane key="4">
+        <a-tab-pane key="statistic">
           <template #title>
             <i-bxs-objects-vertical-bottom class="inline"/>
             <span class="hidden md:inline ml-1">数据</span>
@@ -47,12 +47,7 @@ const route = useRoute()
 const router = useRouter()
 
 const change = async (key: number | string) => {
-  await router.push({
-    "1": "/home",
-    "2": "/interaction",
-    "3": "/user",
-    "4": "/statistic"
-  }[key.toString()] || "/home")
+  await router.push(`/${key}`)
 }
 </script>
 
