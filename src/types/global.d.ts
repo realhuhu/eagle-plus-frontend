@@ -1,7 +1,7 @@
 export {}
 
 declare global {
-  type PaginatedResponse<T, R extends {} = {}> = {
+  type PaginatedResponse<T, R> = {
     count: number
     next: string | null
     previous: string | null
@@ -35,24 +35,6 @@ declare global {
   type InteractionResponseExtra = {
     price: number
     total: number
-  }
-
-  type InteractionTable = {
-    count: number
-    loading: boolean
-    extra: InteractionResponseExtra
-    interactions: Interaction[]
-  }
-
-  type Interaction = {
-    guard_type: 0 | 1 | 2 | 3
-    timestamp: string
-    user: User
-    message: Message | null
-    guard: Guard | null
-    gift: Gift | null
-    entry: Entry | null
-    chat: Chat | null
   }
 
   type Message = {
@@ -107,6 +89,24 @@ declare global {
     chat_color: string
     chat_price_color: string
     chat_bottom_color: string
+  }
+
+  type Interaction = {
+    guard_type: 0 | 1 | 2 | 3
+    timestamp: string
+    user: User
+    message: Message | null
+    guard: Guard | null
+    gift: Gift | null
+    entry: Entry | null
+    chat: Chat | null
+  }
+
+  type InteractionTable = {
+    count: number
+    loading: boolean
+    extra: InteractionResponseExtra
+    interactions: Interaction[]
   }
 
   type TopItem = {

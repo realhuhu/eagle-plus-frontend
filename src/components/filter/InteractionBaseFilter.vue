@@ -47,7 +47,7 @@ withDefaults(
     {
       orderings: () => [
         {field: "-timestamp", text: "最新"},
-        {field: "timestamp", text: "最早"},
+        {field: "timestamp", text: "最早"}
       ],
       only_guard: false,
       search_disable: false

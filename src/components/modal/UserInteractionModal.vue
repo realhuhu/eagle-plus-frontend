@@ -135,7 +135,7 @@ const change = async (current: number) => {
 }
 
 const to_detail = () => {
-  router.push(`/user?uid=${props.user.uid}`)
+  router.push(`/user/${props.user.uid}`)
   visible.value = false
   props.unmount()
 }

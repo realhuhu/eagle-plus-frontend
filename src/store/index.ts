@@ -7,7 +7,7 @@ type StoreType = {
 export const UseStore = defineStore("main", {
   state: (): StoreType => ({
     is_mobile: window.innerWidth < 768,
-    dark: true,
+    dark: true
   }),
   getters: {},
   actions: {
@@ -18,6 +18,6 @@ export const UseStore = defineStore("main", {
       } else {
         document.body.removeAttribute("arco-theme");
       }
-    },
+    }
   }
 })

@@ -1,5 +1,4 @@
-import {createRouter, createWebHistory} from "vue-router"
-import type {RouteRecordRaw} from "vue-router";
+import {createRouter, createWebHistory, type RouteRecordRaw} from "vue-router"
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -96,9 +95,29 @@ const routes: Array<RouteRecordRaw> = [
     path: "/user",
     name: "user",
     component: () => import("@/views/UserPage.vue"),
-    meta: {
-      active: "user"
-    }
+    children: [
+      {
+        path: "top",
+        name: "user-top",
+        component: () => import("@/components/table/TopTable.vue"),
+        meta: {
+          active: "user"
+        }
+      },
+      {
+        path: ":uid",
+        name: "user-uid",
+        component: () => import("@/components/table/UserTable.vue"),
+        meta: {
+          active: "user"
+        }
+      },
+      {
+        path: "",
+        name: "user-redirect",
+        redirect: "/user/top"
+      }
+    ]
   },
   {
     path: "/statistic",
@@ -114,5 +133,10 @@ const router = createRouter({
   history: createWebHistory(),
   routes: routes
 })
+
+export const safeBack = function (path: string) {
+  return !window.history.state.back && path ? router.replace(path || "/") : router.back()
+}
+
 
 export default router

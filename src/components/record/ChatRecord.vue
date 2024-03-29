@@ -28,7 +28,7 @@ import {computed} from "vue";
 
 const props = defineProps<{ interaction: Interaction, chat: Chat }>()
 const emit = defineEmits(["user_click"])
-const time = computed(() => (new DateParser(props.interaction.timestamp)).monthDayHoursMinutes())
+const time = computed(() => new DateParser(props.interaction.timestamp).monthDayHoursMinutes())
 </script>
 
 <style scoped lang="less">

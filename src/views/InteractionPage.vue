@@ -78,7 +78,7 @@ const params = ref<InteractionParams>({
   admin_type: [0, 1, 2],
   medal: "",
   gift: "",
-  gift_coin: [0, 1],
+  gift_coin: [0, 1]
 })
 
 const table = ref<InteractionTable>({
@@ -124,7 +124,7 @@ const switch_data = async (key: string | number) => {
     admin_type: [0, 1, 2],
     medal: "",
     gift: "",
-    gift_coin: [0, 1],
+    gift_coin: [0, 1]
   }
   await refresh_data()
 }

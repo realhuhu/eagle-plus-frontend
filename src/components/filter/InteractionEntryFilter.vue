@@ -18,7 +18,7 @@ const orderings = ref([
   {field: "-timestamp", text: "最新"},
   {field: "timestamp", text: "最早"},
   {field: "-entry__medal_level", text: "粉丝牌降序"},
-  {field: "entry__medal_level", text: "粉丝牌升序"},
+  {field: "entry__medal_level", text: "粉丝牌升序"}
 ])
 </script>
 

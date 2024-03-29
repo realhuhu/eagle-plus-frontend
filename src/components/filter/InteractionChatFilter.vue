@@ -13,7 +13,7 @@ const orderings = ref([
   {field: "-chat__chat_price", text: "总价降序"},
   {field: "chat__chat_price", text: "总价升序"},
   {field: "-chat__user_level", text: "等级降序"},
-  {field: "chat__user_level", text: "等级升序"},
+  {field: "chat__user_level", text: "等级升序"}
 ])
 </script>
 

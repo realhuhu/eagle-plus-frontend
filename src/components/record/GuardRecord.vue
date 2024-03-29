@@ -23,11 +23,11 @@
 
 <script setup lang="ts">
 import {computed} from "vue";
-import {DateParser, open_url} from "@/assets/lib/utils";
+import {DateParser} from "@/assets/lib/utils";
 
 const props = defineProps<{ interaction: Interaction, guard: Guard }>()
 const emit = defineEmits(["user_click"])
-const time = computed(() => (new DateParser(props.interaction.timestamp)).monthDayHoursMinutes())
+const time = computed(() => new DateParser(props.interaction.timestamp).monthDayHoursMinutes())
 const background = computed(() => {
   switch (props.interaction.guard_type) {
     case 3:

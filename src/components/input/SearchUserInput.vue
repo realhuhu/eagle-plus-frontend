@@ -1,9 +1,8 @@
 <template>
   <a-select v-model:model-value="search" v-model:popup-visible="visible" v-model:options="options" :loading="loading"
-            allow-search :filter-option="false" @change="update" @search="handle_search" placeholder="输入UID或用户名">
-    <template #prefix>
-      <div @click.stop="clear" class="cursor-pointer">清空</div>
-    </template>
+            allow-clear
+            allow-search :filter-option="false" @change="update" @search="handle_search" placeholder="输入UID或用户名"
+            @clear="clear">
   </a-select>
 </template>
 
@@ -38,6 +37,7 @@ const handle_search = async (value: string) => {
   }
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any*/
 const update = (value: any) => {
   for (const user of users.value) {
     if (value === user.current_name) {
@@ -52,6 +52,7 @@ const clear = () => {
   search.value = ""
   users.value = []
   options.value = []
+  visible.value = false
 }
 </script>
 

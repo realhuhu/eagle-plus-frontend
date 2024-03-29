@@ -1,12 +1,21 @@
 <template>
-  <div class="flex flex-col justify-start items-center gap-4">
-    <user-info-card :uid="uid"/>
-    <user-interaction-card :uid="uid"/>
+  <div>
+    <a-button type="text" class="float-right" @click="safeBack('/user/all')">返回</a-button>
+
+    <div class="flex flex-col justify-start items-center gap-4 w-full">
+      <user-info-card :uid="uid"/>
+      <user-interaction-card :uid="uid"/>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{ uid: number }>()
+import {useRoute} from "vue-router";
+import {flat_query} from "@/assets/lib/utils";
+import {safeBack} from "@/router";
+
+const route = useRoute()
+const uid = Number(flat_query(route.params.uid))
 </script>
 
 <style scoped lang="less">

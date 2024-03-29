@@ -23,7 +23,7 @@ const orderings = ref([
   {field: "-timestamp", text: "最新"},
   {field: "timestamp", text: "最早"},
   {field: "-gift__gift_total_price", text: "价格降序"},
-  {field: "gift__gift_total_price", text: "价格升序"},
+  {field: "gift__gift_total_price", text: "价格升序"}
 ])
 </script>
 

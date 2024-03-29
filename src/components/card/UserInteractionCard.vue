@@ -30,13 +30,13 @@ const params = ref<InteractionParams>({
   admin_type: [0, 1, 2],
   medal: "",
   gift: "",
-  gift_coin: [0, 1],
+  gift_coin: [0, 1]
 })
 const orderings = ref<{ field: string, text: string }[]>([
   {field: "-timestamp", text: "最新"},
   {field: "timestamp", text: "最早"},
   {field: "-price", text: "价格降序"},
-  {field: "price", text: "价格升序"},
+  {field: "price", text: "价格升序"}
 ])
 const table = ref<InteractionTable>({
   count: 0,

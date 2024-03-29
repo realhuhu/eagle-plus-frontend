@@ -26,7 +26,7 @@ const orderings = ref([
   {field: "-message__level", text: "等级降序"},
   {field: "message__level", text: "等级升序"},
   {field: "-message__medal_level", text: "粉丝牌降序"},
-  {field: "message__medal_level", text: "粉丝牌升序"},
+  {field: "message__medal_level", text: "粉丝牌升序"}
 ])
 </script>
 

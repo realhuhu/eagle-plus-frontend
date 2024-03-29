@@ -21,7 +21,7 @@ import {DateParser, privilege_image} from "@/assets/lib/utils";
 
 const props = defineProps<{ interaction: Interaction, entry: Entry }>()
 const emit = defineEmits(["user_click"])
-const time = computed(() => (new DateParser(props.interaction.timestamp)).monthDayHoursMinutes())
+const time = computed(() => new DateParser(props.interaction.timestamp).monthDayHoursMinutes())
 </script>
 
 <style scoped lang="less">

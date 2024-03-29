@@ -85,7 +85,7 @@ watch(() => props.uid, async () => {
 })
 
 get_info()
-const time = (timestamp: string) => (new DateParser(timestamp)).monthDayHoursMinutes()
+const time = (timestamp: string) => new DateParser(timestamp).monthDayHoursMinutes()
 </script>
 
 <style scoped lang="less">
