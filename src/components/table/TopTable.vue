@@ -10,9 +10,9 @@
 
     <transition enter-active-class="animate__animated animate__fadeIn" appear>
       <div v-if="!loading" class="md:flex justify-between items-center pt-6">
-        <user-top-card :items="result.message" class="md:w-[30%] md:m-0 m-2" title="最多弹幕" @select="select"/>
-        <user-top-card :items="result.entry" class="md:w-[30%] md:m-0 m-2" title="最多入场" @select="select"/>
-        <user-top-card :items="result.chat" class="md:w-[30%] md:m-0 m-2" title="最多留言" @select="select"/>
+        <user-top-card :items="result.message" class="md:w-[32%] md:m-0 m-2" title="最多弹幕" @select="select"/>
+        <user-top-card :items="result.entry" class="md:w-[32%] md:m-0 m-2" title="最多入场" @select="select"/>
+        <user-top-card :items="result.chat" class="md:w-[32%] md:m-0 m-2" title="最多留言" @select="select"/>
       </div>
       <div v-else class="flex justify-center items-center">
         <a-spin class="mt-2" tip="加载中..."/>

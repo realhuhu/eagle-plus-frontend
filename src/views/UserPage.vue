@@ -12,10 +12,16 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import {ref, watch} from "vue";
+import {useRouter} from "vue-router";
 
 const uid = ref(0)
 const search = ref("")
+const router = useRouter()
+
+watch(uid, (new_val: number) => {
+  router.push(new_val ? `/user/${new_val}` : "/user")
+})
 </script>
 
 <style scoped lang="less">

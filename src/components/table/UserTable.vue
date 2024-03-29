@@ -13,9 +13,14 @@
 import {useRoute} from "vue-router";
 import {flat_query} from "@/assets/lib/utils";
 import {safeBack} from "@/router";
+import {ref, watch} from "vue";
 
 const route = useRoute()
-const uid = Number(flat_query(route.params.uid))
+const uid = ref(Number(flat_query(route.params.uid)))
+
+watch(() => route.params.uid, () => {
+  uid.value = Number(flat_query(route.params.uid))
+})
 </script>
 
 <style scoped lang="less">

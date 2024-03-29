@@ -1,7 +1,7 @@
 export {}
 
 declare global {
-  type PaginatedResponse<T, R> = {
+  type PaginatedResponse<T, R = {}> = {
     count: number
     next: string | null
     previous: string | null
