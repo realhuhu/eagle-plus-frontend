@@ -3,6 +3,7 @@ export {}
 declare module "vue-router" {
   interface RouteMeta {
     active?: "home" | "interaction" | "user" | "statistic"
+
     interaction_key?: "all" | "message" | "guard" | "gift" | "entry" | "chat"
     interaction_url?:
       "interaction/all" |
@@ -18,5 +19,7 @@ declare module "vue-router" {
       ["page", "size", "start", "end", "uid", "guard", "ordering", "gift", "gift_coin"] |
       ["page", "size", "start", "end", "uid", "guard", "ordering", "medal"] |
       ["page", "size", "start", "end", "uid", "guard", "ordering", "search"]
+
+    statistic_key?: "live" | "period" | "time"
   }
 }

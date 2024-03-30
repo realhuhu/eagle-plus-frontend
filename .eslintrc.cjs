@@ -58,6 +58,15 @@ module.exports = {
     "no-shadow-restricted-names": 2, // 严格模式中规定的限制标识符不能作为声明时的变量名使用
     "no-cond-assign": 2, // 禁止在条件表达式中使用赋值语句
     "no-native-reassign": 2, // 不能重写native对象
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "extendDefaults": true,
+        "types": {
+          "{}": false
+        }
+      }
+    ],
     // 代码风格
     "quotes": [1, "double"],//引号类型 `` "" ''
     "no-else-return": 1, // 如果if语句里面有return,后面不能跟else语句

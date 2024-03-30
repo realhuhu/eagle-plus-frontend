@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="w-full bg-[var(--theme-dark-2)] m-2 rounded p-4">
+      <div class="w-full bg-[var(--theme-dark-2)] m-2 rounded px-4 py-6">
         <router-view v-model:params="params"/>
         <interaction-table
             :table="table"

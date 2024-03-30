@@ -1,7 +1,7 @@
 export {}
 
 declare global {
-  type PaginatedResponse<T, R = {}> = {
+  type PaginatedResponse<T, R extends {} = {}> = {
     count: number
     next: string | null
     previous: string | null
@@ -122,5 +122,10 @@ declare global {
     current_avatar: string
     history_names: { name: string, timestamp: string }[]
     history_avatars: { avatar: string, timestamp: string }[]
+  }
+
+  type StatisticTimeParams = {
+    start: Date
+    end: Date
   }
 }

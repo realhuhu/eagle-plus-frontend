@@ -2,7 +2,8 @@
   <div>
     <search-user-input v-model:uid="uid" v-model:search="search"/>
 
-    <a-divider/>
+    <a-divider class="my-10"/>
+
     <router-view v-slot="{ Component }">
       <transition enter-active-class="animate__animated animate__fadeIn" appear>
         <component :is="Component"/>

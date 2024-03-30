@@ -43,7 +43,7 @@ const get_data = async () => {
   loading.value = true
   try {
     result.value = (await client.get<{ chat: TopItem[], entry: TopItem[], message: TopItem[] }>({
-      url: "statistic/top",
+      url: "user/top",
       params: {span_id: active.value}
     })).data
   } finally {

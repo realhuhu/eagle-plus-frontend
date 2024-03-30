@@ -99,7 +99,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "top",
         name: "user-top",
-        component: () => import("@/components/table/TopTable.vue"),
+        component: () => import("@/components/table/UserTopTable.vue"),
         meta: {
           active: "user"
         }
@@ -107,7 +107,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: ":uid",
         name: "user-uid",
-        component: () => import("@/components/table/UserTable.vue"),
+        component: () => import("@/components/table/UserDetailTable.vue"),
         meta: {
           active: "user"
         }
@@ -123,9 +123,40 @@ const routes: Array<RouteRecordRaw> = [
     path: "/statistic",
     name: "statistic",
     component: () => import("@/views/StatisticPage.vue"),
-    meta: {
-      active: "statistic"
-    }
+    children: [
+      {
+        path: "live",
+        name: "statistic-live",
+        component: () => import("@/components/table/StatisticLiveTable.vue"),
+        meta: {
+          active: "statistic",
+          statistic_key: "live"
+        }
+      },
+      {
+        path: "period",
+        name: "statistic-period",
+        component: () => import("@/components/table/StatisticPeriodTable.vue"),
+        meta: {
+          active: "statistic",
+          statistic_key: "period"
+        }
+      },
+      {
+        path: "time",
+        name: "statistic-time",
+        component: () => import("@/components/table/StatisticTimeTable.vue"),
+        meta: {
+          active: "statistic",
+          statistic_key: "time"
+        }
+      },
+      {
+        path: "",
+        name: "statistic-redirect",
+        redirect: "/statistic/live"
+      }
+    ]
   }
 ]
 
