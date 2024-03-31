@@ -66,7 +66,7 @@
             @change="change"
             show-jumper
         />
-        <div v-else class="flex justify-center items-center h-[57px]">
+        <div v-else-if="!table.loading" class="flex justify-center items-center h-[57px]">
           没有查询到结果
         </div>
       </div>

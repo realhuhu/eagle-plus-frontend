@@ -27,7 +27,7 @@ import {DateParser} from "@/assets/lib/utils";
 
 const props = defineProps<{ interaction: Interaction, guard: Guard }>()
 const emit = defineEmits(["user_click"])
-const time = computed(() => new DateParser(props.interaction.timestamp).monthDayHoursMinutes())
+const time = computed(() => new DateParser(props.interaction.timestamp).smart())
 const background = computed(() => {
   switch (props.interaction.guard_type) {
     case 3:

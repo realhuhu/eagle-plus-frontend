@@ -6,11 +6,12 @@
 
     <div class="md:flex justify-between items-start gap-6">
       <a-form-item label="用户" class="w-auto md:w-[50%]">
-        <search-user-input v-model:uid="params.uid"/>
+        <a-input v-model:model-value="params.uid" placeholder="请输入完整uid" allow-clear/>
       </a-form-item>
 
       <a-form-item label="搜索" class="w-auto md:w-[50%]">
-        <debounce-input placeholder="请输入搜索内容" v-model:value="params.search" :disabled="search_disable"/>
+        <a-input placeholder="请输入搜索内容" v-model:model-value="params.search" :disabled="search_disable"
+                 allow-clear/>
       </a-form-item>
     </div>
 

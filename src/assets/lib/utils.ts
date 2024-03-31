@@ -68,6 +68,13 @@ export class DateParser {
   all() {
     return this.yearMonthDay() + " " + this.hoursMinutes()
   }
+
+  smart() {
+    if (this.year() === new Date().getFullYear()) {
+      return this.monthDayHoursMinutes()
+    }
+    return this.all()
+  }
 }
 
 export const dateDelta = (value: number) => {

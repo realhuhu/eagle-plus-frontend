@@ -2,7 +2,7 @@
   <interaction-base-filter v-model:params="params" :orderings="orderings" search_disable>
     <template #foot>
       <a-form-item label="勋章" class="w-auto md:w-[50%]">
-        <debounce-input placeholder="请输入粉丝勋章名称" v-model:value="params.medal"/>
+        <a-input placeholder="请输入粉丝勋章名称" v-model:model-value="params.medal" allow-clear/>
       </a-form-item>
 
       <div class="w-auto md:w-[50%]"/>

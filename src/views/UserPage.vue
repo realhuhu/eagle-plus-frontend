@@ -1,6 +1,6 @@
 <template>
   <div>
-    <search-user-input v-model:uid="uid" v-model:search="search"/>
+    <a-input-search v-model:model-value="uid" @search="search"/>
 
     <a-divider class="my-10"/>
 
@@ -13,16 +13,16 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from "vue";
+import {ref} from "vue";
 import {useRouter} from "vue-router";
 
-const uid = ref(0)
-const search = ref("")
+const uid = ref("")
 const router = useRouter()
 
-watch(uid, (new_val: number) => {
+const search = (new_val: string) => {
   router.push(new_val ? `/user/${new_val}` : "/user")
-})
+
+}
 </script>
 
 <style scoped lang="less">

@@ -1,8 +1,8 @@
 <template>
   <div>
     <a-divider/>
-
     <div class="flex flex-col justify-start items-center">
+
       <div class="md:flex justify-between items-center w-full">
         <a-tabs type="capsule" size="large" hide-content :active-key="route.meta.interaction_key" @change="switch_data">
           <a-tab-pane key="all" title="全部"/>
@@ -70,9 +70,9 @@ const params = ref<InteractionParams>({
   size: 20,
   start: new Date(today),
   end: new Date(today + 24 * 60 * 60 * 1000 - 1),
-  uid: 0,
+  uid: "",
   search: "",
-  guard: [0, 1, 2, 3],
+  guard: route.meta.interaction_key === "guard" ? [1, 2, 3] : [0, 1, 2, 3],
   ordering: "-timestamp",
   interaction: [0, 1, 2, 3, 4],
   admin_type: [0, 1, 2],
@@ -109,6 +109,7 @@ const refresh_data = async () => {
   await get_data()
 }
 
+
 const switch_data = async (key: string | number) => {
   await router.replace(key.toString())
   params.value = {
@@ -116,7 +117,7 @@ const switch_data = async (key: string | number) => {
     size: 20,
     start: params.value.start,
     end: params.value.end,
-    uid: 0,
+    uid: "",
     search: "",
     guard: route.meta.interaction_key === "guard" ? [1, 2, 3] : [0, 1, 2, 3],
     ordering: "-timestamp",

@@ -36,7 +36,7 @@
 
     <div class="md:flex justify-between items-start gap-6 w-full">
       <a-form-item label="搜索" class="w-auto md:w-[50%]">
-        <debounce-input placeholder="请输入搜索内容" v-model:value="params.search"/>
+        <a-input placeholder="请输入搜索内容" v-model:model-value="params.search" allow-clear/>
       </a-form-item>
 
       <a-form-item label="排序" class="w-auto md:w-[50%]">

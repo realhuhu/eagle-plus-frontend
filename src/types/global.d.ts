@@ -21,7 +21,7 @@ declare global {
     size: number
     start: Date
     end: Date
-    uid: number
+    uid: string
     search: string
     guard: number[]
     ordering: string

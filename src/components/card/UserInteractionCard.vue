@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from "vue";
+import {ref} from "vue";
 import {client} from "@/assets/lib/request";
 import {build_params} from "@/assets/lib/utils";
 
@@ -22,7 +22,7 @@ const params = ref<InteractionParams>({
   size: 20,
   start: new Date(today),
   end: new Date(today + 24 * 60 * 60 * 1000 - 1),
-  uid: 0,
+  uid: "",
   search: "",
   guard: [0, 1, 2, 3],
   ordering: "-timestamp",
@@ -66,8 +66,6 @@ const refresh_data = async () => {
   params.value.page = 1
   await get_data()
 }
-
-watch(params, () => get_data(), {deep: true})
 
 get_data()
 </script>
