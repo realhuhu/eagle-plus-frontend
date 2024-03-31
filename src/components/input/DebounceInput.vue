@@ -1,5 +1,5 @@
 <template>
-  <a-input-search :placeholder="placeholder" v-model="_value" allow-clear/>
+  <a-input :placeholder="placeholder" v-model="_value" allow-clear/>
 </template>
 
 <script setup lang="ts">

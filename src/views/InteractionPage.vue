@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from "vue";
+import {ref} from "vue";
 import {client} from "@/assets/lib/request";
 import {assertNotEmpty, build_params} from "@/assets/lib/utils";
 import {useRoute, useRouter} from "vue-router";
@@ -132,8 +132,6 @@ const switch_data = async (key: string | number) => {
 const pop_modal = (user: User) => {
   showUserInteractionModal(user, params.value)
 }
-
-watch(params, () => get_data(), {deep: true})
 
 get_data()
 </script>

@@ -2,27 +2,32 @@
   <div>
     <transition enter-active-class="animate__animated animate__fadeIn" appear>
       <div>
-        <div class="my-6">
-          <a-divider orientation="left">
-            <div class="flex gap-3">
-              <a-button status="success" shape="circle" size="mini" @click="emit('refresh')">
-                <icon-refresh/>
-              </a-button>
-              <a-tag color="blue">
-                <template #icon>
-                  <icon-message/>
-                </template>
-                {{ table.extra.total }}条
-              </a-tag>
+        <div class="my-10">
+          <div role="separator" class="my-5 relative border-b-solid border-b-[var(--color-border-2)] border-b-[1px]">
+            <div class="absolute md:left-[24px] left-[8px] md:px-[16px] px-[8px] top-[50%] bg-[var(--color-bg-2)]"
+                 style="transform: translateY(-50%)">
+              <div class="flex gap-3">
+                <a-tag color="blue">
+                  <template #icon>
+                    <icon-message/>
+                  </template>
+                  {{ table.extra.total }}条
+                </a-tag>
 
-              <a-tag color="gold">
-                <template #icon>
-                  <icon-gift/>
-                </template>
-                {{ (Math.round(table.extra.price * 100) / 100).toFixed(2) }}元
-              </a-tag>
+                <a-tag color="gold">
+                  <template #icon>
+                    <icon-gift/>
+                  </template>
+                  {{ (Math.round(table.extra.price * 100) / 100).toFixed(2) }}元
+                </a-tag>
+              </div>
             </div>
-          </a-divider>
+
+            <div class="absolute md:right-[24px] right-[8px] md:px-[16px] px-[8px] top-[50%] bg-[var(--color-bg-2)]"
+                 style="transform: translateY(-50%)">
+              <a-button status="success" size="small" @click="emit('refresh')">更新</a-button>
+            </div>
+          </div>
         </div>
 
         <div v-if="table.loading" class="flex justify-center items-center">

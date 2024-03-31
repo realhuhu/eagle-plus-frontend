@@ -3,12 +3,12 @@
             :filter-option="false" allow-clear allow-search show-footer-on-empty placeholder="输入UID或用户名"
             @clear="clear" @change="update" @search="handle_search" @dropdown-reach-bottom="handle_append">
     <template #footer>
-      <div class="flex justify-between text-center text-[#5aaafb] p-2">
+      <div class="flex justify-between text-center text-[#5aaafb] p-2" v-if="params.value||params.count">
         <div v-if="params.value">
           <transition enter-active-class="animate__animated animate__fadeIn" appear>
             <span v-if="params.loading"><a-spin :size="14" class="mr-1"/>加载中</span>
             <div v-else-if="!params.next">没有更多了</div>
-            <div v-else>下滑加载更多</div>
+            <div v-else>下滑查看更多</div>
           </transition>
         </div>
 
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import {client} from "@/assets/lib/request";
 
 const uid = defineModel<number>("uid", {required: true})
@@ -97,8 +97,17 @@ const clear = () => {
   search.value = ""
   users.value = []
   options.value = []
+  params.value.count = 0
   visible.value = false
 }
+
+watch(() => params.value.value, () => {
+  if (visible.value) {
+    users.value = []
+    options.value = []
+    params.value.count = 0
+  }
+})
 </script>
 
 <style lang="less">
