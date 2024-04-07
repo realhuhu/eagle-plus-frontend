@@ -124,8 +124,35 @@ declare global {
     history_avatars: { avatar: string, timestamp: string }[]
   }
 
+  type StatisticPoint = {
+    period: str[],
+    message_num: (number | null) []
+    entry_num: (number | null)[]
+    gift0_num: (number | null)[]
+    gift0_price: (number | null)[]
+    gift1_num: (number | null)[]
+    gift1_price: (number | null)[]
+    chat_num: (number | null)[]
+    chat_price: (number | null)[]
+    guard3_num: (number | null)[]
+    guard2_num: (number | null)[]
+    guard1_num: (number | null)[]
+    guard_price: (number | null)[]
+    watch: (number | null)[]
+    rank: (number | null)[]
+    fans: (number | null)[]
+    like: (number | null)[]
+    popular: (number | null)[]
+  }
+
   type StatisticTimeParams = {
     start: Date
     end: Date
   }
+
+  type StatisticPeriodParams = {
+    period_id: 0 | 1 | 2
+  }
+
+  type ChartTimeDate = [number, number | null][]
 }

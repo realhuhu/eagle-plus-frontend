@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-[968px] max-w-[90vw] mx-auto">
     <a-input-search v-model:model-value="uid" @search="search"/>
 
     <a-divider class="my-10"/>

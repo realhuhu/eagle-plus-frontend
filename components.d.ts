@@ -7,6 +7,9 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Bar: typeof import('./src/components/chart/Bar.vue')['default']
+    BarChart: typeof import('./src/components/chart/BarChart.vue')['default']
+    BarStackChart: typeof import('./src/components/chart/BarStackChart.vue')['default']
     ChatRecord: typeof import('./src/components/record/ChatRecord.vue')['default']
     DebounceInput: typeof import('./src/components/input/DebounceInput.vue')['default']
     EntryRecord: typeof import('./src/components/record/EntryRecord.vue')['default']
@@ -28,6 +31,7 @@ declare module 'vue' {
     InteractionMessageFilter: typeof import('./src/components/filter/InteractionMessageFilter.vue')['default']
     InteractionTable: typeof import('./src/components/table/InteractionTable.vue')['default']
     ITdesignJump: typeof import('~icons/tdesign/jump')['default']
+    LineChart: typeof import('./src/components/chart/LineChart.vue')['default']
     LiveDetailChart: typeof import('./src/components/chart/LiveDetailChart.vue')['default']
     LiveSummaryChart: typeof import('./src/components/chart/LiveSummaryChart.vue')['default']
     MedalChip: typeof import('./src/components/chip/MedalChip.vue')['default']

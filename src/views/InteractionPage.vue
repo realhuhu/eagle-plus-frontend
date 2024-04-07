@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-[968px] max-w-[90vw] mx-auto">
     <a-divider/>
     <div class="flex flex-col justify-start items-center">
 

@@ -160,3 +160,9 @@ export const build_params = (
   return res
 }
 
+export const normalize = (value_list: (number | null)[]) => {
+  const not_null = value_list.filter(x => x !== null) as number[]
+  const max = Math.max(...not_null)
+  const min = Math.min(...not_null)
+  return value_list.map(value => value === null ? null : (value - min) / (max - min))
+}
