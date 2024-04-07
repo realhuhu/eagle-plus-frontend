@@ -143,15 +143,6 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
-        path: "time",
-        name: "statistic-time",
-        component: () => import("@/components/table/StatisticTimeTable.vue"),
-        meta: {
-          active: "statistic",
-          statistic_key: "time"
-        }
-      },
-      {
         path: "",
         name: "statistic-redirect",
         redirect: "/statistic/live"

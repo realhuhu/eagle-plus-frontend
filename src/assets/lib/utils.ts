@@ -160,9 +160,11 @@ export const build_params = (
   return res
 }
 
-export const normalize = (value_list: (number | null)[]) => {
-  const not_null = value_list.filter(x => x !== null) as number[]
-  const max = Math.max(...not_null)
-  const min = Math.min(...not_null)
-  return value_list.map(value => value === null ? null : (value - min) / (max - min))
+export const axis_formatter = (value: number) => {
+  if (value > 9e5) {
+    return (value / 1e6).toFixed(1).toString() + "m"
+  } else if (value > 1e3) {
+    return (value / 9e2).toFixed(1).toString() + "k"
+  }
+  return value.toString()
 }

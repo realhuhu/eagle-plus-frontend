@@ -1,15 +1,21 @@
 <template>
   <div>
-    <statistic-period-filter v-model:params="params"/>
+    <a-select placeholder="请选择" v-model="period_id">
+      <a-option :value="0">每日</a-option>
+      <a-option :value="1">每周</a-option>
+      <a-option :value="2">每月</a-option>
+    </a-select>
 
     <div class="flex flex-col justify-center items-center gap-6">
-      <bar-chart title="打赏价值" :series="income" :loading="loading"/>
+      <common-chart title="总览" :series="summary" :loading="loading" :y-axis="summary_y_axis"/>
 
-      <bar-chart title="上舰数量" :series="guard" :loading="loading" :y-axis="guard_y_axis"/>
+      <common-chart title="留言" :series="chat" :loading="loading" :y-axis="chat_y_axis"/>
 
-      <bar-chart title="礼物数量" :series="gift" :loading="loading" :y-axis="gift_y_axis"/>
+      <common-chart title="礼物" :series="gift" :loading="loading" :y-axis="gift_y_axis"/>
 
-      <line-chart title="活跃" :series="activity" :loading="loading"/>
+      <common-chart title="上舰" :series="guard" :loading="loading" :y-axis="guard_y_axis"/>
+
+      <common-chart title="活跃" :series="activity" :loading="loading" :y-axis="activity_y_axis"/>
     </div>
   </div>
 </template>
@@ -17,28 +23,60 @@
 <script setup lang="ts">
 import {ref, watch} from "vue";
 import {client} from "@/assets/lib/request";
-import type {LineSeriesOption, BarSeriesOption, YAXisComponentOption} from "echarts";
+import type {SeriesOption, YAXisComponentOption} from "echarts";
+import {axis_formatter} from "@/assets/lib/utils";
 
-const params = ref<StatisticPeriodParams>({period_id: 2})
+const period_id = ref(2)
 const loading = ref(false)
 
-const income = ref<BarSeriesOption[]>([])
+const summary = ref<SeriesOption[]>([])
+const summary_y_axis = ref<YAXisComponentOption[]>([
+  {
+    type: "value",
+    name: "数量",
+    axisLabel: {formatter: axis_formatter}
+  },
+  {
+    type: "value",
+    name: "价值",
+    axisLabel: {formatter: axis_formatter}
+  }
+])
 
-const guard = ref<BarSeriesOption[]>([])
+const chat = ref<SeriesOption[]>([])
+const chat_y_axis = ref<YAXisComponentOption[]>([
+  {
+    type: "value",
+    name: "数量",
+    axisLabel: {formatter: axis_formatter}
+  },
+  {
+    type: "value",
+    name: "价值",
+    axisLabel: {formatter: axis_formatter}
+  }
+])
+
+const gift = ref<SeriesOption[]>([])
+const gift_y_axis = ref<YAXisComponentOption[]>([
+  {
+    type: "value",
+    name: "数量",
+    axisLabel: {formatter: axis_formatter}
+  },
+  {
+    type: "value",
+    name: "瓜子数",
+    axisLabel: {formatter: axis_formatter}
+  }
+])
+
+const guard = ref<SeriesOption[]>([])
 const guard_y_axis = ref<YAXisComponentOption[]>([
   {
     type: "value",
     name: "舰长",
-    axisLabel: {
-      formatter: function (value: number) {
-        if (value > 1e6) {
-          return (value / 1e6).toFixed(1).toString() + "m"
-        } else if (value > 1e3) {
-          return (value / 1e3).toFixed(1).toString() + "k"
-        }
-        return value.toString()
-      }
-    }
+    axisLabel: {formatter: axis_formatter}
   },
   {
     type: "value",
@@ -46,64 +84,107 @@ const guard_y_axis = ref<YAXisComponentOption[]>([
   }
 ])
 
-const gift = ref<BarSeriesOption[]>([])
-const gift_y_axis = ref<YAXisComponentOption[]>([
+const activity = ref<SeriesOption[]>([])
+const activity_y_axis = ref<YAXisComponentOption[]>([
   {
-    type: "value",
+    type: "log",
     name: "数量",
-    axisLabel: {
-      formatter: function (value: number) {
-        if (value > 1e6) {
-          return (value / 1e6).toFixed(1).toString() + "m"
-        } else if (value > 1e3) {
-          return (value / 1e3).toFixed(1).toString() + "k"
-        }
-        return value.toString()
-      }
-    }
+    axisLabel: {formatter: axis_formatter}
   },
   {
     type: "value",
-    name: "瓜子数",
-    axisLabel: {
-      formatter: function (value: number) {
-        if (value > 1e6) {
-          return (value / 1e6).toFixed(1).toString() + "m"
-        } else if (value > 1e3) {
-          return (value / 1e3).toFixed(1).toString() + "k"
-        }
-        return value.toString()
-      }
-    }
+    name: "排名",
+    min: 1,
+    inverse: true,
+    nameLocation: "start"
   }
 ])
-
-const activity = ref<LineSeriesOption[]>([])
-
 
 const get_data = async () => {
   loading.value = true
   try {
     const res = await client.get<StatisticPoint>({
       url: "/statistic/period",
-      params: params.value
+      params: {period_id: period_id.value}
     })
 
-    income.value = [
+    summary.value = [
+      {
+        name: "弹幕",
+        type: "line",
+        yAxisIndex: 0,
+        data: res.data.message_num.map((value, index) => [res.data.period[index], value])
+      },
+      {
+        name: "进场",
+        type: "line",
+        yAxisIndex: 0,
+        data: res.data.entry_num.map((value, index) => [res.data.period[index], value])
+      },
       {
         name: "留言",
+        type: "bar",
         stack: "total",
+        yAxisIndex: 1,
         data: res.data.chat_price.map((value, index) => [res.data.period[index], value])
       },
       {
         name: "礼物",
+        type: "bar",
         stack: "total",
+        yAxisIndex: 1,
         data: res.data.gift1_price.map((value, index) => [res.data.period[index], (value || 0) / 1e3])
       },
       {
         name: "上舰",
+        type: "bar",
         stack: "total",
+        yAxisIndex: 1,
         data: res.data.guard_price.map((value, index) => [res.data.period[index], value])
+      }
+    ]
+
+    chat.value = [
+      {
+        name: "数量",
+        type: "line",
+        yAxisIndex: 0,
+        data: res.data.chat_num.map((value, index) => [res.data.period[index], value])
+      },
+      {
+        name: "价值",
+        type: "bar",
+        yAxisIndex: 1,
+        data: res.data.chat_price.map((value, index) => [res.data.period[index], value])
+      }
+    ]
+
+    gift.value = [
+      {
+        name: "付费礼物",
+        yAxisIndex: 0,
+        type: "line",
+        data: res.data.gift1_num.map((value, index) => [res.data.period[index], value])
+      },
+      {
+        name: "免费礼物",
+        yAxisIndex: 0,
+        type: "line",
+        data: res.data.gift0_num.map((value, index) => [res.data.period[index], value])
+      },
+      {
+        name: "银瓜子",
+        stack: "price",
+        yAxisIndex: 1,
+        type: "bar",
+        data: res.data.gift0_price.map((value, index) => [res.data.period[index], (value || 0) / 1e3])
+      },
+      {
+        name: "金瓜子",
+        stack: "price",
+        yAxisIndex: 1,
+        type: "bar",
+        data: res.data.gift1_price.map((value, index) => [res.data.period[index], (value || 0) / 1e3])
       }
     ]
 
@@ -111,96 +192,64 @@ const get_data = async () => {
       {
         name: "舰长",
         yAxisIndex: 0,
+        type: "line",
+        color: "#7ac8ed",
         data: res.data.guard3_num.map((value, index) => [res.data.period[index], value])
       },
       {
         name: "总督",
         yAxisIndex: 1,
-        stack: "sum",
+        type: "line",
+        color: "#ab3131",
         data: res.data.guard1_num.map((value, index) => [res.data.period[index], value])
       },
       {
         name: "提督",
         yAxisIndex: 1,
-        stack: "sum",
+        type: "line",
+        color: "#d664f6",
         data: res.data.guard2_num.map((value, index) => [res.data.period[index], value])
-      }
-    ]
-
-    gift.value = [
-      {
-        name: "付费礼物数",
-        stack: "num",
-        yAxisIndex: 0,
-        data: res.data.gift1_num.map((value, index) => [res.data.period[index], value])
-      },
-      {
-        name: "免费礼物数",
-        stack: "num",
-        yAxisIndex: 0,
-        data: res.data.gift0_num.map((value, index) => [res.data.period[index], value])
-      },
-      {
-        name: "付费礼物瓜子数",
-        stack: "price",
-        yAxisIndex: 1,
-        data: res.data.gift1_price.map((value, index) => [res.data.period[index], (value || 0) / 1e3])
-      },
-      {
-        name: "免费礼物瓜子数",
-        stack: "price",
-        yAxisIndex: 1,
-        data: res.data.gift0_price.map((value, index) => [res.data.period[index], (value || 0) / 1e3])
       }
     ]
 
     activity.value = [
       {
-        name: "进场数",
-        data: res.data.entry_num.map((value, index) => [res.data.period[index], value])
-      },
-      {
-        name: "留言数",
-        data: res.data.chat_num.map((value, index) => [res.data.period[index], value])
-      },
-      {
-        name: "弹幕数",
-        data: res.data.message_num.map((value, index) => [res.data.period[index], value])
-      },
-      {
         name: "观看数",
-        smooth: true,
-        data: res.data.watch.map((value, index) => [res.data.period[index], value])
+        type: "line",
+        yAxisIndex: 0,
+        data: res.data.watch.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25")
       },
       {
         name: "在线数",
-        smooth: true,
-        data: res.data.rank.map((value, index) => [res.data.period[index], value])
+        type: "line",
+        yAxisIndex: 0,
+        data: res.data.rank.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25")
       },
       {
         name: "粉丝团",
-        smooth: true,
-        data: res.data.fans.map((value, index) => [res.data.period[index], value])
+        type: "line",
+        yAxisIndex: 0,
+        data: res.data.fans.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25")
       },
       {
         name: "点赞数",
-        smooth: true,
-        data: res.data.like.map((value, index) => [res.data.period[index], value])
+        type: "line",
+        yAxisIndex: 0,
+        data: res.data.like.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25")
       },
       {
         name: "人气排名",
-        smooth: true,
-        data: res.data.popular.map((value, index) => [res.data.period[index], value])
+        yAxisIndex: 1,
+        type: "scatter",
+        data: res.data.popular.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25")
       }
     ]
-
-
   } finally {
     loading.value = false
   }
 }
 
-watch(params.value, () => get_data(), {deep: true})
+watch(period_id, () => get_data(), {deep: true})
 
 get_data()
 </script>

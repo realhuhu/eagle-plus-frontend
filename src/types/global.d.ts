@@ -1,3 +1,5 @@
+import type {BarSeriesOption, LineSeriesOption} from "echarts";
+
 export {}
 
 declare global {
@@ -144,15 +146,4 @@ declare global {
     like: (number | null)[]
     popular: (number | null)[]
   }
-
-  type StatisticTimeParams = {
-    start: Date
-    end: Date
-  }
-
-  type StatisticPeriodParams = {
-    period_id: 0 | 1 | 2
-  }
-
-  type ChartTimeDate = [number, number | null][]
 }
