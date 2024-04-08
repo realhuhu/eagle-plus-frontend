@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <a-select placeholder="请选择" v-model="period_id">
+  <div class="w-full flex flex-col justify-start items-end">
+    <a-select class="mb-3 w-[468px] max-w-full" placeholder="请选择" v-model="period_id">
       <a-option :value="0">每日</a-option>
       <a-option :value="1">每周</a-option>
       <a-option :value="2">每月</a-option>
     </a-select>
 
-    <div class="flex flex-col justify-center items-center gap-6">
+    <div class="flex flex-col justify-center items-center gap-6 w-full">
       <common-chart title="总览" :series="summary" :loading="loading" :y-axis="summary_y_axis"/>
 
       <common-chart title="留言" :series="chat" :loading="loading" :y-axis="chat_y_axis"/>
@@ -25,8 +25,9 @@ import {ref, watch} from "vue";
 import {client} from "@/assets/lib/request";
 import type {SeriesOption, YAXisComponentOption} from "echarts";
 import {axis_formatter} from "@/assets/lib/utils";
+import {Notification} from "@arco-design/web-vue";
 
-const period_id = ref(2)
+const period_id = ref(1)
 const loading = ref(false)
 
 const summary = ref<SeriesOption[]>([])
@@ -88,12 +89,12 @@ const activity = ref<SeriesOption[]>([])
 const activity_y_axis = ref<YAXisComponentOption[]>([
   {
     type: "log",
-    name: "数量",
+    name: "平均数量",
     axisLabel: {formatter: axis_formatter}
   },
   {
     type: "value",
-    name: "排名",
+    name: "最高排名",
     min: 1,
     inverse: true,
     nameLocation: "start"
@@ -244,6 +245,9 @@ const get_data = async () => {
         data: res.data.popular.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25")
       }
     ]
+  } catch (e) {
+    Notification.warning("获取失败")
+    console.error(e)
   } finally {
     loading.value = false
   }

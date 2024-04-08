@@ -1,10 +1,11 @@
 <template>
-  <div class="w-[1280px] max-w-[90vw] mx-auto">
+  <div class="w-[1280px] max-w-[90vw] mx-auto flex flex-col justify-center items-center gap-3">
     <a-tabs type="capsule" size="large" hide-content :active-key="route.meta.statistic_key" @change="switch_data">
       <a-tab-pane key="live" title="按直播"/>
       <a-tab-pane key="period" title="按周期"/>
-      <a-tab-pane key="time" title="按时间"/>
     </a-tabs>
+
+    <a-divider margin="0"/>
 
     <router-view v-slot="{ Component }">
       <transition enter-active-class="animate__animated animate__fadeIn" appear>

@@ -48,6 +48,7 @@
 import {DateParser, open_url} from "@/assets/lib/utils";
 import {ref, watch} from "vue";
 import {client} from "@/assets/lib/request";
+import {Notification} from "@arco-design/web-vue";
 
 const props = defineProps<{ uid: number }>()
 const loading = ref(true)
@@ -68,6 +69,9 @@ const get_info = async () => {
       url: `user/${props.uid}/info`
     })
     info.value = res.data
+  } catch (e) {
+    Notification.warning("获取失败")
+    console.error(e)
   } finally {
     loading.value = false
   }

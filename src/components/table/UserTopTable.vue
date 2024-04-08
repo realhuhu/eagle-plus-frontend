@@ -25,6 +25,7 @@
 import {ref} from "vue";
 import {client} from "@/assets/lib/request";
 import {useRouter} from "vue-router";
+import {Notification} from "@arco-design/web-vue";
 
 const router = useRouter()
 const active = ref(0)
@@ -46,6 +47,9 @@ const get_data = async () => {
       url: "user/top",
       params: {span_id: active.value}
     })).data
+  } catch (e) {
+    Notification.warning("获取失败")
+    console.error(e)
   } finally {
     loading.value = false
   }

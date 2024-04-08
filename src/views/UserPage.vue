@@ -21,7 +21,6 @@ const router = useRouter()
 
 const search = (new_val: string) => {
   router.push(new_val ? `/user/${new_val}` : "/user")
-
 }
 </script>
 

@@ -1,8 +1,8 @@
 <template>
   <div class="w-full">
-    <div class="text-center font-bold mb-1">{{props.title}}</div>
     <v-chart class="chart md:h-[400px] h-[60vw] shadow-around duration-500" :option="option"
              :loading="props.loading" :theme="store.dark?dark:light" :autoresize="true"/>
+    <div class="text-center font-bold mt-1">{{props.title}}</div>
   </div>
 </template>
 

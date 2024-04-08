@@ -56,6 +56,7 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
+import {Notification} from "@arco-design/web-vue";
 import {client} from "@/assets/lib/request";
 import {assertNotEmpty, build_params} from "@/assets/lib/utils";
 import {useRoute, useRouter} from "vue-router";
@@ -99,6 +100,9 @@ const get_data = async () => {
     table.value.count = res.data.count
     table.value.extra = res.data.extra
     table.value.interactions = res.data.results
+  } catch (e) {
+    Notification.warning("获取失败")
+    console.error(e)
   } finally {
     table.value.loading = false
   }
