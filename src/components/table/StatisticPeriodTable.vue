@@ -76,12 +76,13 @@ const guard = ref<SeriesOption[]>([])
 const guard_y_axis = ref<YAXisComponentOption[]>([
   {
     type: "value",
-    name: "舰长",
+    name: "数量",
     axisLabel: {formatter: axis_formatter}
   },
   {
     type: "value",
-    name: "提/总督"
+    name: "价值",
+    axisLabel: {formatter: axis_formatter}
   }
 ])
 
@@ -156,6 +157,10 @@ const get_data = async () => {
         name: "价值",
         type: "bar",
         yAxisIndex: 1,
+        color: "rgba(247,244,148,0.5)",
+        itemStyle: {
+          borderRadius: [10]
+        },
         data: res.data.chat_price.map((value, index) => [res.data.period[index], value])
       }
     ]
@@ -174,18 +179,26 @@ const get_data = async () => {
         data: res.data.gift0_num.map((value, index) => [res.data.period[index], value])
       },
       {
-        name: "银瓜子",
-        stack: "price",
-        yAxisIndex: 1,
-        type: "bar",
-        data: res.data.gift0_price.map((value, index) => [res.data.period[index], (value || 0) / 1e3])
-      },
-      {
         name: "金瓜子",
         stack: "price",
         yAxisIndex: 1,
         type: "bar",
+        color: "rgba(247,244,148,0.5)",
+        itemStyle: {
+          borderRadius: [10]
+        },
         data: res.data.gift1_price.map((value, index) => [res.data.period[index], (value || 0) / 1e3])
+      },
+      {
+        name: "银瓜子",
+        stack: "price",
+        yAxisIndex: 1,
+        type: "bar",
+        color: "rgba(192,192,192,0.5)",
+        itemStyle: {
+          borderRadius: [10]
+        },
+        data: res.data.gift0_price.map((value, index) => [res.data.period[index], (value || 0) / 1e3])
       }
     ]
 
@@ -195,21 +208,31 @@ const get_data = async () => {
         yAxisIndex: 0,
         type: "line",
         color: "#7ac8ed",
-        data: res.data.guard3_num.map((value, index) => [res.data.period[index], value])
-      },
-      {
-        name: "总督",
-        yAxisIndex: 1,
-        type: "line",
-        color: "#ab3131",
-        data: res.data.guard1_num.map((value, index) => [res.data.period[index], value])
+        data: res.data.guard3_num.map((value, index) => [res.data.period[index], value]).filter(x => x[1] > 0)
       },
       {
         name: "提督",
-        yAxisIndex: 1,
+        yAxisIndex: 0,
         type: "line",
         color: "#d664f6",
-        data: res.data.guard2_num.map((value, index) => [res.data.period[index], value])
+        data: res.data.guard2_num.map((value, index) => [res.data.period[index], value]).filter(x => x[1] > 0)
+      },
+      {
+        name: "总督",
+        yAxisIndex: 0,
+        type: "line",
+        color: "#ab3131",
+        data: res.data.guard1_num.map((value, index) => [res.data.period[index], value]).filter(x => x[1] > 0)
+      },
+      {
+        name: "价值",
+        type: "bar",
+        yAxisIndex: 1,
+        color: "rgba(247,244,148,0.5)",
+        itemStyle: {
+          borderRadius: [10]
+        },
+        data: res.data.guard_price.map((value, index) => [res.data.period[index], value])
       }
     ]
 
@@ -218,31 +241,31 @@ const get_data = async () => {
         name: "观看数",
         type: "line",
         yAxisIndex: 0,
-        data: res.data.watch.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25")
+        data: res.data.watch.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
       },
       {
         name: "在线数",
         type: "line",
         yAxisIndex: 0,
-        data: res.data.rank.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25")
+        data: res.data.rank.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
       },
       {
         name: "粉丝团",
         type: "line",
         yAxisIndex: 0,
-        data: res.data.fans.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25")
+        data: res.data.fans.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
       },
       {
         name: "点赞数",
         type: "line",
         yAxisIndex: 0,
-        data: res.data.like.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25")
+        data: res.data.like.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
       },
       {
         name: "人气排名",
         yAxisIndex: 1,
         type: "scatter",
-        data: res.data.popular.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25")
+        data: res.data.popular.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
       }
     ]
   } catch (e) {

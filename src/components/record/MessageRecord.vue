@@ -2,7 +2,7 @@
   <div class="md:flex justify-start items-center my-2 md:my-4">
     <div class="text-[12px] md:text-[14px] flex-shrink-0 mr-2"> {{ time }}</div>
 
-    <div class="flex justify-start items-center">
+    <div class="inline-flex justify-start items-center">
       <privilege-avatar :avatar="interaction.user.current_avatar" :privilege_type="interaction.guard_type" :size="34"
                         class="mr-2"/>
 
@@ -26,17 +26,18 @@
       <medal-chip v-if="message.medal_name" :medal="message" class="mr-1"/>
 
       <div class="mr-2 font-bold">:</div>
+    </div>
 
-      <div v-if="!message.text_emoticon.url" :style="{color:number_to_color(message.text_color,true)}">
+    <span>
+      <span v-if="!message.text_emoticon.url" :style="{color:number_to_color(message.text_color,true)}">
         {{ message.text }}
-      </div>
+      </span>
 
-      <div v-else>
+      <span v-else>
         <a-image :width="message.text_emoticon.width/3" :height="message.text_emoticon.height/3"
                  :src="proxy_url(message.text_emoticon.url)"/>
-      </div>
-
-    </div>
+      </span>
+    </span>
   </div>
 </template>
 
