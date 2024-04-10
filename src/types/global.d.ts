@@ -1,14 +1,26 @@
-import type {BarSeriesOption, LineSeriesOption} from "echarts";
-
-export {}
+export { }
 
 declare global {
+  type Flat<T> = T extends Item[] ? Item : T extends Item ? Item : never;
+
   type PaginatedResponse<T, R extends {} = {}> = {
     count: number
     next: string | null
     previous: string | null
     extra: R
     results: T[]
+  }
+
+  type Live = {
+    title: string
+    cover: string,
+    timestamp_start: string
+    timestamp_end: string
+    message_num: number
+    chat_price: number
+    gift1_price: number
+    guard_price: number
+    rank: number
   }
 
   type SimpleUser = {
@@ -128,7 +140,7 @@ declare global {
 
   type StatisticPoint = {
     period: str[],
-    message_num: (number | null) []
+    message_num: (number | null)[]
     entry_num: (number | null)[]
     gift0_num: (number | null)[]
     gift0_price: (number | null)[]
@@ -146,4 +158,34 @@ declare global {
     like: (number | null)[]
     popular: (number | null)[]
   }
+
+
+  // type Live = {
+  //   title: string
+  //   cover: string,
+  //   timestamp_start: string
+  //   timestamp_end: string
+  //   message_num: number | null
+  //   message_user_num: number | null
+  //   entry_num: number | null
+  //   entry_user_num: number | null
+  //   chat_num: number | null
+  //   chat_user_num: number | null
+  //   chat_price: number | null
+  //   gift0_num: number | null
+  //   gift0_user_num: number | null
+  //   gift0_price: number | null
+  //   gift1_num: number | null
+  //   gift1_user_num: number | null
+  //   gift1_price: number | null
+  //   guard3_num: number | null
+  //   guard2_num: number | null
+  //   guard1_num: number | null
+  //   guard_price: number | null
+  //   like: number | null
+  //   rank: number | null
+  //   watch: number | null
+  //   popular: number | null
+  //   fans: number | null
+  // }
 }

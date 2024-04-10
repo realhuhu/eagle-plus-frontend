@@ -1,5 +1,5 @@
-import {Notification} from "@arco-design/web-vue";
-import type {LocationQueryValue} from "vue-router";
+import { Notification } from "@arco-design/web-vue";
+import type { LocationQueryValue } from "vue-router";
 
 export const fullMap = (o: Record<string, string>) => {
   return !Object.values(o).filter(x => !x).length
@@ -167,4 +167,10 @@ export const axis_formatter = (value: number) => {
     return (value / 9e2).toFixed(1).toString() + "k"
   }
   return value.toString()
+}
+
+export const time_delta = (timestamp1: string, timestamp2: string) => {
+  const date1 = new DateParser(timestamp1).date
+  const date2 = new DateParser(timestamp2).date
+  return Math.abs((date1.getTime() - date2.getTime()) / (60 * 60 * 1000))
 }

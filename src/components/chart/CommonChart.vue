@@ -1,18 +1,18 @@
 <template>
-  <div class="w-full">
-    <v-chart class="chart md:h-[400px] h-[60vw] shadow-around duration-500" :option="option"
-             :loading="props.loading" :theme="store.dark?dark:light" :autoresize="true"/>
-    <div class="text-center font-bold mt-1">{{props.title}}</div>
+  <div class="w-full md:h-[400px] h-[60vw]">
+    <v-chart class="chart h-full shadow-around duration-500" :option="option" :loading="props.loading"
+      :theme="store.dark ? dark : light" :autoresize="true" />
+    <div class="text-center font-bold mt-1">{{ props.title }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
 import VChart from "vue-echarts";
-import {ref, watch} from "vue";
-import {use} from "echarts/core";
-import {LineChart, BarChart, ScatterChart} from "echarts/charts";
-import {CanvasRenderer} from "echarts/renderers";
-import type {EChartsOption, SeriesOption, YAXisComponentOption} from "echarts";
+import { ref, watch } from "vue";
+import { use } from "echarts/core";
+import { LineChart, BarChart, ScatterChart } from "echarts/charts";
+import { CanvasRenderer } from "echarts/renderers";
+import type { EChartsOption, SeriesOption, YAXisComponentOption } from "echarts";
 import {
   GridComponent,
   TitleComponent,
@@ -20,8 +20,8 @@ import {
   TooltipComponent,
   DataZoomComponent
 } from "echarts/components";
-import {UseStore} from "@/store";
-import {light, dark} from "@/assets/lib/echartThemes";
+import { UseStore } from "@/store";
+import { light, dark } from "@/assets/lib/echartThemes";
 
 use([
   CanvasRenderer,
@@ -40,33 +40,33 @@ const props = defineProps<{
   loading: boolean
   title: string,
   series: SeriesOption[]
-  yAxis: YAXisComponentOption[]
+  yAxis?: YAXisComponentOption[]
 }>()
 
 const option = ref<EChartsOption>({
   legend: {
     left: "center",
-    top: "10px",
-    data: []
+    top: "10px"
   },
   tooltip: {
     trigger: "axis",
-    axisPointer: {animation: false}
+    axisPointer: { animation: false }
   },
   xAxis: {
-    type: "time"
-  },
-  yAxis: props.yAxis,
-  dataZoom: [
-    {
-      type: "inside",
-      start: 0,
-      end: 100
-    },
-    {
-      start: 0,
-      end: 100
+    type: "time",
+    splitLine: {
+      show: false
     }
+  },
+  yAxis: props.yAxis || [
+    { type: "value", show: false },
+    { type: "value", show: false },
+    { type: "value", show: false },
+    { type: "value", show: false },
+    { type: "value", show: false },
+    { type: "value", show: false },
+    { type: "value", show: false },
+    { type: "value", show: false }
   ],
   series: []
 });
@@ -77,9 +77,26 @@ watch(() => props.series, () => {
     data: props.series.map(x => x.name) as string[]
   }
   option.value.series = props.series
+  if (props.yAxis === undefined) {
+    option.value.grid = {
+      left: 10,
+      right: 10,
+      bottom: 30
+    }
+  } else {
+    option.value.dataZoom = [
+      {
+        type: "inside",
+        start: 0,
+        end: 100
+      },
+      {
+        start: 0,
+        end: 100
+      }
+    ]
+  }
 })
 </script>
 
-<style scoped lang="less">
-
-</style>
+<style scoped lang="less"></style>

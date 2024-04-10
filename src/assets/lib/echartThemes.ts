@@ -791,7 +791,8 @@ export const dark = {
     "color": [
       "#fc97af",
       "#87f7cf"
-    ]
+    ],
+    "textStyle": { "color": "#B9B8CE" }
   },
   "dataZoom": {
     "backgroundColor": "rgba(255,255,255,0)",
@@ -811,6 +812,14 @@ export const dark = {
       "label": {
         "color": "#293441"
       }
+    }
+  },
+  "calendar": {
+    "monthLabel": {
+      "color": "#B9B8CE"
+    },
+    "dayLabel": {
+      "color": "#B9B8CE"
     }
   }
 }

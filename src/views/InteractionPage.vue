@@ -4,7 +4,8 @@
     <div class="flex flex-col justify-start items-center">
 
       <div class="md:flex justify-between items-center w-full">
-        <a-tabs type="capsule" size="large" hide-content :active-key="route.meta.interaction_key" @change="switch_data">
+        <a-tabs type="capsule" size="large" hide-content :active-key="route.meta.interaction_key||'all'"
+                @change="switch_data">
           <a-tab-pane key="all" title="全部"/>
           <a-tab-pane key="message" title="弹幕"/>
           <a-tab-pane key="guard" title="上舰"/>
