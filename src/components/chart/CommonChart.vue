@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full md:h-[400px] h-[60vw]">
+  <div class="w-full md:h-[400px] h-[60vw] py-2">
     <v-chart class="chart h-full shadow-around duration-500" :option="option" :loading="props.loading"
       :theme="store.dark ? dark : light" :autoresize="true" />
-    <div class="text-center font-bold mt-1">{{ props.title }}</div>
+    <div class="text-center font-bold">{{ props.title }}</div>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import { ref, watch } from "vue";
 import { use } from "echarts/core";
 import { LineChart, BarChart, ScatterChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
-import type { EChartsOption, SeriesOption, YAXisComponentOption } from "echarts";
+import type { EChartsOption, SeriesOption, XAXisComponentOption, YAXisComponentOption, TooltipComponentOption } from "echarts";
 import {
   GridComponent,
   TitleComponent,
@@ -40,7 +40,9 @@ const props = defineProps<{
   loading: boolean
   title: string,
   series: SeriesOption[]
+  xAxis?: XAXisComponentOption
   yAxis?: YAXisComponentOption[]
+  tooltip?: TooltipComponentOption
 }>()
 
 const option = ref<EChartsOption>({
@@ -48,11 +50,11 @@ const option = ref<EChartsOption>({
     left: "center",
     top: "10px"
   },
-  tooltip: {
+  tooltip: props.tooltip || {
     trigger: "axis",
-    axisPointer: { animation: false }
+    axisPointer: { animation: true }
   },
-  xAxis: {
+  xAxis: props.xAxis || {
     type: "time",
     splitLine: {
       show: false

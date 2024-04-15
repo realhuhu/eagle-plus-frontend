@@ -7,110 +7,135 @@
     </a-select>
 
     <div class="flex flex-col justify-center items-center gap-6 w-full">
-      <common-chart title="总览" :series="summary" :loading="loading" :y-axis="summary_y_axis"/>
+      <common-chart title="总览" :series="summary.series" :loading="loading" :y-axis="summary.y_axis" />
 
-      <common-chart title="留言" :series="chat" :loading="loading" :y-axis="chat_y_axis"/>
+      <common-chart title="留言" :series="chat.series" :loading="loading" :y-axis="chat.y_axis" />
 
-      <common-chart title="礼物" :series="gift" :loading="loading" :y-axis="gift_y_axis"/>
+      <common-chart title="礼物" :series="gift.series" :loading="loading" :y-axis="gift.y_axis" />
 
-      <common-chart title="上舰" :series="guard" :loading="loading" :y-axis="guard_y_axis"/>
+      <common-chart title="上舰" :series="guard.series" :loading="loading" :y-axis="guard.y_axis" />
 
-      <common-chart title="活跃" :series="activity" :loading="loading" :y-axis="activity_y_axis"/>
+      <common-chart title="活跃" :series="activity.series" :loading="loading" :y-axis="activity.y_axis" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from "vue";
-import {client} from "@/assets/lib/request";
-import type {SeriesOption, YAXisComponentOption} from "echarts";
-import {axis_formatter} from "@/assets/lib/utils";
-import {Notification} from "@arco-design/web-vue";
+import { ref, watch } from "vue";
+import { client } from "@/assets/lib/request";
+import { axis_formatter } from "@/assets/lib/utils";
+import { Notification } from "@arco-design/web-vue";
+import type { SeriesOption, YAXisComponentOption } from "echarts";
 
 const period_id = ref(1)
 const loading = ref(false)
 
-const summary = ref<SeriesOption[]>([])
-const summary_y_axis = ref<YAXisComponentOption[]>([
-  {
-    type: "value",
-    name: "数量",
-    axisLabel: {formatter: axis_formatter}
-  },
-  {
-    type: "value",
-    name: "价值",
-    axisLabel: {formatter: axis_formatter}
-  }
-])
+const summary = ref<{
+  y_axis: YAXisComponentOption[]
+  series: SeriesOption[]
+}>({
+  y_axis: [
+    {
+      type: "value",
+      name: "数量",
+      axisLabel: { formatter: axis_formatter }
+    },
+    {
+      type: "value",
+      name: "价值",
+      axisLabel: { formatter: axis_formatter }
+    }
+  ],
+  series: []
+})
 
-const chat = ref<SeriesOption[]>([])
-const chat_y_axis = ref<YAXisComponentOption[]>([
-  {
-    type: "value",
-    name: "数量",
-    axisLabel: {formatter: axis_formatter}
-  },
-  {
-    type: "value",
-    name: "价值",
-    axisLabel: {formatter: axis_formatter}
-  }
-])
+const chat = ref<{
+  y_axis: YAXisComponentOption[]
+  series: SeriesOption[]
+}>({
+  y_axis: [
+    {
+      type: "value",
+      name: "数量",
+      axisLabel: { formatter: axis_formatter }
+    },
+    {
+      type: "value",
+      name: "价值",
+      axisLabel: { formatter: axis_formatter }
+    }
+  ],
+  series: []
+})
 
-const gift = ref<SeriesOption[]>([])
-const gift_y_axis = ref<YAXisComponentOption[]>([
-  {
-    type: "value",
-    name: "数量",
-    axisLabel: {formatter: axis_formatter}
-  },
-  {
-    type: "value",
-    name: "瓜子数",
-    axisLabel: {formatter: axis_formatter}
-  }
-])
+const gift = ref<{
+  y_axis: YAXisComponentOption[]
+  series: SeriesOption[]
+}>({
+  y_axis: [
+    {
+      type: "value",
+      name: "数量",
+      axisLabel: { formatter: axis_formatter }
+    },
+    {
+      type: "value",
+      name: "瓜子数",
+      axisLabel: { formatter: axis_formatter }
+    }
+  ],
+  series: []
+})
 
-const guard = ref<SeriesOption[]>([])
-const guard_y_axis = ref<YAXisComponentOption[]>([
-  {
-    type: "value",
-    name: "数量",
-    axisLabel: {formatter: axis_formatter}
-  },
-  {
-    type: "value",
-    name: "价值",
-    axisLabel: {formatter: axis_formatter}
-  }
-])
+const guard = ref<{
+  y_axis: YAXisComponentOption[]
+  series: SeriesOption[]
+}>({
+  y_axis: [
+    {
+      type: "value",
+      name: "数量",
+      axisLabel: { formatter: axis_formatter }
+    },
+    {
+      type: "value",
+      name: "价值",
+      axisLabel: { formatter: axis_formatter }
+    }
+  ],
+  series: []
+})
 
-const activity = ref<SeriesOption[]>([])
-const activity_y_axis = ref<YAXisComponentOption[]>([
-  {
-    type: "log",
-    name: "平均数量",
-    axisLabel: {formatter: axis_formatter}
-  },
-  {
-    type: "value",
-    name: "最高排名",
-    min: 1,
-    inverse: true,
-    nameLocation: "start"
-  }
-])
+const activity = ref<{
+  y_axis: YAXisComponentOption[]
+  series: SeriesOption[]
+}>({
+  y_axis: [
+    {
+      type: "log",
+      name: "平均数量",
+      axisLabel: { formatter: axis_formatter }
+    },
+    {
+      type: "value",
+      name: "最高排名",
+      min: 1,
+      inverse: true,
+      nameLocation: "start"
+    }
+  ],
+  series: []
+})
 
 const get_data = async () => {
   loading.value = true
   try {
-    const res = await client.get<StatisticPeriodPoint>({
+    const res = await client.get<StatisticPeriodData>({
       url: "/statistic/period",
-      params: {period_id: period_id.value}
+      params: { period_id: period_id.value }
     })
 
-    summary.value = [
+    summary.value.series = [
       {
         name: "弹幕",
         type: "line",
@@ -146,7 +171,7 @@ const get_data = async () => {
       }
     ]
 
-    chat.value = [
+    chat.value.series = [
       {
         name: "数量",
         type: "line",
@@ -165,7 +190,7 @@ const get_data = async () => {
       }
     ]
 
-    gift.value = [
+    gift.value.series = [
       {
         name: "付费礼物",
         yAxisIndex: 0,
@@ -187,7 +212,7 @@ const get_data = async () => {
         itemStyle: {
           borderRadius: [10]
         },
-        data: res.data.gift1_price.map((value, index) => [res.data.period[index], (value || 0) / 1e3])
+        data: res.data.gift1_price.map((value, index) => [res.data.period[index], value])
       },
       {
         name: "银瓜子",
@@ -198,11 +223,11 @@ const get_data = async () => {
         itemStyle: {
           borderRadius: [10]
         },
-        data: res.data.gift0_price.map((value, index) => [res.data.period[index], (value || 0) / 1e3])
+        data: res.data.gift0_price.map((value, index) => [res.data.period[index], value])
       }
     ]
 
-    guard.value = [
+    guard.value.series = [
       {
         name: "舰长",
         yAxisIndex: 0,
@@ -236,7 +261,7 @@ const get_data = async () => {
       }
     ]
 
-    activity.value = [
+    activity.value.series = [
       {
         name: "观看数",
         type: "line",
@@ -276,11 +301,9 @@ const get_data = async () => {
   }
 }
 
-watch(period_id, () => get_data(), {deep: true})
+watch(period_id, () => get_data(), { deep: true })
 
 get_data()
 </script>
 
-<style scoped lang="less">
-
-</style>
+<style scoped lang="less"></style>

@@ -3,6 +3,8 @@ export { }
 declare global {
   type Flat<T> = T extends Item[] ? Item : T extends Item ? Item : never;
 
+  type Tile<T> = T extends Item[] ? Item[] : T extends Item ? Item[] : never;
+
   type PaginatedResponse<T, R extends {} = {}> = {
     count: number
     next: string | null
@@ -138,7 +140,7 @@ declare global {
     history_avatars: { avatar: string, timestamp: string }[]
   }
 
-  type StatisticPeriodPoint = {
+  type StatisticPeriodData = {
     period: str[],
     message_num: (number | null)[]
     entry_num: (number | null)[]
@@ -160,32 +162,32 @@ declare global {
   }
 
 
-  type StaticSessionPoint = {
-    title: string
-    cover: string,
-    timestamp_start: string
-    timestamp_end: string
-    message_num: number | null
-    message_user_num: number | null
-    entry_num: number | null
-    entry_user_num: number | null
-    chat_num: number | null
-    chat_user_num: number | null
-    chat_price: number | null
-    gift0_num: number | null
-    gift0_user_num: number | null
-    gift0_price: number | null
-    gift1_num: number | null
-    gift1_user_num: number | null
-    gift1_price: number | null
-    guard3_num: number | null
-    guard2_num: number | null
-    guard1_num: number | null
-    guard_price: number | null
-    like: number | null
-    rank: number | null
-    watch: number | null
-    popular: number | null
-    fans: number | null
+  type StaticSessionData = {
+    title: str[],
+    cover: str[],
+    timestamp_start: str[],
+    timestamp_end: str[],
+    message_num: number[]
+    message_user_num: number[]
+    entry_num: number[]
+    entry_user_num: number[]
+    gift0_num: number[]
+    gift0_user_num: number[]
+    gift0_price: number[]
+    gift1_num: number[]
+    gift1_user_num: number[]
+    gift1_price: number[]
+    chat_num: number[]
+    chat_user_num: number[]
+    chat_price: number[]
+    guard3_num: number[]
+    guard2_num: number[]
+    guard1_num: number[]
+    guard_price: number[]
+    watch: number[]
+    rank: number[]
+    fans: number[]
+    like: number[]
+    popular: number[]
   }
 }
