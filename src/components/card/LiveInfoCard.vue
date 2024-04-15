@@ -16,22 +16,22 @@
 
       <div class="flex-grow flex justify-around md:justify-end items-center gap-6 w-full md:w-auto ">
         <div class="flex flex-col justify-start items-end gap-3">
-          <div>弹幕数</div>
+          <div class="text-gray-500">弹幕数</div>
           <div>{{ live.message_num }}</div>
         </div>
 
         <div class="flex flex-col justify-start items-end gap-3">
-          <div>礼物价值</div>
+          <div class="text-gray-500">礼物价值</div>
           <div>{{ live.gift1_price / 1000 }}</div>
         </div>
 
         <div class="flex flex-col justify-start items-end gap-3">
-          <div>留言价值</div>
+          <div class="text-gray-500">留言价值</div>
           <div>{{ live.chat_price }}</div>
         </div>
 
         <div class="flex flex-col justify-start items-end gap-3">
-          <div>上舰价值</div>
+          <div class="text-gray-500">上舰价值</div>
           <div>{{ live.guard_price }}</div>
         </div>
       </div>

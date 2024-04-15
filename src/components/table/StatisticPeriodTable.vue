@@ -105,7 +105,7 @@ const activity_y_axis = ref<YAXisComponentOption[]>([
 const get_data = async () => {
   loading.value = true
   try {
-    const res = await client.get<StatisticPoint>({
+    const res = await client.get<StatisticPeriodPoint>({
       url: "/statistic/period",
       params: {period_id: period_id.value}
     })

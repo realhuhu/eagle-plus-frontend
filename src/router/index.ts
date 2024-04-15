@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory, type RouteRecordRaw} from "vue-router"
+import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router"
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -125,12 +125,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/StatisticPage.vue"),
     children: [
       {
-        path: "live",
-        name: "statistic-live",
-        component: () => import("@/components/table/StatisticLiveTable.vue"),
+        path: "session",
+        name: "statistic-session",
+        component: () => import("@/components/table/StatisticSessionTable.vue"),
         meta: {
           active: "statistic",
-          statistic_key: "live"
+          statistic_key: "session"
         }
       },
       {
@@ -145,7 +145,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "",
         name: "statistic-redirect",
-        redirect: "/statistic/live"
+        redirect: "/statistic/session"
       }
     ]
   }

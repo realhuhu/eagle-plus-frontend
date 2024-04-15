@@ -138,7 +138,7 @@ declare global {
     history_avatars: { avatar: string, timestamp: string }[]
   }
 
-  type StatisticPoint = {
+  type StatisticPeriodPoint = {
     period: str[],
     message_num: (number | null)[]
     entry_num: (number | null)[]
@@ -160,32 +160,32 @@ declare global {
   }
 
 
-  // type Live = {
-  //   title: string
-  //   cover: string,
-  //   timestamp_start: string
-  //   timestamp_end: string
-  //   message_num: number | null
-  //   message_user_num: number | null
-  //   entry_num: number | null
-  //   entry_user_num: number | null
-  //   chat_num: number | null
-  //   chat_user_num: number | null
-  //   chat_price: number | null
-  //   gift0_num: number | null
-  //   gift0_user_num: number | null
-  //   gift0_price: number | null
-  //   gift1_num: number | null
-  //   gift1_user_num: number | null
-  //   gift1_price: number | null
-  //   guard3_num: number | null
-  //   guard2_num: number | null
-  //   guard1_num: number | null
-  //   guard_price: number | null
-  //   like: number | null
-  //   rank: number | null
-  //   watch: number | null
-  //   popular: number | null
-  //   fans: number | null
-  // }
+  type StaticSessionPoint = {
+    title: string
+    cover: string,
+    timestamp_start: string
+    timestamp_end: string
+    message_num: number | null
+    message_user_num: number | null
+    entry_num: number | null
+    entry_user_num: number | null
+    chat_num: number | null
+    chat_user_num: number | null
+    chat_price: number | null
+    gift0_num: number | null
+    gift0_user_num: number | null
+    gift0_price: number | null
+    gift1_num: number | null
+    gift1_user_num: number | null
+    gift1_price: number | null
+    guard3_num: number | null
+    guard2_num: number | null
+    guard1_num: number | null
+    guard_price: number | null
+    like: number | null
+    rank: number | null
+    watch: number | null
+    popular: number | null
+    fans: number | null
+  }
 }

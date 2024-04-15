@@ -20,6 +20,6 @@ declare module "vue-router" {
       ["page", "size", "start", "end", "uid", "guard", "ordering", "medal"] |
       ["page", "size", "start", "end", "uid", "guard", "ordering", "search"]
 
-    statistic_key?: "live" | "period" | "time"
+    statistic_key?: "session" | "period"
   }
 }
