@@ -148,6 +148,14 @@ const routes: Array<RouteRecordRaw> = [
         redirect: "/statistic/session"
       }
     ]
+  },
+  {
+    path: "/about",
+    name: "about",
+    component: () => import("@/views/AboutPage.vue"),
+    meta: {
+      active: "about"
+    }
   }
 ]
 

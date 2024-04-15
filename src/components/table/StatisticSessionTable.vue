@@ -80,7 +80,7 @@ const user = ref<{
   y_axis: [
     {
       type: "value",
-      name: "数量"
+      name: "人数"
     }
   ],
   series: []

@@ -2,7 +2,7 @@ export {}
 
 declare module "vue-router" {
   interface RouteMeta {
-    active?: "home" | "interaction" | "user" | "statistic"
+    active?: "home" | "interaction" | "user" | "statistic" | "about"
 
     interaction_key?: "all" | "message" | "guard" | "gift" | "entry" | "chat"
     interaction_url?:

@@ -28,6 +28,12 @@
             <span class="hidden md:inline ml-1">数据</span>
           </template>
         </a-tab-pane>
+        <a-tab-pane key="about">
+          <template #title>
+            <i-bxs-info-circle class="inline"/>
+            <span class="hidden md:inline ml-1">关于</span>
+          </template>
+        </a-tab-pane>
       </a-tabs>
 
       <a-button size="large" type="text" shape="circle" @click="store.toggleTheme()" class="w-9 flex-shrink-0">

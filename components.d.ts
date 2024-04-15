@@ -16,6 +16,7 @@ declare module 'vue' {
     HeatMap: typeof import('./src/components/chart/HeatMap.vue')['default']
     IBxsChat: typeof import('~icons/bxs/chat')['default']
     IBxsHome: typeof import('~icons/bxs/home')['default']
+    IBxsInfoCircle: typeof import('~icons/bxs/info-circle')['default']
     IBxsMoon: typeof import('~icons/bxs/moon')['default']
     IBxsObjectsVerticalBottom: typeof import('~icons/bxs/objects-vertical-bottom')['default']
     IBxsSun: typeof import('~icons/bxs/sun')['default']
