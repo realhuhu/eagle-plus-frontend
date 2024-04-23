@@ -36,6 +36,7 @@ declare module 'vue' {
     PrivilegeAvatar: typeof import('./src/components/circle/PrivilegeAvatar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    StatisticLiveModal: typeof import('./src/components/modal/StatisticLiveModal.vue')['default']
     StatisticPeriodTable: typeof import('./src/components/table/StatisticPeriodTable.vue')['default']
     StatisticSessionTable: typeof import('./src/components/table/StatisticSessionTable.vue')['default']
     UserDetailTable: typeof import('./src/components/table/UserDetailTable.vue')['default']

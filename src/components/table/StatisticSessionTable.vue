@@ -7,22 +7,22 @@
 
     <div class="flex flex-col justify-center items-center gap-6 w-full">
       <common-chart title="总览" :series="summary.series" :loading="loading" :x-axis="summary.x_axis"
-        :y-axis="summary.y_axis" :tooltip="tooltip" />
+        :y-axis="summary.y_axis" :tooltip="tooltip" @click="pop" />
 
       <common-chart title="人数" :series="user.series" :loading="loading" :x-axis="user.x_axis" :y-axis="user.y_axis"
-        :tooltip="tooltip" />
+        :tooltip="tooltip" @click="pop" />
 
       <common-chart title="留言" :series="chat.series" :loading="loading" :x-axis="chat.x_axis" :y-axis="chat.y_axis"
-        :tooltip="tooltip" />
+        :tooltip="tooltip" @click="pop" />
 
       <common-chart title="礼物" :series="gift.series" :loading="loading" :x-axis="gift.x_axis" :y-axis="gift.y_axis"
-        :tooltip="tooltip" />
+        :tooltip="tooltip" @click="pop" />
 
       <common-chart title="上舰" :series="guard.series" :loading="loading" :x-axis="guard.x_axis" :y-axis="guard.y_axis"
-        :tooltip="tooltip" />
+        :tooltip="tooltip" @click="pop" />
 
       <common-chart title="活跃" :series="activity.series" :loading="loading" :x-axis="activity.x_axis"
-        :y-axis="activity.y_axis" :tooltip="tooltip" />
+        :y-axis="activity.y_axis" :tooltip="tooltip" @click="pop" />
     </div>
   </div>
 </template>
@@ -32,14 +32,24 @@ import { ref, watch } from "vue";
 import { client } from "@/assets/lib/request";
 import { assertNotEmpty, axis_formatter, proxy_url, time_delta } from "@/assets/lib/utils";
 import { Notification } from "@arco-design/web-vue";
-import type { SeriesOption, XAXisComponentOption, YAXisComponentOption, TooltipComponentOption } from "echarts";
+import type { SeriesOption, XAXisComponentOption, YAXisComponentOption, TooltipComponentOption, ElementEvent } from "echarts";
+import { showStatisticLiveModal } from "../modal/StatisticLiveModal";
+import { UseStore } from "@/store";
 
 const loading = ref(false)
+const current = ref<{
+  id: number
+  title: string
+}>({
+  id: 0,
+  title: ""
+})
 const average = ref({
   hour: false,
   user: false
 })
 const data = ref<StaticSessionData>()
+const store = UseStore()
 
 const tooltip = ref<TooltipComponentOption>({
   trigger: "axis",
@@ -48,11 +58,14 @@ const tooltip = ref<TooltipComponentOption>({
     const v = p as Tile<typeof p>
     const live_data = assertNotEmpty(data.value, "数据缺失")
     const index = v[0].data[0]
+    current.value.id = live_data.id[index]
+    current.value.title = live_data.title[index]
     const cover = `<img src='${proxy_url(live_data.cover[index])}'></img>`
     const title = `<div>${live_data.title[index].length > 9 ? live_data.title[index].slice(0, 9) + "..." : live_data.title[index]}</div>`
     const time = `<div style="font-size:12px;text-align: center;">${live_data.timestamp_start[index].replace("T", " ")}</div><div style="font-size:12px;text-align: center;">${live_data.timestamp_end[index].replace("T", " ")}</div>`
     const statistic = v.map(x => `<div style="display: flex;justify-content: space-between;gap: 4px;"><div>${x.marker}${x.seriesName}:</div><div style="font-weight: bolder;">${x.data[1] === null ? "-" : x.data[1].toFixed(2)}</div></div>`).join("")
-    return `<div style="width: 144px;">${title}${cover}${time}${statistic}</div>`
+    const tips = store.is_mobile ? "" : "<div style='font-size:12px;color:#888;float:right'>点击查看直播详细数据</div>"
+    return `<div style="width: 144px;">${title}${cover}${time}${statistic}${tips}</div>`
   }
 })
 
@@ -191,7 +204,6 @@ const activity = ref<{
 })
 
 const compute_data = () => {
-  console.log(average.value)
   const live_data = assertNotEmpty(data.value, "数据缺失")
 
   const factors: number[] = []
@@ -422,10 +434,18 @@ const get_data = async () => {
   }
 }
 
+
+const pop = (params: ElementEvent) => {
+  if (!params.topTarget) return
+  if (Object.getPrototypeOf(params.topTarget).type === "rect") return
+  if (Object.getPrototypeOf(params.topTarget).type === "tspan") return
+  if (store.is_mobile) return
+  if (current.value.id) showStatisticLiveModal(current.value.id, current.value.title)
+}
+
 watch(average, () => {
   compute_data()
 }, { deep: true })
-
 
 get_data()
 </script>

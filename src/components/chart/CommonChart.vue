@@ -1,7 +1,7 @@
 <template>
   <div class="w-full md:h-[400px] h-[60vw] py-2">
     <v-chart class="chart h-full shadow-around duration-500" :option="option" :loading="props.loading"
-      :theme="store.dark ? dark : light" :autoresize="true" />
+      :theme="store.dark ? dark : light" :autoresize="true" @zr:click="on_click" />
     <div class="text-center font-bold">{{ props.title }}</div>
   </div>
 </template>
@@ -12,7 +12,7 @@ import { ref, watch } from "vue";
 import { use } from "echarts/core";
 import { LineChart, BarChart, ScatterChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
-import type { EChartsOption, SeriesOption, XAXisComponentOption, YAXisComponentOption, TooltipComponentOption } from "echarts";
+import type { EChartsOption, SeriesOption, XAXisComponentOption, YAXisComponentOption, TooltipComponentOption, ElementEvent } from "echarts";
 import {
   GridComponent,
   TitleComponent,
@@ -35,10 +35,12 @@ use([
   DataZoomComponent
 ])
 
+const emit = defineEmits(["click"])
+
 const store = UseStore()
 const props = defineProps<{
   loading: boolean
-  title: string,
+  title?: string,
   series: SeriesOption[]
   xAxis?: XAXisComponentOption
   yAxis?: YAXisComponentOption[]
@@ -99,6 +101,10 @@ watch(() => props.series, () => {
     ]
   }
 })
+
+const on_click = (params: ElementEvent) => {
+  emit("click", params)
+}
 </script>
 
 <style scoped lang="less"></style>
