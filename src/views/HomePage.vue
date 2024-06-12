@@ -1,7 +1,7 @@
 <template>
   <div class="w-[968px] max-w-[96vw] mx-auto flex flex-col justify-start items-center">
     <div>新版测试中，旧版本：<a class="text-[#4ebaee] cursor-pointer" @click="old">iying.love</a></div>
-    <div>5月28日后数据不全，请以旧版本为准</div>
+    <div>直播汇总数据不一定及时更新</div>
     <div class="text-[24px] sm:text-[48px] md:text-[64px] text-[#4ebaee] drop-shadow-2xl">
       IYING.LOVE
     </div>

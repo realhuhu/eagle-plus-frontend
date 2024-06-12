@@ -218,35 +218,35 @@ const compute_data = () => {
       type: "line",
       yAxisIndex: 0,
       lineStyle: { width: 2 },
-      data: live_data.message_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.message_user_num[k] : 1)])
+      data: live_data.message_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.message_user_num[k] || 1 : 1)])
     },
     {
       name: "进场",
       type: "line",
       yAxisIndex: 0,
       lineStyle: { width: 2 },
-      data: live_data.entry_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.entry_user_num[k] : 1)])
+      data: live_data.entry_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.entry_user_num[k] || 1 : 1)])
     },
     {
       name: "留言",
       type: "bar",
       stack: "total",
       yAxisIndex: 1,
-      data: live_data.chat_price.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.chat_user_num[k] : 1)])
+      data: live_data.chat_price.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.chat_user_num[k] || 1 : 1)])
     },
     {
       name: "礼物",
       type: "bar",
       stack: "total",
       yAxisIndex: 1,
-      data: live_data.gift1_price.map((x, k) => [k, x / 1000 / factors[k] / (average.value.user ? live_data.gift1_user_num[k] : 1)])
+      data: live_data.gift1_price.map((x, k) => [k, x / 1000 / factors[k] / (average.value.user ? live_data.gift1_user_num[k] || 1 : 1)])
     },
     {
       name: "上舰",
       type: "bar",
       stack: "total",
       yAxisIndex: 1,
-      data: live_data.guard_price.map((x, k) => [k, x / factors[k]])
+      data: live_data.guard_price.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.guard_user_num[k] || 1 : 1)])
     }
   ]
 
@@ -287,7 +287,7 @@ const compute_data = () => {
       type: "line",
       yAxisIndex: 0,
       lineStyle: { width: 2 },
-      data: live_data.chat_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.chat_user_num[k] : 1)])
+      data: live_data.chat_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.chat_user_num[k] || 1 : 1)])
     },
     {
       name: "价值",
@@ -297,7 +297,7 @@ const compute_data = () => {
       itemStyle: {
         borderRadius: [10]
       },
-      data: live_data.chat_price.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.chat_user_num[k] : 1)])
+      data: live_data.chat_price.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.chat_user_num[k] || 1 : 1)])
     }
   ]
 
@@ -307,14 +307,14 @@ const compute_data = () => {
       yAxisIndex: 0,
       type: "line",
       lineStyle: { width: 2 },
-      data: live_data.gift1_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.gift1_user_num[k] : 1)])
+      data: live_data.gift1_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.gift1_user_num[k] || 1 : 1)])
     },
     {
       name: "免费礼物",
       yAxisIndex: 0,
       type: "line",
       lineStyle: { width: 2 },
-      data: live_data.gift0_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.gift0_user_num[k] : 1)])
+      data: live_data.gift0_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.gift0_user_num[k] || 1 : 1)])
     },
     {
       name: "金瓜子",
@@ -325,7 +325,7 @@ const compute_data = () => {
       itemStyle: {
         borderRadius: [10]
       },
-      data: live_data.gift1_price.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.gift1_user_num[k] : 1)])
+      data: live_data.gift1_price.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.gift1_user_num[k] || 1 : 1)])
     },
     {
       name: "银瓜子",
@@ -336,7 +336,7 @@ const compute_data = () => {
       itemStyle: {
         borderRadius: [10]
       },
-      data: live_data.gift0_price.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.gift0_user_num[k] : 1)])
+      data: live_data.gift0_price.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.gift0_user_num[k] || 1 : 1)])
     }
   ]
 
@@ -348,7 +348,7 @@ const compute_data = () => {
       type: "line",
       color: "#7ac8ed",
       lineStyle: { width: 2 },
-      data: live_data.guard3_num.map((x, k) => [k, x / factors[k]])
+      data: live_data.guard3_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.guard_user_num[k] || 1 : 1)])
     },
     {
       name: "提督",
@@ -356,7 +356,7 @@ const compute_data = () => {
       type: "line",
       color: "#d664f6",
       lineStyle: { width: 2 },
-      data: live_data.guard2_num.map((x, k) => [k, x / factors[k]])
+      data: live_data.guard2_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.guard_user_num[k] || 1 : 1)])
     },
     {
       name: "总督",
@@ -364,7 +364,7 @@ const compute_data = () => {
       type: "line",
       color: "#ab3131",
       lineStyle: { width: 2 },
-      data: live_data.guard1_num.map((x, k) => [k, x / factors[k]])
+      data: live_data.guard1_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.guard_user_num[k] || 1 : 1)])
     },
     {
       name: "价值",
@@ -374,7 +374,7 @@ const compute_data = () => {
       itemStyle: {
         borderRadius: [10]
       },
-      data: live_data.guard_price.map((x, k) => [k, x / factors[k]])
+      data: live_data.guard_price.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.guard_user_num[k] || 1 : 1)])
     }
   ]
 

@@ -1,4 +1,4 @@
-export {};
+export { };
 
 declare global {
   type Flat<T> = T extends Item[] ? Item : T extends Item ? Item : never;
@@ -141,18 +141,18 @@ declare global {
   };
 
   type StatisticData = {
-    message_num: (number | null)[];
-    entry_num: (number | null)[];
-    gift0_num: (number | null)[];
-    gift0_price: (number | null)[];
-    gift1_num: (number | null)[];
-    gift1_price: (number | null)[];
-    chat_num: (number | null)[];
-    chat_price: (number | null)[];
-    guard3_num: (number | null)[];
-    guard2_num: (number | null)[];
-    guard1_num: (number | null)[];
-    guard_price: (number | null)[];
+    message_num: number[];
+    entry_num: number[];
+    gift0_num: number[];
+    gift0_price: number[];
+    gift1_num: number[];
+    gift1_price: number[];
+    chat_num: number[];
+    chat_price: number[];
+    guard3_num: number[];
+    guard2_num: number[];
+    guard1_num: number[];
+    guard_price: number[];
     watch: (number | null)[];
     rank: (number | null)[];
     fans: (number | null)[];
@@ -190,6 +190,7 @@ declare global {
     guard3_num: number[];
     guard2_num: number[];
     guard1_num: number[];
+    guard_user_num: number[];
     guard_price: number[];
     watch: number[];
     rank: number[];

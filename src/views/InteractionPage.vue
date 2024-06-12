@@ -17,13 +17,15 @@
         <div class="md:flex justify-end items-center pt-4">
           <div class="px-2">
             <a-form-item label="开始">
-              <a-date-picker class="w-full" show-time format="YYYY-MM-DD HH:mm" v-model:model-value="params.start" />
+              <a-date-picker class="w-full" show-time format="YYYY-MM-DD HH:mm" v-model:model-value="params.start"
+                :shortcuts="[{ label: '今日开始', value: () => new Date(today) }]" />
             </a-form-item>
           </div>
 
           <div class="px-2">
             <a-form-item label="结束">
-              <a-date-picker class="w-full" show-time format="YYYY-MM-DD HH:mm" v-model:model-value="params.end" />
+              <a-date-picker class="w-full" show-time format="YYYY-MM-DD HH:mm" v-model:model-value="params.end"
+                :shortcuts="[{ label: '今日结束', value: () => new Date(today + 24 * 60 * 60 * 1000 - 1) }]" />
             </a-form-item>
           </div>
         </div>
