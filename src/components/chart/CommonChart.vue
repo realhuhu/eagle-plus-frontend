@@ -40,11 +40,13 @@ const emit = defineEmits(["click"])
 const store = UseStore()
 const props = defineProps<{
   loading: boolean
-  title?: string,
+  title?: string
   series: SeriesOption[]
   xAxis?: XAXisComponentOption
   yAxis?: YAXisComponentOption[]
   tooltip?: TooltipComponentOption
+  yHide?: boolean
+  zoomHide?: boolean
 }>()
 
 const option = ref<EChartsOption>({
@@ -81,13 +83,16 @@ watch(() => props.series, () => {
     data: props.series.map(x => x.name) as string[]
   }
   option.value.series = props.series
-  if (props.yAxis === undefined) {
-    option.value.grid = {
-      left: 10,
-      right: 10,
-      bottom: 30
-    }
-  } else {
+
+  const grid: {
+    left?: number
+    right?: number
+    bottom?: number
+  } = {}
+
+
+
+  if (!props.zoomHide) {
     option.value.dataZoom = [
       {
         type: "inside",
@@ -99,7 +104,18 @@ watch(() => props.series, () => {
         end: 100
       }
     ]
+  } else {
+    grid.bottom = 30
   }
+
+  if (props.yHide) {
+    if (props.yAxis) {
+      option.value.yAxis = props.yAxis.map(x => ({ ...x, show: false }))
+    }
+    grid.left = grid.right = 10
+  }
+
+  option.value.grid = grid
 })
 
 const on_click = (params: ElementEvent) => {

@@ -30,7 +30,8 @@ use([
 
 const props = defineProps<{
   loading: boolean
-  series: SeriesOption
+  series: SeriesOption,
+  vertical?: boolean
 }>()
 const store = UseStore()
 const option = ref<EChartsOption>({
@@ -39,7 +40,7 @@ const option = ref<EChartsOption>({
     formatter: (p) => {
       const v = p as Flat<typeof p>
       const w = props.series.data as [string, number][]
-      return `${v.data[0]}</br>该日直播了${v.data[1]}小时</br>该月直播了${w.filter(x => x[0].slice(0, 7) === v.data[0].slice(0, 7)).reduce((acc, cur) => acc + cur[1], 0).toFixed(2)}小时`
+      return `${v.data[0]}</br>该日直播了${v.data[1].toFixed(2)}小时</br>该月直播了${w.filter(x => x[0].slice(0, 7) === v.data[0].slice(0, 7)).reduce((acc, cur) => acc + cur[1], 0).toFixed(2)}小时`
     }
   },
   visualMap: {
@@ -53,6 +54,7 @@ const option = ref<EChartsOption>({
     top: 30,
     left: 30,
     right: 60,
+    orient: props.vertical ? "vertical" : "horizontal",
     cellSize: ["auto", 13],
     range: new Date().getFullYear(),
     yearLabel: { show: false }

@@ -7,15 +7,20 @@
     </a-select>
 
     <div class="flex flex-col justify-center items-center gap-6 w-full">
-      <common-chart title="总览" :series="summary.series" :loading="loading" :y-axis="summary.y_axis" />
+      <common-chart title="总览" :series="summary.series" :loading="loading" :y-axis="summary.y_axis"
+        :y-hide="store.is_mobile" />
 
-      <common-chart title="留言" :series="chat.series" :loading="loading" :y-axis="chat.y_axis" />
+      <common-chart title="留言" :series="chat.series" :loading="loading" :y-axis="chat.y_axis"
+        :y-hide="store.is_mobile" />
 
-      <common-chart title="礼物" :series="gift.series" :loading="loading" :y-axis="gift.y_axis" />
+      <common-chart title="礼物" :series="gift.series" :loading="loading" :y-axis="gift.y_axis"
+        :y-hide="store.is_mobile" />
 
-      <common-chart title="上舰" :series="guard.series" :loading="loading" :y-axis="guard.y_axis" />
+      <common-chart title="上舰" :series="guard.series" :loading="loading" :y-axis="guard.y_axis"
+        :y-hide="store.is_mobile" />
 
-      <common-chart title="活跃" :series="activity.series" :loading="loading" :y-axis="activity.y_axis" />
+      <common-chart title="活跃" :series="activity.series" :loading="loading" :y-axis="activity.y_axis"
+        :y-hide="store.is_mobile" />
     </div>
   </div>
 </template>
@@ -26,9 +31,11 @@ import { client } from "@/assets/lib/request";
 import { axis_formatter } from "@/assets/lib/utils";
 import { Notification } from "@arco-design/web-vue";
 import type { SeriesOption, YAXisComponentOption } from "echarts";
+import { UseStore } from "@/store";
 
 const period_id = ref(1)
 const loading = ref(false)
+const store = UseStore()
 
 const summary = ref<{
   y_axis: YAXisComponentOption[]

@@ -1,12 +1,13 @@
 <template>
   <div class="w-[968px] max-w-[96vw] mx-auto flex flex-col justify-start items-center">
     <div>新版测试中，旧版本：<a class="text-[#4ebaee] cursor-pointer" @click="old">iying.love</a></div>
+    <div>5月28日后数据不全，请以旧版本为准</div>
     <div class="text-[24px] sm:text-[48px] md:text-[64px] text-[#4ebaee] drop-shadow-2xl">
       IYING.LOVE
     </div>
 
     <div class="w-full md:my-6 my-2">
-      <common-chart title="" class="!h-[200px]" :series="series" :loading="loading" />
+      <common-chart title="" class="!h-[200px]" :series="series" :loading="loading" :y-hide="true" :zoom-hide="true" />
       <heat-map v-if="!store.is_mobile" :series="map" :loading="loading" />
     </div>
 
@@ -15,7 +16,7 @@
       <template #header>
         <div class="flex justify-between items-center">
           <div>全部直播</div>
-          <a-button type="outline" status="success" size="small">详细数据</a-button>
+          <a-button type="outline" status="success" size="small" @click="router.push('statistic')">详细数据</a-button>
         </div>
       </template>
       <a-list-item v-for="(live, k) in lives" :key="k">
@@ -33,12 +34,14 @@ import type { SeriesOption } from "echarts";
 import { client } from "@/assets/lib/request";
 import { time_delta } from "@/assets/lib/utils";
 import { UseStore } from "@/store";
+import { useRouter } from "vue-router";
 
 const old = () => {
   window.open("https://iying.love")
 }
 
 const store = UseStore()
+const router = useRouter()
 const loading = ref(false)
 const lives = ref<Live[]>([]);
 const map = ref<SeriesOption>({})

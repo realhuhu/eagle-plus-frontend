@@ -1,11 +1,20 @@
 <template>
     <div class="w-[648px] max-w-[96vw] mx-auto flex flex-col justify-start items-center">
         <a-card title="数据说明" class="w-full">
+            <div class="font-bold">2023.2.16日</div>
+            <div class="indent-8">
+                数据来源于
+                <span @click="to('https://biligank.com/')" class="cursor-pointer text-[#4ebaee]">biligank</span>,
+                统计了开播时期的弹幕、礼物、留言、上舰数据
+            </div>
+            
+            <br>
+
             <div class="font-bold">2023.8.29前</div>
             <div class="indent-8">
                 数据来源于
                 <span @click="to('https://danmakus.com/')" class="cursor-pointer text-[#4ebaee]">danmakus</span>,
-                缺失2023.1.19、2023.2.16、2023.5.23的数据, 且只统计了开播时期的弹幕、礼物、留言、上舰数据
+                缺失2023.2.16的数据, 统计了开播时期的弹幕、礼物、留言、上舰数据
             </div>
 
             <br>

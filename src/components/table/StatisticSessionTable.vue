@@ -7,22 +7,22 @@
 
     <div class="flex flex-col justify-center items-center gap-6 w-full">
       <common-chart title="总览" :series="summary.series" :loading="loading" :x-axis="summary.x_axis"
-        :y-axis="summary.y_axis" :tooltip="tooltip" @click="pop" />
+        :y-hide="store.is_mobile" :y-axis="summary.y_axis" :tooltip="tooltip" @click="pop" />
 
       <common-chart title="人数" :series="user.series" :loading="loading" :x-axis="user.x_axis" :y-axis="user.y_axis"
-        :tooltip="tooltip" @click="pop" />
+        :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop" />
 
       <common-chart title="留言" :series="chat.series" :loading="loading" :x-axis="chat.x_axis" :y-axis="chat.y_axis"
-        :tooltip="tooltip" @click="pop" />
+        :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop" />
 
       <common-chart title="礼物" :series="gift.series" :loading="loading" :x-axis="gift.x_axis" :y-axis="gift.y_axis"
-        :tooltip="tooltip" @click="pop" />
+        :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop" />
 
       <common-chart title="上舰" :series="guard.series" :loading="loading" :x-axis="guard.x_axis" :y-axis="guard.y_axis"
-        :tooltip="tooltip" @click="pop" />
+        :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop" />
 
       <common-chart title="活跃" :series="activity.series" :loading="loading" :x-axis="activity.x_axis"
-        :y-axis="activity.y_axis" :tooltip="tooltip" @click="pop" />
+        :y-hide="store.is_mobile" :y-axis="activity.y_axis" :tooltip="tooltip" @click="pop" />
     </div>
   </div>
 </template>
@@ -62,7 +62,7 @@ const tooltip = ref<TooltipComponentOption>({
     current.value.title = live_data.title[index]
     const cover = `<img src='${proxy_url(live_data.cover[index])}'></img>`
     const title = `<div>${live_data.title[index].length > 9 ? live_data.title[index].slice(0, 9) + "..." : live_data.title[index]}</div>`
-    const time = `<div style="font-size:12px;text-align: center;">${live_data.timestamp_start[index].replace("T", " ")}</div><div style="font-size:12px;text-align: center;">${live_data.timestamp_end[index].replace("T", " ")}</div>`
+    const time = `<div style="font-size:12px;text-align: center;">${live_data.timestamp_start[index].replace("T", " ").slice(0, 16)}</div><div style="font-size:12px;text-align: center;">${live_data.timestamp_end[index].replace("T", " ").slice(0, 16)}</div>`
     const statistic = v.map(x => `<div style="display: flex;justify-content: space-between;gap: 4px;"><div>${x.marker}${x.seriesName}:</div><div style="font-weight: bolder;">${x.data[1] === null ? "-" : x.data[1].toFixed(2)}</div></div>`).join("")
     const tips = store.is_mobile ? "" : "<div style='font-size:12px;color:#888;float:right'>点击查看直播详细数据</div>"
     return `<div style="width: 144px;">${title}${cover}${time}${statistic}${tips}</div>`

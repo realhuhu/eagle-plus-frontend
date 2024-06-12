@@ -110,8 +110,12 @@ export const datetime = (value: number) => {
 export const open_url = (url: string) => window.open(url)
 
 export const proxy_url = (url: string) => {
-  const url_obj = new URL(url)
-  return `https://proxy.realhuhu.com${url_obj.pathname}?host=${url_obj.protocol}//${url_obj.hostname}&referer=https://www.bilibili.com/`
+  try {
+    const url_obj = new URL(url)
+    return `https://proxy.realhuhu.com${url_obj.pathname}?host=${url_obj.protocol}//${url_obj.hostname}&referer=https://www.bilibili.com/`
+  } catch {
+    return ""
+  }
 }
 
 export const number_to_color = (n: number, avoid_white?: boolean) => {
