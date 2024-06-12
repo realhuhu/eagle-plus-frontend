@@ -10,7 +10,10 @@
           <div class="text-gray-500 text-[12px] md:text-[14px]">
             <span>{{ time_string(live.timestamp_start) }}</span>
             <a-divider direction="vertical" :margin="6" />
-            <span>{{ time_delta(live.timestamp_start, live.timestamp_end).toFixed(2) }}小时</span>
+            <span v-if="live.timestamp_end">
+              {{ time_delta(live.timestamp_start, live.timestamp_end).toFixed(2) }}小时
+            </span>
+            <span v-else class="text-red-500">直播中</span>
           </div>
         </div>
       </div>
@@ -50,7 +53,20 @@ const router = useRouter()
 const time_string = (timestamp: string) => new DateParser(timestamp).all()
 
 const to_detail = () => {
-  router.push(`/interaction?start=${props.live.timestamp_start}&end=${props.live.timestamp_end || new Date(new Date(new Date().toLocaleDateString()).getTime() + 24 * 60 * 60 * 1000 - 1)}`)
+  const query: {
+    start?: string
+    end?: string
+  } = {}
+  if (props.live.timestamp_start) {
+    query.start = props.live.timestamp_start
+  }
+  if (props.live.timestamp_end) {
+    query.end = props.live.timestamp_end
+  }
+  router.push({
+    path: "/interaction",
+    query
+  })
 }
 </script>
 

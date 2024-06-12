@@ -146,12 +146,14 @@ const get_data = async () => {
       {
         name: "弹幕",
         type: "line",
+        lineStyle: { width: 2 },
         yAxisIndex: 0,
         data: res.data.message_num.map((value, index) => [res.data.period[index], value])
       },
       {
         name: "进场",
         type: "line",
+        lineStyle: { width: 2 },
         yAxisIndex: 0,
         data: res.data.entry_num.map((value, index) => [res.data.period[index], value])
       },
@@ -182,6 +184,7 @@ const get_data = async () => {
       {
         name: "数量",
         type: "line",
+        lineStyle: { width: 2 },
         yAxisIndex: 0,
         data: res.data.chat_num.map((value, index) => [res.data.period[index], value])
       },
@@ -201,12 +204,14 @@ const get_data = async () => {
       {
         name: "付费礼物",
         yAxisIndex: 0,
+        lineStyle: { width: 2 },
         type: "line",
         data: res.data.gift1_num.map((value, index) => [res.data.period[index], value])
       },
       {
         name: "免费礼物",
         yAxisIndex: 0,
+        lineStyle: { width: 2 },
         type: "line",
         data: res.data.gift0_num.map((value, index) => [res.data.period[index], value])
       },
@@ -239,6 +244,7 @@ const get_data = async () => {
         name: "舰长",
         yAxisIndex: 0,
         type: "line",
+        lineStyle: { width: 2 },
         color: "#7ac8ed",
         data: res.data.guard3_num.map((value, index) => [res.data.period[index], value]).filter(x => x[1] > 0)
       },
@@ -246,6 +252,7 @@ const get_data = async () => {
         name: "提督",
         yAxisIndex: 0,
         type: "line",
+        lineStyle: { width: 2 },
         color: "#d664f6",
         data: res.data.guard2_num.map((value, index) => [res.data.period[index], value]).filter(x => x[1] > 0)
       },
@@ -253,6 +260,7 @@ const get_data = async () => {
         name: "总督",
         yAxisIndex: 0,
         type: "line",
+        lineStyle: { width: 2 },
         color: "#ab3131",
         data: res.data.guard1_num.map((value, index) => [res.data.period[index], value]).filter(x => x[1] > 0)
       },
@@ -272,24 +280,28 @@ const get_data = async () => {
       {
         name: "观看数",
         type: "line",
+        lineStyle: { width: 2 },
         yAxisIndex: 0,
         data: res.data.watch.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
       },
       {
         name: "在线数",
         type: "line",
+        lineStyle: { width: 2 },
         yAxisIndex: 0,
         data: res.data.rank.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
       },
       {
         name: "粉丝团",
         type: "line",
+        lineStyle: { width: 2 },
         yAxisIndex: 0,
         data: res.data.fans.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
       },
       {
         name: "点赞数",
         type: "line",
+        lineStyle: { width: 2 },
         yAxisIndex: 0,
         data: res.data.like.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
       },

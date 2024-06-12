@@ -55,11 +55,12 @@ const router = useRouter()
 
 const today = new Date(new Date().toLocaleDateString()).getTime()
 
+
 const params = ref<InteractionParams>({
   page: 1,
   size: 20,
-  start: new Date(today),
-  end: new Date(today + 24 * 60 * 60 * 1000 - 1),
+  start: new Date(flat_query(route.query.start) || today),
+  end: new Date(flat_query(route.query.end) || today + 24 * 60 * 60 * 1000 - 1),
   uid: "",
   search: "",
   guard: route.meta.interaction_key === "guard" ? [1, 2, 3] : [0, 1, 2, 3],
@@ -127,17 +128,21 @@ const pop_modal = (user: User) => {
   showUserInteractionModal(user, params.value)
 }
 
+
 onActivated(() => {
-  const query_start = flat_query(route.query.start)
-  const query_end = flat_query(route.query.end)
+  const query_start = new Date(flat_query(route.query.start) || today)
+  const query_end = new Date(flat_query(route.query.end) || today + 24 * 60 * 60 * 1000 - 1)
   let reload = false
-  if (query_start) {
+
+  if (route.query.start || route.query.end) {
+    if (query_start !== params.value.start) {
     reload = true
-    params.value.start = new Date(query_start)
+    params.value.start = query_start
   }
-  if (query_end) {
+  if (query_end !== params.value.end) {
     reload = true
-    params.value.end = new Date(query_end)
+    params.value.end = query_end
+  }
   }
 
   if (reload || table.value.interactions.length === 0) {

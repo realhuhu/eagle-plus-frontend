@@ -444,7 +444,9 @@ const pop = (params: ElementEvent) => {
 }
 
 watch(average, () => {
+  loading.value = true
   compute_data()
+  loading.value = false
 }, { deep: true })
 
 get_data()
