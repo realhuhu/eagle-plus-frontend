@@ -54,9 +54,10 @@ const time_string = (timestamp: string) => new DateParser(timestamp).all()
 
 const to_detail = () => {
   const query: {
+    force: string
     start?: string
     end?: string
-  } = {}
+  } = { force: "true" }
   if (props.live.timestamp_start) {
     query.start = props.live.timestamp_start
   }

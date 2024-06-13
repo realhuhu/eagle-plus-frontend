@@ -85,6 +85,17 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
+        path: "award",
+        name: "interaction-award",
+        component: () => import("@/components/filter/InteractionAwardFilter.vue"),
+        meta: {
+          active: "interaction",
+          interaction_key: "award",
+          interaction_url: "interaction/award",
+          interaction_param_fields: ["page", "size", "start", "end", "ordering", "search"]
+        }
+      },
+      {
         path: "",
         name: "interaction-redirect",
         redirect: "/interaction/all"

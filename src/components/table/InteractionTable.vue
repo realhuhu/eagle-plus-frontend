@@ -50,6 +50,12 @@
             </transition>
           </div>
 
+          <div v-for="(award, k) in table.award" :key="k">
+            <transition enter-active-class="animate__animated animate__fadeIn" appear>
+              <award-record :award="award" @user_click="on_user_click" />
+            </transition>
+          </div>
+
           <div class="flex justify-end" v-if="table.count">
             <a-pagination :simple="store.is_mobile" :total="table.count" v-model:current="params.page"
               v-model:page-size="params.size" show-page-size :page-size-options="[20, 50, 100]" show-jumper

@@ -4,14 +4,14 @@
     <div class="flex flex-col justify-start items-center">
 
       <div class="md:flex justify-between items-center w-full">
-        <a-tabs type="capsule" size="large" hide-content :active-key="route.meta.interaction_key || 'all'"
-          @change="switch_data">
+        <a-tabs type="capsule" size="large" hide-content v-model:active-key="active" @change="switch_data">
           <a-tab-pane key="all" title="全部" />
           <a-tab-pane key="message" title="弹幕" />
           <a-tab-pane key="guard" title="上舰" />
           <a-tab-pane key="gift" title="礼物" />
           <a-tab-pane key="entry" title="入场" />
           <a-tab-pane key="chat" title="留言" />
+          <a-tab-pane key="award" title="抽奖" />
         </a-tabs>
 
         <div class="md:flex justify-end items-center pt-4">
@@ -37,7 +37,6 @@
           @change_size="refresh_data" @user_click="pop_modal" />
       </div>
     </div>
-
   </div>
 </template>
 
@@ -50,11 +49,9 @@ import { useRoute, useRouter } from "vue-router";
 import { showUserInteractionModal } from "@/components/modal/UserInteractionModal";
 
 const route = useRoute()
-
 const router = useRouter()
-
 const today = new Date(new Date().toLocaleDateString()).getTime()
-
+const active = ref(route.meta.interaction_key)
 
 const params = ref<InteractionParams>({
   page: 1,
@@ -76,20 +73,33 @@ const table = ref<InteractionTable>({
   count: 0,
   loading: false,
   extra: { price: 0, total: 0 },
-  interactions: []
+  interactions: [],
+  award: []
 })
 
 const get_data = async () => {
   table.value.loading = true
   table.value.extra = { price: 0, total: 0 }
   try {
-    const res = await client.get<PaginatedResponse<Interaction, InteractionResponseExtra>>({
-      url: assertNotEmpty(route.meta.interaction_url, "url为空"),
-      params: build_params(params.value, assertNotEmpty(route.meta.interaction_param_fields, "fields为空"))
-    })
-    table.value.count = res.data.count
-    table.value.extra = res.data.extra
-    table.value.interactions = res.data.results
+    if (active.value !== "award") {
+      const res = await client.get<PaginatedResponse<Interaction, InteractionResponseExtra>>({
+        url: assertNotEmpty(route.meta.interaction_url, "url为空"),
+        params: build_params(params.value, assertNotEmpty(route.meta.interaction_param_fields, "fields为空"))
+      })
+      table.value.count = res.data.count
+      table.value.extra = res.data.extra
+      table.value.interactions = res.data.results
+      table.value.award = []
+    } else {
+      const res = await client.get<PaginatedResponse<Award, InteractionResponseExtra>>({
+        url: assertNotEmpty(route.meta.interaction_url, "url为空"),
+        params: build_params(params.value, assertNotEmpty(route.meta.interaction_param_fields, "fields为空"))
+      })
+      table.value.count = res.data.count
+      table.value.extra = res.data.extra
+      table.value.interactions = []
+      table.value.award = res.data.results
+    }
   } catch (e) {
     Notification.warning("获取失败")
     console.error(e)
@@ -103,9 +113,9 @@ const refresh_data = async () => {
   await get_data()
 }
 
+const switch_data = async () => {
+  await router.replace(`/interaction/${active.value}`)
 
-const switch_data = async (key: string | number) => {
-  await router.replace(key.toString())
   params.value = {
     page: 1,
     size: 20,
@@ -128,7 +138,6 @@ const pop_modal = (user: User) => {
   showUserInteractionModal(user, params.value)
 }
 
-
 onActivated(() => {
   const query_start = new Date(flat_query(route.query.start) || today)
   const query_end = new Date(flat_query(route.query.end) || today + 24 * 60 * 60 * 1000 - 1)
@@ -136,17 +145,20 @@ onActivated(() => {
 
   if (route.query.start || route.query.end) {
     if (query_start !== params.value.start) {
-    reload = true
-    params.value.start = query_start
-  }
-  if (query_end !== params.value.end) {
-    reload = true
-    params.value.end = query_end
-  }
+      reload = true
+      params.value.start = query_start
+    }
+    if (query_end !== params.value.end) {
+      reload = true
+      params.value.end = query_end
+    }
   }
 
-  if (reload || table.value.interactions.length === 0) {
-    router.replace("/interaction")
+  if (reload || table.value.interactions.length === 0 && table.value.award.length === 0) {
+    if (route.query.force) {
+      active.value = "all"
+      router.replace("/interaction/all")
+    }
     refresh_data()
   }
 })

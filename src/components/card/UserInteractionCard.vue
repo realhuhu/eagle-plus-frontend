@@ -43,7 +43,8 @@ const table = ref<InteractionTable>({
   count: 0,
   loading: false,
   extra: {price: 0, total: 0},
-  interactions: []
+  interactions: [],
+  award: []
 })
 const get_data = async () => {
   table.value.loading = true

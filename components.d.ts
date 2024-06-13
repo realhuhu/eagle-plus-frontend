@@ -7,6 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AwardRecord: typeof import('./src/components/record/AwardRecord.vue')['default']
+    AwardTable: typeof import('./src/components/table/AwardTable.vue')['default']
     ChatRecord: typeof import('./src/components/record/ChatRecord.vue')['default']
     CommonChart: typeof import('./src/components/chart/CommonChart.vue')['default']
     EntryRecord: typeof import('./src/components/record/EntryRecord.vue')['default']
@@ -22,6 +24,7 @@ declare module 'vue' {
     IBxsSun: typeof import('~icons/bxs/sun')['default']
     IBxsUser: typeof import('~icons/bxs/user')['default']
     InteractionAllFilter: typeof import('./src/components/filter/InteractionAllFilter.vue')['default']
+    InteractionAwardFilter: typeof import('./src/components/filter/InteractionAwardFilter.vue')['default']
     InteractionBaseFilter: typeof import('./src/components/filter/InteractionBaseFilter.vue')['default']
     InteractionChatFilter: typeof import('./src/components/filter/InteractionChatFilter.vue')['default']
     InteractionEntryFilter: typeof import('./src/components/filter/InteractionEntryFilter.vue')['default']
@@ -39,6 +42,7 @@ declare module 'vue' {
     StatisticLiveModal: typeof import('./src/components/modal/StatisticLiveModal.vue')['default']
     StatisticPeriodTable: typeof import('./src/components/table/StatisticPeriodTable.vue')['default']
     StatisticSessionTable: typeof import('./src/components/table/StatisticSessionTable.vue')['default']
+    UserAwardCard: typeof import('./src/components/card/UserAwardCard.vue')['default']
     UserDetailTable: typeof import('./src/components/table/UserDetailTable.vue')['default']
     UserInfoCard: typeof import('./src/components/card/UserInfoCard.vue')['default']
     UserInteractionCard: typeof import('./src/components/card/UserInteractionCard.vue')['default']
