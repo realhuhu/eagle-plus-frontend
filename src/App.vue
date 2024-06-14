@@ -2,7 +2,7 @@
   <header-bar />
 
   <router-view v-slot="{ Component }" class="my-20 md:my-32 text-[var(--color-text-1)]">
-    <keep-alive include="HomePage,InteractionPage">
+    <keep-alive include="HomePage,InteractionPage,UserPage,StatisticPage">
       <component :is="Component" />
     </keep-alive>
   </router-view>

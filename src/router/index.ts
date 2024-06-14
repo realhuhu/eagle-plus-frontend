@@ -116,6 +116,14 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
+        path: "search",
+        name: "user-search",
+        component: () => import("@/components/table/UserSearchTable.vue"),
+        meta: {
+          active: "user"
+        }
+      },
+      {
         path: ":uid",
         name: "user-uid",
         component: () => import("@/components/table/UserDetailTable.vue"),

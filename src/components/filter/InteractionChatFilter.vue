@@ -1,12 +1,11 @@
 <template>
-  <interaction-base-filter v-model:params="params" :orderings="orderings">
+  <interaction-base-filter :orderings="orderings">
   </interaction-base-filter>
 </template>
 
 <script setup lang="ts">
 import {ref} from "vue";
 
-const params = defineModel<InteractionParams>("params", {required: true})
 const orderings = ref([
   {field: "-timestamp", text: "最新"},
   {field: "timestamp", text: "最早"},

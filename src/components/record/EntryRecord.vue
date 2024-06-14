@@ -5,7 +5,7 @@
     <a-image width="20" v-if="interaction.guard_type" :src="privilege_image(interaction.guard_type)"/>
 
     <div @click="emit('user_click',interaction.user)"
-         class="font-bold hover:text-[#4ebaee] cursor-pointer duration-100  truncate">
+         class="font-bold hover:text-[#4ebaee] cursor-pointer duration-100 truncate">
       {{ interaction.user.current_name }}
     </div>
 

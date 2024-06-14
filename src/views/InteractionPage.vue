@@ -17,14 +17,16 @@
         <div class="md:flex justify-end items-center pt-4">
           <div class="px-2">
             <a-form-item label="开始">
-              <a-date-picker class="w-full" show-time format="YYYY-MM-DD HH:mm" v-model:model-value="params.start"
+              <a-date-picker class="w-full" show-time format="YYYY-MM-DD HH:mm"
+                v-model:model-value="interaction_params.start"
                 :shortcuts="[{ label: '今日开始', value: () => new Date(today) }]" />
             </a-form-item>
           </div>
 
           <div class="px-2">
             <a-form-item label="结束">
-              <a-date-picker class="w-full" show-time format="YYYY-MM-DD HH:mm" v-model:model-value="params.end"
+              <a-date-picker class="w-full" show-time format="YYYY-MM-DD HH:mm"
+                v-model:model-value="interaction_params.end"
                 :shortcuts="[{ label: '今日结束', value: () => new Date(today + 24 * 60 * 60 * 1000 - 1) }]" />
             </a-form-item>
           </div>
@@ -32,9 +34,9 @@
       </div>
 
       <div class="w-full bg-[var(--theme-dark-2)] m-2 rounded px-4 py-6">
-        <router-view v-model:params="params" />
-        <interaction-table :table="table" v-model:params="params" @refresh="refresh_data" @change_page="get_data"
-          @change_size="refresh_data" @user_click="pop_modal" />
+        <router-view />
+        <interaction-table :table="table" v-model:params="interaction_params" @refresh="refresh_data"
+          @change_page="get_data" @change_size="refresh_data" @user_click="pop_modal" />
       </div>
     </div>
   </div>
@@ -47,27 +49,13 @@ import { client } from "@/assets/lib/request";
 import { assertNotEmpty, build_params, flat_query } from "@/assets/lib/utils";
 import { useRoute, useRouter } from "vue-router";
 import { showUserInteractionModal } from "@/components/modal/UserInteractionModal";
+import { UseStore } from "@/store";
+import { storeToRefs } from "pinia";
 
 const route = useRoute()
 const router = useRouter()
-const today = new Date(new Date().toLocaleDateString()).getTime()
-const active = ref(route.meta.interaction_key)
-
-const params = ref<InteractionParams>({
-  page: 1,
-  size: 20,
-  start: new Date(flat_query(route.query.start) || today),
-  end: new Date(flat_query(route.query.end) || today + 24 * 60 * 60 * 1000 - 1),
-  uid: "",
-  search: "",
-  guard: route.meta.interaction_key === "guard" ? [1, 2, 3] : [0, 1, 2, 3],
-  ordering: "-timestamp",
-  interaction: [0, 1, 2, 3, 4],
-  admin_type: [0, 1, 2],
-  medal: "",
-  gift: "",
-  gift_coin: [0, 1]
-})
+const active = ref(route.meta.interaction_key || "all")
+const { interaction_params, today } = storeToRefs(UseStore())
 
 const table = ref<InteractionTable>({
   count: 0,
@@ -84,7 +72,7 @@ const get_data = async () => {
     if (active.value !== "award") {
       const res = await client.get<PaginatedResponse<Interaction, InteractionResponseExtra>>({
         url: assertNotEmpty(route.meta.interaction_url, "url为空"),
-        params: build_params(params.value, assertNotEmpty(route.meta.interaction_param_fields, "fields为空"))
+        params: build_params(interaction_params.value, assertNotEmpty(route.meta.interaction_param_fields, "fields为空"))
       })
       table.value.count = res.data.count
       table.value.extra = res.data.extra
@@ -93,7 +81,7 @@ const get_data = async () => {
     } else {
       const res = await client.get<PaginatedResponse<Award, InteractionResponseExtra>>({
         url: assertNotEmpty(route.meta.interaction_url, "url为空"),
-        params: build_params(params.value, assertNotEmpty(route.meta.interaction_param_fields, "fields为空"))
+        params: build_params(interaction_params.value, assertNotEmpty(route.meta.interaction_param_fields, "fields为空"))
       })
       table.value.count = res.data.count
       table.value.extra = res.data.extra
@@ -109,21 +97,21 @@ const get_data = async () => {
 }
 
 const refresh_data = async () => {
-  params.value.page = 1
+  interaction_params.value.page = 1
   await get_data()
 }
 
 const switch_data = async () => {
   await router.replace(`/interaction/${active.value}`)
 
-  params.value = {
+  interaction_params.value = {
     page: 1,
     size: 20,
-    start: params.value.start,
-    end: params.value.end,
+    start: interaction_params.value.start,
+    end: interaction_params.value.end,
     uid: "",
     search: "",
-    guard: route.meta.interaction_key === "guard" ? [1, 2, 3] : [0, 1, 2, 3],
+    guard: active.value === "guard" ? [1, 2, 3] : [0, 1, 2, 3],
     ordering: "-timestamp",
     interaction: [0, 1, 2, 3, 4],
     admin_type: [0, 1, 2],
@@ -135,22 +123,29 @@ const switch_data = async () => {
 }
 
 const pop_modal = (user: User) => {
-  showUserInteractionModal(user, params.value)
+  showUserInteractionModal(user, interaction_params.value)
 }
 
 onActivated(() => {
-  const query_start = new Date(flat_query(route.query.start) || today)
-  const query_end = new Date(flat_query(route.query.end) || today + 24 * 60 * 60 * 1000 - 1)
+  if (active.value !== route.meta.interaction_key) router.replace(`/interaction/${active.value}`)
+
+  if (active.value === "guard") {
+    interaction_params.value.guard = [1, 2, 3]
+  }
+
   let reload = false
 
   if (route.query.start || route.query.end) {
-    if (query_start !== params.value.start) {
+    const query_start = new Date(flat_query(route.query.start) || today.value)
+    const query_end = new Date(flat_query(route.query.end) || today.value + 24 * 60 * 60 * 1000 - 1)
+
+    if (query_start !== interaction_params.value.start) {
       reload = true
-      params.value.start = query_start
+      interaction_params.value.start = query_start
     }
-    if (query_end !== params.value.end) {
+    if (query_end !== interaction_params.value.end) {
       reload = true
-      params.value.end = query_end
+      interaction_params.value.end = query_end
     }
   }
 

@@ -8,7 +8,6 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AwardRecord: typeof import('./src/components/record/AwardRecord.vue')['default']
-    AwardTable: typeof import('./src/components/table/AwardTable.vue')['default']
     ChatRecord: typeof import('./src/components/record/ChatRecord.vue')['default']
     CommonChart: typeof import('./src/components/chart/CommonChart.vue')['default']
     EntryRecord: typeof import('./src/components/record/EntryRecord.vue')['default']
@@ -48,6 +47,7 @@ declare module 'vue' {
     UserInteractionCard: typeof import('./src/components/card/UserInteractionCard.vue')['default']
     UserInteractionFilter: typeof import('./src/components/filter/UserInteractionFilter.vue')['default']
     UserInteractionModal: typeof import('./src/components/modal/UserInteractionModal.vue')['default']
+    UserSearchTable: typeof import('./src/components/table/UserSearchTable.vue')['default']
     UserTopCard: typeof import('./src/components/card/UserTopCard.vue')['default']
     UserTopTable: typeof import('./src/components/table/UserTopTable.vue')['default']
   }

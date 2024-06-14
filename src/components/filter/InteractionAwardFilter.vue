@@ -6,11 +6,11 @@
 
         <div class="md:flex justify-between items-start gap-6">
             <a-form-item label="搜索" class="w-auto md:w-[50%]">
-                <a-input placeholder="请输入搜索内容" v-model:model-value="params.search" allow-clear />
+                <a-input placeholder="请输入搜索内容" v-model:model-value="interaction_params.search" allow-clear />
             </a-form-item>
 
             <a-form-item label="排序" class="w-auto md:w-[50%]">
-                <a-select placeholder="请选择" v-model="params.ordering">
+                <a-select placeholder="请选择" v-model="interaction_params.ordering">
                     <a-option v-for="(ordering, k) in orderings" :key="k" :value="ordering.field">{{ ordering.text
                         }}</a-option>
                 </a-select>
@@ -21,8 +21,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { UseStore } from "@/store";
+import { storeToRefs } from "pinia";
 
-const params = defineModel<InteractionParams>("params", { required: true })
+const { interaction_params } = storeToRefs(UseStore())
 
 const orderings = ref([
     { field: "-timestamp", text: "最新" },

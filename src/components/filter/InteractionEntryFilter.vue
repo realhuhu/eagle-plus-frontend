@@ -1,8 +1,8 @@
 <template>
-  <interaction-base-filter v-model:params="params" :orderings="orderings" search_disable>
+  <interaction-base-filter :orderings="orderings" search_disable>
     <template #foot>
       <a-form-item label="勋章" class="w-auto md:w-[50%]">
-        <a-input placeholder="请输入粉丝勋章名称" v-model:model-value="params.medal" allow-clear/>
+        <a-input placeholder="请输入粉丝勋章名称" v-model:model-value="interaction_params.medal" allow-clear/>
       </a-form-item>
 
       <div class="w-auto md:w-[50%]"/>
@@ -12,8 +12,10 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
+import { UseStore } from "@/store";
+import { storeToRefs } from "pinia";
 
-const params = defineModel<InteractionParams>("params", {required: true})
+const { interaction_params } = storeToRefs(UseStore())
 const orderings = ref([
   {field: "-timestamp", text: "最新"},
   {field: "timestamp", text: "最早"},
