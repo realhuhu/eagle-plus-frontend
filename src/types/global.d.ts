@@ -168,19 +168,19 @@ declare global {
   }
 
   type StatisticPeriodData = {
-    period: str[]
+    period: string[]
   } & StatisticData
 
   type StatisticLiveData = {
-    timestamp: str[]
+    timestamp: string[]
   } & StatisticData
 
   type StaticSessionData = {
     id: number[]
-    title: str[]
-    cover: str[]
-    timestamp_start: str[]
-    timestamp_end: str[]
+    title: string[]
+    cover: string[]
+    timestamp_start: string[]
+    timestamp_end: string[]
     message_num: number[]
     message_user_num: number[]
     entry_num: number[]
