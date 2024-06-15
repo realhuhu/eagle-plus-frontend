@@ -1,6 +1,6 @@
 <template>
   <div class="w-[968px] max-w-[90vw] mx-auto">
-    <a-input-search v-model:model-value="uid" @search="search" search-button/>
+    <a-input-search v-model:model-value="uid" @search="search" placeholder="搜索完整uid，或模糊搜索昵称" search-button/>
 
     <a-divider class="my-10"/>
 
