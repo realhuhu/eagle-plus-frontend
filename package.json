@@ -17,7 +17,8 @@
     "typescript": "^5.4.5",
     "vue": "^3.3.11",
     "vue-echarts": "^6.6.9",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vuewordcloud": "^19.0.0"
   },
   "devDependencies": {
     "@arco-design/web-vue": "^2.54.1",

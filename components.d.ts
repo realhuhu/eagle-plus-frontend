@@ -50,5 +50,7 @@ declare module 'vue' {
     UserSearchTable: typeof import('./src/components/table/UserSearchTable.vue')['default']
     UserTopCard: typeof import('./src/components/card/UserTopCard.vue')['default']
     UserTopTable: typeof import('./src/components/table/UserTopTable.vue')['default']
+    UserWordCloudCard: typeof import('./src/components/card/UserWordCloudCard.vue')['default']
+    WordCloud: typeof import('./src/components/chart/WordCloud.vue')['default']
   }
 }
