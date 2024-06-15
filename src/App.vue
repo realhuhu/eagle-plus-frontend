@@ -9,6 +9,13 @@
 </template>
 
 <script setup lang="ts">
+import {Notification} from "@arco-design/web-vue";
+import {UseStore} from "@/store";
+
+const store=UseStore()
+if(store.is_mobile){
+  Notification.warning("建议使用电脑体验完整功能")
+}
 </script>
 
 <style lang="less"></style>
