@@ -1,15 +1,15 @@
 <template>
   <div class="bg-[var(--theme-dark-2)] rounded-xl p-6 w-full">
     <div v-for="( award, k) in awards" :key="k">
-      <AwardRecord :award="award"/>
+      <award-record :award="award"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import {ref} from "vue";
 import {client} from "@/assets/lib/request";
 import {Notification} from "@arco-design/web-vue";
-import {ref} from "vue";
 
 const props = defineProps<{ uid: number }>()
 const awards = ref<Award[]>([])

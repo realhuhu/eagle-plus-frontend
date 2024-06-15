@@ -20,7 +20,6 @@
 <script setup lang="ts">
 import {number_to_color, open_url} from "@/assets/lib/utils";
 
-
 defineProps<{
   medal: {
     medal_name: string

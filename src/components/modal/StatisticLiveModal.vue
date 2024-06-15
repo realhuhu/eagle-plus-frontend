@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {client} from "@/assets/lib/request";
-import {axis_formatter} from "@/assets/lib/utils";
+import {axis_formatter, unpack} from "@/assets/lib/utils";
 import {Notification} from "@arco-design/web-vue";
 import type {SeriesOption, YAXisComponentOption} from "echarts";
 
@@ -74,36 +74,34 @@ const get_data = async () => {
         name: "弹幕",
         type: "line",
         yAxisIndex: 0,
-        lineStyle: {width: 2},
-        data: res.data.message_num.map((value, index) => [res.data.timestamp[index], value])
+        data: unpack(res.data.message_num, res.data.timestamp)
       },
       {
         name: "进场",
         type: "line",
         yAxisIndex: 0,
-        lineStyle: {width: 2},
-        data: res.data.entry_num.map((value, index) => [res.data.timestamp[index], value])
+        data: unpack(res.data.entry_num, res.data.timestamp)
       },
       {
         name: "留言",
         type: "bar",
         stack: "total",
         yAxisIndex: 1,
-        data: res.data.chat_price.map((value, index) => [res.data.timestamp[index], value])
+        data: unpack(res.data.chat_price, res.data.timestamp)
       },
       {
         name: "礼物",
         type: "bar",
         stack: "total",
         yAxisIndex: 1,
-        data: res.data.gift1_price.map((value, index) => [res.data.timestamp[index], (value || 0) / 1e3])
+        data: unpack(res.data.gift1_price, res.data.timestamp, x => x / 1e3)
       },
       {
         name: "上舰",
         type: "bar",
         stack: "total",
         yAxisIndex: 1,
-        data: res.data.guard_price.map((value, index) => [res.data.timestamp[index], value])
+        data: unpack(res.data.guard_price, res.data.timestamp)
       }
     ]
 
@@ -112,35 +110,31 @@ const get_data = async () => {
         name: "观看数",
         type: "line",
         yAxisIndex: 0,
-        lineStyle: {width: 2},
-        data: res.data.watch.map((value, index) => [res.data.timestamp[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
+        data: unpack(res.data.watch, res.data.timestamp).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
       },
       {
         name: "在线数",
         type: "line",
         yAxisIndex: 0,
-        lineStyle: {width: 2},
-        data: res.data.rank.map((value, index) => [res.data.timestamp[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
+        data: unpack(res.data.rank, res.data.timestamp).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
       },
       {
         name: "粉丝团",
         type: "line",
         yAxisIndex: 0,
-        lineStyle: {width: 2},
-        data: res.data.fans.map((value, index) => [res.data.timestamp[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
+        data: unpack(res.data.fans, res.data.timestamp).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
       },
       {
         name: "点赞数",
         type: "line",
         yAxisIndex: 0,
-        lineStyle: {width: 2},
-        data: res.data.like.map((value, index) => [res.data.timestamp[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
+        data: unpack(res.data.like, res.data.timestamp).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
       },
       {
         name: "人气排名",
         yAxisIndex: 1,
         type: "scatter",
-        data: res.data.popular.map((value, index) => [res.data.timestamp[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
+        data: unpack(res.data.popular, res.data.timestamp).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
       }
     ]
   } catch (e) {

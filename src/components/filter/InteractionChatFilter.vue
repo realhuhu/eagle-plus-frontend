@@ -1,6 +1,5 @@
 <template>
-  <interaction-base-filter :orderings="orderings">
-  </interaction-base-filter>
+  <interaction-base-filter :orderings="orderings"/>
 </template>
 
 <script setup lang="ts">

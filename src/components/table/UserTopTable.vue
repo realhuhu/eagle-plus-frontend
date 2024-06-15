@@ -23,8 +23,8 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
-import {client} from "@/assets/lib/request";
 import {useRouter} from "vue-router";
+import {client} from "@/assets/lib/request";
 import {Notification} from "@arco-design/web-vue";
 
 const router = useRouter()

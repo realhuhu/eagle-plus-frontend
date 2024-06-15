@@ -30,11 +30,11 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
+import {useRouter} from "vue-router";
 import type {SeriesOption} from "echarts";
 import {client} from "@/assets/lib/request";
-import {time_delta} from "@/assets/lib/utils";
 import {UseStore} from "@/store";
-import {useRouter} from "vue-router";
+import {time_delta} from "@/assets/lib/utils";
 
 const old = () => {
   window.open("https://old.iying.love")

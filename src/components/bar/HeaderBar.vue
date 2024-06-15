@@ -53,7 +53,7 @@ const route = useRoute()
 const router = useRouter()
 
 const change = async (key: number | string) => {
-  await router.push(`/${key}`)
+  router.push(`/${key}`)
 }
 </script>
 

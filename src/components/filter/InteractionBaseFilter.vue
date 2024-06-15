@@ -43,8 +43,8 @@
 </template>
 
 <script setup lang="ts">
-import {UseStore} from "@/store";
 import {storeToRefs} from "pinia";
+import {UseStore} from "@/store";
 
 withDefaults(
     defineProps<{ orderings?: { field: string, text: string }[], only_guard?: boolean, search_disable?: boolean }>(),

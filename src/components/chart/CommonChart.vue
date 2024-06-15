@@ -7,11 +7,11 @@
 </template>
 
 <script setup lang="ts">
-import VChart from "vue-echarts";
 import {ref, watch} from "vue";
 import {use} from "echarts/core";
-import {LineChart, BarChart, ScatterChart} from "echarts/charts";
+import VChart from "vue-echarts";
 import {CanvasRenderer} from "echarts/renderers";
+import {LineChart, BarChart, ScatterChart} from "echarts/charts";
 import type {
   EChartsOption,
   SeriesOption,

@@ -41,8 +41,8 @@
 </template>
 
 <script setup lang="ts">
-import {DateParser, number_to_color, proxy_url} from "@/assets/lib/utils";
 import {computed} from "vue";
+import {DateParser, number_to_color, proxy_url} from "@/assets/lib/utils";
 
 const props = defineProps<{ interaction: Interaction, message: Message }>()
 const emit = defineEmits(["user_click"])

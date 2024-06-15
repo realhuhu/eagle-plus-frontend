@@ -142,7 +142,7 @@ export const privilege_image = (privilege_type: 1 | 2 | 3) => {
 }
 
 export const flat_query = (query: LocationQueryValue | LocationQueryValue[]): LocationQueryValue => {
-  return query && (typeof query === "string" ? query : query[0])
+  return Array.isArray(query) ? query[0] : query
 }
 
 export const build_params = (
@@ -178,3 +178,5 @@ export const time_delta = (timestamp1: string, timestamp2: string) => {
   const date2 = new DateParser(timestamp2).date
   return Math.abs((date1.getTime() - date2.getTime()) / (60 * 60 * 1000))
 }
+
+export const unpack = <T>(values: T[], periods: string[], process?: (value: T) => T): [string, T][] => values.map((value, index) => [periods[index], process ? process(value) : value])

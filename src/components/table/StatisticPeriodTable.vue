@@ -27,11 +27,11 @@
 
 <script setup lang="ts">
 import {ref, watch} from "vue";
-import {client} from "@/assets/lib/request";
-import {axis_formatter} from "@/assets/lib/utils";
 import {Notification} from "@arco-design/web-vue";
 import type {SeriesOption, YAXisComponentOption} from "echarts";
+import {client} from "@/assets/lib/request";
 import {UseStore} from "@/store";
+import {axis_formatter, unpack} from "@/assets/lib/utils";
 
 const period_id = ref(1)
 const loading = ref(false)
@@ -146,37 +146,35 @@ const get_data = async () => {
       {
         name: "弹幕",
         type: "line",
-        lineStyle: {width: 2},
         yAxisIndex: 0,
-        data: res.data.message_num.map((value, index) => [res.data.period[index], value])
+        data: unpack(res.data.message_num, res.data.period)
       },
       {
         name: "进场",
         type: "line",
-        lineStyle: {width: 2},
         yAxisIndex: 0,
-        data: res.data.entry_num.map((value, index) => [res.data.period[index], value])
+        data: unpack(res.data.entry_num, res.data.period)
       },
       {
         name: "留言",
         type: "bar",
         stack: "total",
         yAxisIndex: 1,
-        data: res.data.chat_price.map((value, index) => [res.data.period[index], value])
+        data: unpack(res.data.chat_price, res.data.period)
       },
       {
         name: "礼物",
         type: "bar",
         stack: "total",
         yAxisIndex: 1,
-        data: res.data.gift1_price.map((value, index) => [res.data.period[index], (value || 0) / 1e3])
+        data: unpack(res.data.gift1_price, res.data.period, x => x / 1e3)
       },
       {
         name: "上舰",
         type: "bar",
         stack: "total",
         yAxisIndex: 1,
-        data: res.data.guard_price.map((value, index) => [res.data.period[index], value])
+        data: unpack(res.data.guard_price, res.data.period)
       }
     ]
 
@@ -184,9 +182,8 @@ const get_data = async () => {
       {
         name: "数量",
         type: "line",
-        lineStyle: {width: 2},
         yAxisIndex: 0,
-        data: res.data.chat_num.map((value, index) => [res.data.period[index], value])
+        data: unpack(res.data.chat_num, res.data.period)
       },
       {
         name: "价值",
@@ -196,7 +193,7 @@ const get_data = async () => {
         itemStyle: {
           borderRadius: [10]
         },
-        data: res.data.chat_price.map((value, index) => [res.data.period[index], value])
+        data: unpack(res.data.chat_price, res.data.period)
       }
     ]
 
@@ -204,16 +201,14 @@ const get_data = async () => {
       {
         name: "付费礼物",
         yAxisIndex: 0,
-        lineStyle: {width: 2},
         type: "line",
-        data: res.data.gift1_num.map((value, index) => [res.data.period[index], value])
+        data: unpack(res.data.gift1_num, res.data.period)
       },
       {
         name: "免费礼物",
         yAxisIndex: 0,
-        lineStyle: {width: 2},
         type: "line",
-        data: res.data.gift0_num.map((value, index) => [res.data.period[index], value])
+        data: unpack(res.data.gift0_num, res.data.period)
       },
       {
         name: "金瓜子",
@@ -224,18 +219,17 @@ const get_data = async () => {
         itemStyle: {
           borderRadius: [10]
         },
-        data: res.data.gift1_price.map((value, index) => [res.data.period[index], value])
+        data: unpack(res.data.gift1_price, res.data.period)
       },
       {
         name: "银瓜子",
         stack: "price",
         yAxisIndex: 1,
         type: "bar",
-        color: "rgba(192,192,192,0.5)",
         itemStyle: {
           borderRadius: [10]
         },
-        data: res.data.gift0_price.map((value, index) => [res.data.period[index], value])
+        data: unpack(res.data.gift0_price, res.data.period)
       }
     ]
 
@@ -244,25 +238,22 @@ const get_data = async () => {
         name: "舰长",
         yAxisIndex: 0,
         type: "line",
-        lineStyle: {width: 2},
         color: "#7ac8ed",
-        data: res.data.guard3_num.map((value, index) => [res.data.period[index], value]).filter(x => x[1] > 0)
+        data: unpack(res.data.guard3_num, res.data.period).filter(x => x[1] > 0)
       },
       {
         name: "提督",
         yAxisIndex: 0,
         type: "line",
-        lineStyle: {width: 2},
         color: "#d664f6",
-        data: res.data.guard2_num.map((value, index) => [res.data.period[index], value]).filter(x => x[1] > 0)
+        data: unpack(res.data.guard2_num, res.data.period).filter(x => x[1] > 0)
       },
       {
         name: "总督",
         yAxisIndex: 0,
         type: "line",
-        lineStyle: {width: 2},
         color: "#ab3131",
-        data: res.data.guard1_num.map((value, index) => [res.data.period[index], value]).filter(x => x[1] > 0)
+        data: unpack(res.data.guard1_num, res.data.period).filter(x => x[1] > 0)
       },
       {
         name: "价值",
@@ -272,7 +263,7 @@ const get_data = async () => {
         itemStyle: {
           borderRadius: [10]
         },
-        data: res.data.guard_price.map((value, index) => [res.data.period[index], value])
+        data: unpack(res.data.guard_price, res.data.period)
       }
     ]
 
@@ -280,36 +271,32 @@ const get_data = async () => {
       {
         name: "观看数",
         type: "line",
-        lineStyle: {width: 2},
         yAxisIndex: 0,
-        data: res.data.watch.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
+        data: unpack(res.data.watch, res.data.period).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
       },
       {
         name: "在线数",
         type: "line",
-        lineStyle: {width: 2},
         yAxisIndex: 0,
-        data: res.data.rank.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
+        data: unpack(res.data.rank, res.data.period).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
       },
       {
         name: "粉丝团",
         type: "line",
-        lineStyle: {width: 2},
         yAxisIndex: 0,
-        data: res.data.fans.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
+        data: unpack(res.data.fans, res.data.period).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
       },
       {
         name: "点赞数",
         type: "line",
-        lineStyle: {width: 2},
         yAxisIndex: 0,
-        data: res.data.like.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
+        data: unpack(res.data.like, res.data.period).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
       },
       {
         name: "人气排名",
         yAxisIndex: 1,
         type: "scatter",
-        data: res.data.popular.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
+        data: unpack(res.data.popular, res.data.period).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
       }
     ]
   } catch (e) {

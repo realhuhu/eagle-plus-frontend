@@ -4,20 +4,20 @@
 </template>
 
 <script setup lang="ts">
+import {ref, watch} from "vue";
+import VChart from "vue-echarts";
 import {use} from "echarts/core"
 import {HeatmapChart} from "echarts/charts"
+import {CanvasRenderer} from "echarts/renderers"
+import type {EChartsOption, SeriesOption} from "echarts";
 import {
   TitleComponent,
   TooltipComponent,
   VisualMapComponent,
   CalendarComponent
 } from "echarts/components"
-import {CanvasRenderer} from "echarts/renderers"
-import {dark, light} from "@/assets/lib/echartThemes";
-import VChart from "vue-echarts";
 import {UseStore} from "@/store";
-import {ref, watch} from "vue";
-import type {EChartsOption, SeriesOption} from "echarts";
+import {dark, light} from "@/assets/lib/echartThemes";
 
 use([
   TitleComponent,

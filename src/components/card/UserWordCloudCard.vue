@@ -6,9 +6,9 @@
 </template>
 
 <script setup lang="ts">
-import {client} from "@/assets/lib/request";
-import {Notification} from "@arco-design/web-vue";
 import {ref} from "vue";
+import {Notification} from "@arco-design/web-vue";
+import {client} from "@/assets/lib/request";
 
 const props = defineProps<{ uid: number }>()
 const words = ref<[string, number][]>([])

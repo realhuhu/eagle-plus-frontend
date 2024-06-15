@@ -1,6 +1,5 @@
 <template>
-  <interaction-base-filter :orderings="orderings" search_disable only_guard>
-  </interaction-base-filter>
+  <interaction-base-filter :orderings="orderings" search_disable only_guard/>
 </template>
 
 <script setup lang="ts">

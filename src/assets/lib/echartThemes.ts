@@ -40,29 +40,12 @@ export const light = {
     },
     "symbolSize": 3,
     "symbol": "emptyCircle",
-    "smooth": true
-  },
-  "radar": {
-    "itemStyle": {
-      "borderWidth": 1
-    },
-    "lineStyle": {
-      "width": 2
-    },
-    "symbolSize": 3,
-    "symbol": "emptyCircle",
-    "smooth": true
+    "smooth": false
   },
   "bar": {
     "itemStyle": {
       "barBorderWidth": 0,
       "barBorderColor": "#ccc"
-    }
-  },
-  "pie": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
     }
   },
   "scatter": {
@@ -71,104 +54,7 @@ export const light = {
       "borderColor": "#ccc"
     }
   },
-  "boxplot": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
-    }
-  },
-  "parallel": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
-    }
-  },
-  "sankey": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
-    }
-  },
-  "funnel": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
-    }
-  },
-  "gauge": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
-    }
-  },
-  "candlestick": {
-    "itemStyle": {
-      "color": "#d87a80",
-      "color0": "#2ec7c9",
-      "borderColor": "#d87a80",
-      "borderColor0": "#2ec7c9",
-      "borderWidth": 1
-    }
-  },
-  "graph": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
-    },
-    "lineStyle": {
-      "width": 1,
-      "color": "#aaaaaa"
-    },
-    "symbolSize": 3,
-    "symbol": "emptyCircle",
-    "smooth": true,
-    "color": [
-      "#2ec7c9",
-      "#b6a2de",
-      "#5ab1ef",
-      "#ffb980",
-      "#d87a80",
-      "#8d98b3",
-      "#e5cf0d",
-      "#97b552",
-      "#95706d",
-      "#dc69aa",
-      "#07a2a4",
-      "#9a7fd1",
-      "#588dd5",
-      "#f5994e",
-      "#c05050",
-      "#59678c",
-      "#c9ab00",
-      "#7eb00a",
-      "#6f5553",
-      "#c14089"
-    ],
-    "label": {
-      "color": "#eeeeee"
-    }
-  },
   "map": {
-    "itemStyle": {
-      "areaColor": "#dddddd",
-      "borderColor": "#eeeeee",
-      "borderWidth": 0.5
-    },
-    "label": {
-      "color": "#d87a80"
-    },
-    "emphasis": {
-      "itemStyle": {
-        "areaColor": "rgba(254,153,78,1)",
-        "borderColor": "#444",
-        "borderWidth": 1
-      },
-      "label": {
-        "color": "rgb(100,0,0)"
-      }
-    }
-  },
-  "geo": {
     "itemStyle": {
       "areaColor": "#dddddd",
       "borderColor": "#eeeeee",
@@ -442,24 +328,13 @@ export const dark = {
   },
   "line": {
     "itemStyle": {
-      "borderWidth": "4"
+      "borderWidth": 1
     },
     "lineStyle": {
-      "width": "3"
+      "width": 2
     },
-    "symbolSize": "0",
-    "symbol": "circle",
-    "smooth": false
-  },
-  "radar": {
-    "itemStyle": {
-      "borderWidth": "4"
-    },
-    "lineStyle": {
-      "width": "3"
-    },
-    "symbolSize": "0",
-    "symbol": "circle",
+    "symbolSize": 3,
+    "symbol": "emptyCircle",
     "smooth": false
   },
   "bar": {
@@ -468,104 +343,13 @@ export const dark = {
       "barBorderColor": "#ccc"
     }
   },
-  "pie": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
-    }
-  },
   "scatter": {
     "itemStyle": {
       "borderWidth": 0,
       "borderColor": "#ccc"
     }
   },
-  "boxplot": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
-    }
-  },
-  "parallel": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
-    }
-  },
-  "sankey": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
-    }
-  },
-  "funnel": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
-    }
-  },
-  "gauge": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
-    }
-  },
-  "candlestick": {
-    "itemStyle": {
-      "color": "#fc97af",
-      "color0": "transparent",
-      "borderColor": "#fc97af",
-      "borderColor0": "#87f7cf",
-      "borderWidth": "2"
-    }
-  },
-  "graph": {
-    "itemStyle": {
-      "borderWidth": 0,
-      "borderColor": "#ccc"
-    },
-    "lineStyle": {
-      "width": "1",
-      "color": "#ffffff"
-    },
-    "symbolSize": "0",
-    "symbol": "circle",
-    "smooth": false,
-    "color": [
-      "#fc97af",
-      "#87f7cf",
-      "#f7f494",
-      "#72ccff",
-      "#f7c5a0",
-      "#d4a4eb",
-      "#d2f5a6",
-      "#76f2f2"
-    ],
-    "label": {
-      "color": "#293441"
-    }
-  },
   "map": {
-    "itemStyle": {
-      "areaColor": "#f3f3f3",
-      "borderColor": "#999999",
-      "borderWidth": 0.5
-    },
-    "label": {
-      "color": "#893448"
-    },
-    "emphasis": {
-      "itemStyle": {
-        "areaColor": "rgba(255,178,72,1)",
-        "borderColor": "#eb8146",
-        "borderWidth": 1
-      },
-      "label": {
-        "color": "rgb(137,52,72)"
-      }
-    }
-  },
-  "geo": {
     "itemStyle": {
       "areaColor": "#f3f3f3",
       "borderColor": "#999999",
@@ -791,8 +575,7 @@ export const dark = {
     "color": [
       "#fc97af",
       "#87f7cf"
-    ],
-    "textStyle": {"color": "#B9B8CE"}
+    ]
   },
   "dataZoom": {
     "backgroundColor": "rgba(255,255,255,0)",

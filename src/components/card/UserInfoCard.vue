@@ -45,10 +45,10 @@
 </template>
 
 <script setup lang="ts">
-import {DateParser, open_url} from "@/assets/lib/utils";
 import {ref, watch} from "vue";
-import {client} from "@/assets/lib/request";
 import {Notification} from "@arco-design/web-vue";
+import {client} from "@/assets/lib/request";
+import {DateParser, open_url} from "@/assets/lib/utils";
 
 const props = defineProps<{ uid: number }>()
 const loading = ref(true)

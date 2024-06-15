@@ -7,11 +7,12 @@
       </div>
 
       <div @click="to_detail(bar.user)"
-        class="w-[50%] md:w-[25%] md:px-4 px-2 py-4 flex justify-start items-center cursor-pointer hover:bg-[var(--theme-dark-2)] duration-100">
-        <privilege-avatar :avatar="bar.user.current_avatar" :size="36" class="mr-2 flex-shrink-0" />
+           class="w-[50%] md:w-[25%] md:px-4 px-2 py-4 flex justify-start items-center cursor-pointer hover:bg-[var(--theme-dark-2)] duration-100">
+        <privilege-avatar :avatar="bar.user.current_avatar" :size="36" class="mr-2 flex-shrink-0"/>
         <div class="flex flex-col justify-between items-start flex-grow overflow-hidden">
           <div class="line-clamp-1 pr-3">{{ bar.user.current_name }}</div>
-          <div class="line-clamp-1 break-all text-[10px] bg-[#334355] border-[#4ebaee] border px-1 rounded">
+          <div
+              class="line-clamp-1 break-all text-[10px] bg-[var(--color-primary-light-1)] border-[#4ebaee] border px-1 rounded">
             UID:{{ bar.user.uid }}
           </div>
         </div>
@@ -24,17 +25,18 @@
     </div>
 
     <div v-if="table.loading" class="flex justify-center items-center">
-      <a-spin tip="加载中..." />
+      <a-spin tip="加载中..."/>
     </div>
 
     <div v-else>
       <div class="flex justify-start items-center flex-wrap">
         <div v-for="(user, k) in table.users" :key="k" @click="to_detail(user)"
-          class="w-[50%] md:w-[25%] md:px-4 px-2 py-4 flex justify-start items-center cursor-pointer hover:bg-[var(--theme-dark-2)] duration-100">
-          <privilege-avatar :avatar="user.current_avatar" :size="36" class="mr-2 flex-shrink-0" />
+             class="w-[50%] md:w-[25%] md:px-4 px-2 py-4 flex justify-start items-center cursor-pointer hover:bg-[var(--theme-dark-2)] duration-100">
+          <privilege-avatar :avatar="user.current_avatar" :size="36" class="mr-2 flex-shrink-0"/>
           <div class="flex flex-col justify-between items-start flex-grow overflow-hidden">
             <div class="line-clamp-1 pr-3">{{ user.current_name }}</div>
-            <div class="line-clamp-1 break-all text-[10px] bg-[#334355] border-[#4ebaee] border px-1 rounded">
+            <div
+                class="line-clamp-1 break-all text-[10px] bg-[var(--color-primary-light-1)] border-[#4ebaee] border px-1 rounded">
               UID:{{ user.uid }}
             </div>
           </div>
@@ -44,8 +46,8 @@
 
       <div class="flex justify-end mt-10" v-if="table.count">
         <a-pagination :simple="store.is_mobile" :total="table.count" v-model:current="params.page"
-          v-model:page-size="params.size" show-page-size :page-size-options="[20, 40, 100]" show-jumper
-          @change="change_table" @pageSizeChange="refresh_table" />
+                      v-model:page-size="params.size" show-page-size :page-size-options="[20, 40, 100]" show-jumper
+                      @change="change_table" @pageSizeChange="refresh_table"/>
       </div>
       <div v-else class="flex justify-center items-center h-[57px]">
         没有查询到结果
@@ -55,12 +57,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { safeBack } from "@/router";
-import { client } from "@/assets/lib/request";
-import { assertNotEmpty, flat_query } from "@/assets/lib/utils";
-import { UseStore } from "@/store";
+import {ref, watch} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import {client} from "@/assets/lib/request";
+import {UseStore} from "@/store";
+import {safeBack} from "@/router";
+import {assertNotEmpty, flat_query} from "@/assets/lib/utils";
 
 const route = useRoute()
 const router = useRouter()
@@ -93,7 +95,7 @@ const table = ref<{
 const get_bar_data = async () => {
   bar.value.loading = true
   try {
-    const res = await client.get<User>({ url: `/user/${name.value}` })
+    const res = await client.get<User>({url: `/user/${name.value}`})
     if (res.msg !== "error") {
       bar.value.user = res.data
     } else {
@@ -110,7 +112,7 @@ const get_table_data = async () => {
     const res = await client.get<{
       count: number
       results: User[]
-    }>({ url: "/user/search", params: { name: name.value, ...params.value } })
+    }>({url: "/user/search", params: {name: name.value, ...params.value}})
     table.value.count = res.data.count
     table.value.users = res.data.results
   } finally {

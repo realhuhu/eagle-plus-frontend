@@ -37,11 +37,12 @@
       <a-form :model="form" layout="vertical">
         <a-form-item field="text" label="内容" validate-trigger="input" required>
           <a-textarea v-model:model-value="form.text" placeholder="随便说点什么..." :max-length="500" show-word-limit
-            allow-clear />
+                      allow-clear/>
         </a-form-item>
 
         <a-form-item field="contact" label="联系方式">
-          <a-input v-model="form.contact" placeholder="留下您的联系方式（如邮箱）" allow-clear :max-length="100" show-word-limit />
+          <a-input v-model="form.contact" placeholder="留下您的联系方式（如邮箱）" allow-clear :max-length="100"
+                   show-word-limit/>
         </a-form-item>
 
         <a-form-item>
@@ -55,9 +56,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { Notification } from "@arco-design/web-vue";
-import { client } from "@/assets/lib/request";
+import {ref} from "vue";
+import {Notification} from "@arco-design/web-vue";
+import {client} from "@/assets/lib/request";
 
 const form = ref<{
   contact: string

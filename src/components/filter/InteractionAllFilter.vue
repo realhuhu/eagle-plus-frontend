@@ -15,9 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import {UseStore} from "@/store";
 import {storeToRefs} from "pinia";
-
+import {UseStore} from "@/store";
 
 const {interaction_params} = storeToRefs(UseStore())
 </script>

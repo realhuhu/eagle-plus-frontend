@@ -17,8 +17,8 @@
 </template>
 
 <script setup lang="ts">
-import {DateParser} from "@/assets/lib/utils";
 import {computed} from "vue";
+import {DateParser} from "@/assets/lib/utils";
 
 const props = defineProps<{ award: Award }>()
 const emit = defineEmits(["user_click"])
