@@ -1,6 +1,6 @@
 <template>
   <div class="w-[968px] max-w-[96vw] mx-auto flex flex-col justify-start items-center">
-    <div>新版测试中，旧版本：<a class="text-[#4ebaee] cursor-pointer" @click="old">eagle.realhuhu.com</a></div>
+    <div>新版测试中，旧版本：<a class="text-[#4ebaee] cursor-pointer" @click="old">old.iying.love</a></div>
     <div>直播汇总数据不一定及时更新</div>
     <div class="text-[24px] sm:text-[48px] md:text-[64px] text-[#4ebaee] drop-shadow-2xl">
       IYING.LOVE
@@ -37,7 +37,7 @@ import {UseStore} from "@/store";
 import {useRouter} from "vue-router";
 
 const old = () => {
-  window.open("https://eagle.realhuhu.com")
+  window.open("https://old.iying.love")
 }
 
 const store = UseStore()
