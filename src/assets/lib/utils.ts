@@ -1,5 +1,5 @@
-import { Notification } from "@arco-design/web-vue";
-import type { LocationQueryValue } from "vue-router";
+import {Notification} from "@arco-design/web-vue";
+import type {LocationQueryValue} from "vue-router";
 
 export const fullMap = (o: Record<string, string>) => {
   return !Object.values(o).filter(x => !x).length

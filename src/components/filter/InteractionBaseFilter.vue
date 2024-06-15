@@ -43,8 +43,8 @@
 </template>
 
 <script setup lang="ts">
-import { UseStore } from "@/store";
-import { storeToRefs } from "pinia";
+import {UseStore} from "@/store";
+import {storeToRefs} from "pinia";
 
 withDefaults(
     defineProps<{ orderings?: { field: string, text: string }[], only_guard?: boolean, search_disable?: boolean }>(),
@@ -58,7 +58,7 @@ withDefaults(
     }
 )
 
-const { interaction_params } = storeToRefs(UseStore())
+const {interaction_params} = storeToRefs(UseStore())
 </script>
 
 <style scoped lang="less">

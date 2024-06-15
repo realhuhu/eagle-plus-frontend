@@ -792,7 +792,7 @@ export const dark = {
       "#fc97af",
       "#87f7cf"
     ],
-    "textStyle": { "color": "#B9B8CE" }
+    "textStyle": {"color": "#B9B8CE"}
   },
   "dataZoom": {
     "backgroundColor": "rgba(255,255,255,0)",

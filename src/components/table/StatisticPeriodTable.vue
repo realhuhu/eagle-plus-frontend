@@ -8,30 +8,30 @@
 
     <div class="flex flex-col justify-center items-center gap-6 w-full">
       <common-chart title="总览" :series="summary.series" :loading="loading" :y-axis="summary.y_axis"
-        :y-hide="store.is_mobile" />
+                    :y-hide="store.is_mobile"/>
 
       <common-chart title="留言" :series="chat.series" :loading="loading" :y-axis="chat.y_axis"
-        :y-hide="store.is_mobile" />
+                    :y-hide="store.is_mobile"/>
 
       <common-chart title="礼物" :series="gift.series" :loading="loading" :y-axis="gift.y_axis"
-        :y-hide="store.is_mobile" />
+                    :y-hide="store.is_mobile"/>
 
       <common-chart title="上舰" :series="guard.series" :loading="loading" :y-axis="guard.y_axis"
-        :y-hide="store.is_mobile" />
+                    :y-hide="store.is_mobile"/>
 
       <common-chart title="活跃" :series="activity.series" :loading="loading" :y-axis="activity.y_axis"
-        :y-hide="store.is_mobile" />
+                    :y-hide="store.is_mobile"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { client } from "@/assets/lib/request";
-import { axis_formatter } from "@/assets/lib/utils";
-import { Notification } from "@arco-design/web-vue";
-import type { SeriesOption, YAXisComponentOption } from "echarts";
-import { UseStore } from "@/store";
+import {ref, watch} from "vue";
+import {client} from "@/assets/lib/request";
+import {axis_formatter} from "@/assets/lib/utils";
+import {Notification} from "@arco-design/web-vue";
+import type {SeriesOption, YAXisComponentOption} from "echarts";
+import {UseStore} from "@/store";
 
 const period_id = ref(1)
 const loading = ref(false)
@@ -45,12 +45,12 @@ const summary = ref<{
     {
       type: "value",
       name: "数量",
-      axisLabel: { formatter: axis_formatter }
+      axisLabel: {formatter: axis_formatter}
     },
     {
       type: "value",
       name: "价值",
-      axisLabel: { formatter: axis_formatter }
+      axisLabel: {formatter: axis_formatter}
     }
   ],
   series: []
@@ -64,12 +64,12 @@ const chat = ref<{
     {
       type: "value",
       name: "数量",
-      axisLabel: { formatter: axis_formatter }
+      axisLabel: {formatter: axis_formatter}
     },
     {
       type: "value",
       name: "价值",
-      axisLabel: { formatter: axis_formatter }
+      axisLabel: {formatter: axis_formatter}
     }
   ],
   series: []
@@ -83,12 +83,12 @@ const gift = ref<{
     {
       type: "value",
       name: "数量",
-      axisLabel: { formatter: axis_formatter }
+      axisLabel: {formatter: axis_formatter}
     },
     {
       type: "value",
       name: "瓜子数",
-      axisLabel: { formatter: axis_formatter }
+      axisLabel: {formatter: axis_formatter}
     }
   ],
   series: []
@@ -102,12 +102,12 @@ const guard = ref<{
     {
       type: "value",
       name: "数量",
-      axisLabel: { formatter: axis_formatter }
+      axisLabel: {formatter: axis_formatter}
     },
     {
       type: "value",
       name: "价值",
-      axisLabel: { formatter: axis_formatter }
+      axisLabel: {formatter: axis_formatter}
     }
   ],
   series: []
@@ -121,7 +121,7 @@ const activity = ref<{
     {
       type: "log",
       name: "平均数量",
-      axisLabel: { formatter: axis_formatter }
+      axisLabel: {formatter: axis_formatter}
     },
     {
       type: "value",
@@ -139,21 +139,21 @@ const get_data = async () => {
   try {
     const res = await client.get<StatisticPeriodData>({
       url: "/statistic/period",
-      params: { period_id: period_id.value }
+      params: {period_id: period_id.value}
     })
 
     summary.value.series = [
       {
         name: "弹幕",
         type: "line",
-        lineStyle: { width: 2 },
+        lineStyle: {width: 2},
         yAxisIndex: 0,
         data: res.data.message_num.map((value, index) => [res.data.period[index], value])
       },
       {
         name: "进场",
         type: "line",
-        lineStyle: { width: 2 },
+        lineStyle: {width: 2},
         yAxisIndex: 0,
         data: res.data.entry_num.map((value, index) => [res.data.period[index], value])
       },
@@ -184,7 +184,7 @@ const get_data = async () => {
       {
         name: "数量",
         type: "line",
-        lineStyle: { width: 2 },
+        lineStyle: {width: 2},
         yAxisIndex: 0,
         data: res.data.chat_num.map((value, index) => [res.data.period[index], value])
       },
@@ -204,14 +204,14 @@ const get_data = async () => {
       {
         name: "付费礼物",
         yAxisIndex: 0,
-        lineStyle: { width: 2 },
+        lineStyle: {width: 2},
         type: "line",
         data: res.data.gift1_num.map((value, index) => [res.data.period[index], value])
       },
       {
         name: "免费礼物",
         yAxisIndex: 0,
-        lineStyle: { width: 2 },
+        lineStyle: {width: 2},
         type: "line",
         data: res.data.gift0_num.map((value, index) => [res.data.period[index], value])
       },
@@ -244,7 +244,7 @@ const get_data = async () => {
         name: "舰长",
         yAxisIndex: 0,
         type: "line",
-        lineStyle: { width: 2 },
+        lineStyle: {width: 2},
         color: "#7ac8ed",
         data: res.data.guard3_num.map((value, index) => [res.data.period[index], value]).filter(x => x[1] > 0)
       },
@@ -252,7 +252,7 @@ const get_data = async () => {
         name: "提督",
         yAxisIndex: 0,
         type: "line",
-        lineStyle: { width: 2 },
+        lineStyle: {width: 2},
         color: "#d664f6",
         data: res.data.guard2_num.map((value, index) => [res.data.period[index], value]).filter(x => x[1] > 0)
       },
@@ -260,7 +260,7 @@ const get_data = async () => {
         name: "总督",
         yAxisIndex: 0,
         type: "line",
-        lineStyle: { width: 2 },
+        lineStyle: {width: 2},
         color: "#ab3131",
         data: res.data.guard1_num.map((value, index) => [res.data.period[index], value]).filter(x => x[1] > 0)
       },
@@ -280,28 +280,28 @@ const get_data = async () => {
       {
         name: "观看数",
         type: "line",
-        lineStyle: { width: 2 },
+        lineStyle: {width: 2},
         yAxisIndex: 0,
         data: res.data.watch.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
       },
       {
         name: "在线数",
         type: "line",
-        lineStyle: { width: 2 },
+        lineStyle: {width: 2},
         yAxisIndex: 0,
         data: res.data.rank.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
       },
       {
         name: "粉丝团",
         type: "line",
-        lineStyle: { width: 2 },
+        lineStyle: {width: 2},
         yAxisIndex: 0,
         data: res.data.fans.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
       },
       {
         name: "点赞数",
         type: "line",
-        lineStyle: { width: 2 },
+        lineStyle: {width: 2},
         yAxisIndex: 0,
         data: res.data.like.map((value, index) => [res.data.period[index], value]).filter(x => x[0] > "2023-08-25" && x[1] > 0)
       },
@@ -320,7 +320,7 @@ const get_data = async () => {
   }
 }
 
-watch(period_id, () => get_data(), { deep: true })
+watch(period_id, () => get_data(), {deep: true})
 
 get_data()
 </script>

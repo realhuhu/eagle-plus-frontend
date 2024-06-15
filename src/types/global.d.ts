@@ -1,4 +1,4 @@
-export { }
+export {}
 
 declare global {
   type Flat<T> = T extends Item[] ? Item : T extends Item ? Item : never

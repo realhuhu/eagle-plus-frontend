@@ -17,10 +17,10 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
-import { UseStore } from "@/store";
-import { storeToRefs } from "pinia";
+import {UseStore} from "@/store";
+import {storeToRefs} from "pinia";
 
-const { interaction_params } = storeToRefs(UseStore())
+const {interaction_params} = storeToRefs(UseStore())
 const orderings = ref([
   {field: "-timestamp", text: "最新"},
   {field: "timestamp", text: "最早"},

@@ -25,8 +25,8 @@
             <a-divider>历史昵称</a-divider>
             <div v-for="(name,k) in info.history_names" :key="k"
                  class="flex justify-between items-center h-6 px-2">
-              <div class="text-[var(--color-text-3)]">{{ time(name.timestamp) }}</div>
-              <div class="ml-3">{{ name.name }}</div>
+              <div class="text-[var(--color-text-3)] flex-shrink-0">{{ time(name.timestamp) }}</div>
+              <div class="ml-3 line-clamp-1">{{ name.name }}</div>
             </div>
           </div>
 

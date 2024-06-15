@@ -1,23 +1,23 @@
 <template>
   <v-chart class="h-[160px] shadow-around duration-500" :option="option" :theme="store.dark ? dark : light"
-    :autoresize="true" :loading="props.loading" />
+           :autoresize="true" :loading="props.loading"/>
 </template>
 
 <script setup lang="ts">
-import { use } from "echarts/core"
-import { HeatmapChart } from "echarts/charts"
+import {use} from "echarts/core"
+import {HeatmapChart} from "echarts/charts"
 import {
   TitleComponent,
   TooltipComponent,
   VisualMapComponent,
   CalendarComponent
 } from "echarts/components"
-import { CanvasRenderer } from "echarts/renderers"
-import { dark, light } from "@/assets/lib/echartThemes";
+import {CanvasRenderer} from "echarts/renderers"
+import {dark, light} from "@/assets/lib/echartThemes";
 import VChart from "vue-echarts";
-import { UseStore } from "@/store";
-import { ref, watch } from "vue";
-import type { EChartsOption, SeriesOption } from "echarts";
+import {UseStore} from "@/store";
+import {ref, watch} from "vue";
+import type {EChartsOption, SeriesOption} from "echarts";
 
 use([
   TitleComponent,
@@ -57,7 +57,7 @@ const option = ref<EChartsOption>({
     orient: props.vertical ? "vertical" : "horizontal",
     cellSize: ["auto", 13],
     range: new Date().getFullYear(),
-    yearLabel: { show: false }
+    yearLabel: {show: false}
   },
   series: undefined
 })

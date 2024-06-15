@@ -1,6 +1,7 @@
 <template>
   <div class="relative">
-    <a-avatar class="rounded bg-cover bg-center bg-no-repeat bg-transparent" :size="size" :image-url="proxy_url(avatar)"/>
+    <a-avatar class="rounded bg-cover bg-center bg-no-repeat bg-transparent" :size="size"
+              :image-url="proxy_url(avatar)"/>
     <div class="rounded bg-cover bg-center bg-no-repeat top-[-2px] left-[-2px] absolute" :style="avatar_outer"/>
   </div>
 </template>

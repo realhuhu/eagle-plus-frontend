@@ -7,34 +7,40 @@
 
     <div class="flex flex-col justify-center items-center gap-6 w-full">
       <common-chart title="总览" :series="summary.series" :loading="loading" :x-axis="summary.x_axis"
-        :y-hide="store.is_mobile" :y-axis="summary.y_axis" :tooltip="tooltip" @click="pop" />
+                    :y-hide="store.is_mobile" :y-axis="summary.y_axis" :tooltip="tooltip" @click="pop"/>
 
       <common-chart title="人数" :series="user.series" :loading="loading" :x-axis="user.x_axis" :y-axis="user.y_axis"
-        :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop" />
+                    :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop"/>
 
       <common-chart title="留言" :series="chat.series" :loading="loading" :x-axis="chat.x_axis" :y-axis="chat.y_axis"
-        :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop" />
+                    :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop"/>
 
       <common-chart title="礼物" :series="gift.series" :loading="loading" :x-axis="gift.x_axis" :y-axis="gift.y_axis"
-        :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop" />
+                    :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop"/>
 
       <common-chart title="上舰" :series="guard.series" :loading="loading" :x-axis="guard.x_axis" :y-axis="guard.y_axis"
-        :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop" />
+                    :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop"/>
 
       <common-chart title="活跃" :series="activity.series" :loading="loading" :x-axis="activity.x_axis"
-        :y-hide="store.is_mobile" :y-axis="activity.y_axis" :tooltip="tooltip" @click="pop" />
+                    :y-hide="store.is_mobile" :y-axis="activity.y_axis" :tooltip="tooltip" @click="pop"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { client } from "@/assets/lib/request";
-import { assertNotEmpty, axis_formatter, proxy_url, time_delta } from "@/assets/lib/utils";
-import { Notification } from "@arco-design/web-vue";
-import type { SeriesOption, XAXisComponentOption, YAXisComponentOption, TooltipComponentOption, ElementEvent } from "echarts";
-import { showStatisticLiveModal } from "../modal/StatisticLiveModal";
-import { UseStore } from "@/store";
+import {ref, watch} from "vue";
+import {client} from "@/assets/lib/request";
+import {assertNotEmpty, axis_formatter, proxy_url, time_delta} from "@/assets/lib/utils";
+import {Notification} from "@arco-design/web-vue";
+import type {
+  SeriesOption,
+  XAXisComponentOption,
+  YAXisComponentOption,
+  TooltipComponentOption,
+  ElementEvent
+} from "echarts";
+import {showStatisticLiveModal} from "../modal/StatisticLiveModal";
+import {UseStore} from "@/store";
 
 const loading = ref(false)
 const current = ref<{
@@ -53,7 +59,7 @@ const store = UseStore()
 
 const tooltip = ref<TooltipComponentOption>({
   trigger: "axis",
-  axisPointer: { animation: true },
+  axisPointer: {animation: true},
   formatter: (p) => {
     const v = p as Tile<typeof p>
     const live_data = assertNotEmpty(data.value, "数据缺失")
@@ -166,12 +172,12 @@ const guard = ref<{
     {
       type: "value",
       name: "数量",
-      axisLabel: { formatter: axis_formatter }
+      axisLabel: {formatter: axis_formatter}
     },
     {
       type: "value",
       name: "价值",
-      axisLabel: { formatter: axis_formatter }
+      axisLabel: {formatter: axis_formatter}
     }
   ],
   series: []
@@ -190,7 +196,7 @@ const activity = ref<{
     {
       type: "log",
       name: "平均数量",
-      axisLabel: { formatter: axis_formatter }
+      axisLabel: {formatter: axis_formatter}
     },
     {
       type: "value",
@@ -217,14 +223,14 @@ const compute_data = () => {
       name: "弹幕",
       type: "line",
       yAxisIndex: 0,
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.message_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.message_user_num[k] || 1 : 1)])
     },
     {
       name: "进场",
       type: "line",
       yAxisIndex: 0,
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.entry_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.entry_user_num[k] || 1 : 1)])
     },
     {
@@ -255,28 +261,28 @@ const compute_data = () => {
       name: "弹幕",
       type: "line",
       yAxisIndex: 0,
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.message_user_num.map((x, k) => [k, x / factors[k]])
     },
     {
       name: "入场",
       type: "line",
       yAxisIndex: 0,
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.entry_user_num.map((x, k) => [k, x / factors[k]])
     },
     {
       name: "免费礼物",
       type: "line",
       yAxisIndex: 0,
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.gift0_user_num.map((x, k) => [k, x / factors[k]])
     },
     {
       name: "付费礼物",
       type: "line",
       yAxisIndex: 0,
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.gift1_user_num.map((x, k) => [k, x / factors[k]])
     }
   ]
@@ -286,7 +292,7 @@ const compute_data = () => {
       name: "数量",
       type: "line",
       yAxisIndex: 0,
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.chat_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.chat_user_num[k] || 1 : 1)])
     },
     {
@@ -306,14 +312,14 @@ const compute_data = () => {
       name: "付费礼物",
       yAxisIndex: 0,
       type: "line",
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.gift1_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.gift1_user_num[k] || 1 : 1)])
     },
     {
       name: "免费礼物",
       yAxisIndex: 0,
       type: "line",
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.gift0_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.gift0_user_num[k] || 1 : 1)])
     },
     {
@@ -347,7 +353,7 @@ const compute_data = () => {
       yAxisIndex: 0,
       type: "line",
       color: "#7ac8ed",
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.guard3_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.guard_user_num[k] || 1 : 1)])
     },
     {
@@ -355,7 +361,7 @@ const compute_data = () => {
       yAxisIndex: 0,
       type: "line",
       color: "#d664f6",
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.guard2_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.guard_user_num[k] || 1 : 1)])
     },
     {
@@ -363,7 +369,7 @@ const compute_data = () => {
       yAxisIndex: 0,
       type: "line",
       color: "#ab3131",
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.guard1_num.map((x, k) => [k, x / factors[k] / (average.value.user ? live_data.guard_user_num[k] || 1 : 1)])
     },
     {
@@ -379,34 +385,33 @@ const compute_data = () => {
   ]
 
 
-
   activity.value.series = [
     {
       name: "观看数",
       type: "line",
       yAxisIndex: 0,
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.watch.map((x, k) => [k, x]).filter(x => x[1])
     },
     {
       name: "在线数",
       type: "line",
       yAxisIndex: 0,
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.rank.map((x, k) => [k, x]).filter(x => x[1])
     },
     {
       name: "粉丝团",
       type: "line",
       yAxisIndex: 0,
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.fans.map((x, k) => [k, x]).filter(x => x[1])
     },
     {
       name: "点赞数",
       type: "line",
       yAxisIndex: 0,
-      lineStyle: { width: 2 },
+      lineStyle: {width: 2},
       data: live_data.like.map((x, k) => [k, x]).filter(x => x[1])
     },
     {
@@ -447,7 +452,7 @@ watch(average, () => {
   loading.value = true
   compute_data()
   loading.value = false
-}, { deep: true })
+}, {deep: true})
 
 get_data()
 </script>

@@ -1,4 +1,4 @@
-import { defineStore } from "pinia"
+import {defineStore} from "pinia"
 
 const today = new Date(new Date().toLocaleDateString()).getTime()
 

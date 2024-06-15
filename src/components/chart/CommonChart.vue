@@ -1,18 +1,25 @@
 <template>
   <div class="w-full md:h-[400px] h-[60vw] py-2">
     <v-chart class="chart h-full shadow-around duration-500" :option="option" :loading="props.loading"
-      :theme="store.dark ? dark : light" :autoresize="true" @zr:click="on_click" />
+             :theme="store.dark ? dark : light" :autoresize="true" @zr:click="on_click"/>
     <div class="text-center font-bold">{{ props.title }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
 import VChart from "vue-echarts";
-import { ref, watch } from "vue";
-import { use } from "echarts/core";
-import { LineChart, BarChart, ScatterChart } from "echarts/charts";
-import { CanvasRenderer } from "echarts/renderers";
-import type { EChartsOption, SeriesOption, XAXisComponentOption, YAXisComponentOption, TooltipComponentOption, ElementEvent } from "echarts";
+import {ref, watch} from "vue";
+import {use} from "echarts/core";
+import {LineChart, BarChart, ScatterChart} from "echarts/charts";
+import {CanvasRenderer} from "echarts/renderers";
+import type {
+  EChartsOption,
+  SeriesOption,
+  XAXisComponentOption,
+  YAXisComponentOption,
+  TooltipComponentOption,
+  ElementEvent
+} from "echarts";
 import {
   GridComponent,
   TitleComponent,
@@ -20,8 +27,8 @@ import {
   TooltipComponent,
   DataZoomComponent
 } from "echarts/components";
-import { UseStore } from "@/store";
-import { light, dark } from "@/assets/lib/echartThemes";
+import {UseStore} from "@/store";
+import {light, dark} from "@/assets/lib/echartThemes";
 
 use([
   CanvasRenderer,
@@ -56,7 +63,7 @@ const option = ref<EChartsOption>({
   },
   tooltip: props.tooltip || {
     trigger: "axis",
-    axisPointer: { animation: true }
+    axisPointer: {animation: true}
   },
   xAxis: props.xAxis || {
     type: "time",
@@ -65,14 +72,14 @@ const option = ref<EChartsOption>({
     }
   },
   yAxis: props.yAxis || [
-    { type: "value", show: false },
-    { type: "value", show: false },
-    { type: "value", show: false },
-    { type: "value", show: false },
-    { type: "value", show: false },
-    { type: "value", show: false },
-    { type: "value", show: false },
-    { type: "value", show: false }
+    {type: "value", show: false},
+    {type: "value", show: false},
+    {type: "value", show: false},
+    {type: "value", show: false},
+    {type: "value", show: false},
+    {type: "value", show: false},
+    {type: "value", show: false},
+    {type: "value", show: false}
   ],
   series: []
 });
@@ -89,7 +96,6 @@ watch(() => props.series, () => {
     right?: number
     bottom?: number
   } = {}
-
 
 
   if (!props.zoomHide) {
@@ -110,7 +116,7 @@ watch(() => props.series, () => {
 
   if (props.yHide) {
     if (props.yAxis) {
-      option.value.yAxis = props.yAxis.map(x => ({ ...x, show: false }))
+      option.value.yAxis = props.yAxis.map(x => ({...x, show: false}))
     }
     grid.left = grid.right = 10
   }

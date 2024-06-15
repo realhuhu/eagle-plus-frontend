@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="flex justify-start items-center flex-wrap cursor-pointer hover:bg-[var(--theme-dark-3)] duration-200"
-      @click="to_detail">
+         @click="to_detail">
       <div class="flex justify-start items-start gap-2 flex-nowrap">
-        <a-image :src="proxy_url(live.cover)" class="w-[120px] md:w-[140px] flex-shrink-0" />
+        <a-image :src="proxy_url(live.cover)" class="w-[120px] md:w-[140px] flex-shrink-0"/>
 
         <div class="md:text-[16px] text-[15px]">
           <div class="break-all align-top">{{ live.title }}</div>
           <div class="text-gray-500 text-[12px] md:text-[14px]">
             <span>{{ time_string(live.timestamp_start) }}</span>
-            <a-divider direction="vertical" :margin="6" />
+            <a-divider direction="vertical" :margin="6"/>
             <span v-if="live.timestamp_end">
               {{ time_delta(live.timestamp_start, live.timestamp_end).toFixed(2) }}小时
             </span>
@@ -44,8 +44,8 @@
 </template>
 
 <script setup lang="ts">
-import { DateParser, proxy_url, time_delta } from "@/assets/lib/utils";
-import { useRouter } from "vue-router";
+import {DateParser, proxy_url, time_delta} from "@/assets/lib/utils";
+import {useRouter} from "vue-router";
 
 const props = defineProps<{ live: Live }>()
 
@@ -57,7 +57,7 @@ const to_detail = () => {
     force: string
     start?: string
     end?: string
-  } = { force: "true" }
+  } = {force: "true"}
   if (props.live.timestamp_start) {
     query.start = props.live.timestamp_start
   }

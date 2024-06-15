@@ -10,25 +10,25 @@
       </a-form-item>
 
       <a-form-item label="勋章" class="w-auto md:w-[50%]">
-        <a-input placeholder="请输入粉丝勋章名称" v-model:model-value="interaction_params.medal" allow-clear />
+        <a-input placeholder="请输入粉丝勋章名称" v-model:model-value="interaction_params.medal" allow-clear/>
       </a-form-item>
     </template>
   </interaction-base-filter>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { UseStore } from "@/store";
-import { storeToRefs } from "pinia";
+import {ref} from "vue";
+import {UseStore} from "@/store";
+import {storeToRefs} from "pinia";
 
-const { interaction_params } = storeToRefs(UseStore())
+const {interaction_params} = storeToRefs(UseStore())
 const orderings = ref([
-  { field: "-timestamp", text: "最新" },
-  { field: "timestamp", text: "最早" },
-  { field: "-message__level", text: "等级降序" },
-  { field: "message__level", text: "等级升序" },
-  { field: "-message__medal_level", text: "粉丝牌降序" },
-  { field: "message__medal_level", text: "粉丝牌升序" }
+  {field: "-timestamp", text: "最新"},
+  {field: "timestamp", text: "最早"},
+  {field: "-message__level", text: "等级降序"},
+  {field: "message__level", text: "等级升序"},
+  {field: "-message__medal_level", text: "粉丝牌降序"},
+  {field: "message__medal_level", text: "粉丝牌升序"}
 ])
 </script>
 

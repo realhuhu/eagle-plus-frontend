@@ -1,9 +1,9 @@
 <template>
-  <header-bar />
+  <header-bar/>
 
   <router-view v-slot="{ Component }" class="my-20 md:my-32 text-[var(--color-text-1)]">
     <keep-alive include="HomePage,InteractionPage,UserPage,StatisticPage">
-      <component :is="Component" />
+      <component :is="Component"/>
     </keep-alive>
   </router-view>
 </template>

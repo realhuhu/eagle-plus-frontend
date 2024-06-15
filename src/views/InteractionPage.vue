@@ -1,73 +1,73 @@
 <template>
   <div class="w-[968px] max-w-[90vw] mx-auto">
-    <a-divider />
+    <a-divider/>
     <div class="flex flex-col justify-start items-center">
 
       <div class="md:flex justify-between items-center w-full">
         <a-tabs type="capsule" size="large" hide-content v-model:active-key="active" @change="switch_data">
-          <a-tab-pane key="all" title="全部" />
-          <a-tab-pane key="message" title="弹幕" />
-          <a-tab-pane key="guard" title="上舰" />
-          <a-tab-pane key="gift" title="礼物" />
-          <a-tab-pane key="entry" title="入场" />
-          <a-tab-pane key="chat" title="留言" />
-          <a-tab-pane key="award" title="抽奖" />
+          <a-tab-pane key="all" title="全部"/>
+          <a-tab-pane key="message" title="弹幕"/>
+          <a-tab-pane key="guard" title="上舰"/>
+          <a-tab-pane key="gift" title="礼物"/>
+          <a-tab-pane key="entry" title="入场"/>
+          <a-tab-pane key="chat" title="留言"/>
+          <a-tab-pane key="award" title="抽奖"/>
         </a-tabs>
 
         <div class="md:flex justify-end items-center pt-4">
           <div class="px-2">
             <a-form-item label="开始">
               <a-date-picker class="w-full" show-time format="YYYY-MM-DD HH:mm"
-                v-model:model-value="interaction_params.start"
-                :shortcuts="[{ label: '今日开始', value: () => new Date(today) }]" />
+                             v-model:model-value="interaction_params.start"
+                             :shortcuts="[{ label: '今日开始', value: () => new Date(today) }]"/>
             </a-form-item>
           </div>
 
           <div class="px-2">
             <a-form-item label="结束">
               <a-date-picker class="w-full" show-time format="YYYY-MM-DD HH:mm"
-                v-model:model-value="interaction_params.end"
-                :shortcuts="[{ label: '今日结束', value: () => new Date(today + 24 * 60 * 60 * 1000 - 1) }]" />
+                             v-model:model-value="interaction_params.end"
+                             :shortcuts="[{ label: '今日结束', value: () => new Date(today + 24 * 60 * 60 * 1000 - 1) }]"/>
             </a-form-item>
           </div>
         </div>
       </div>
 
       <div class="w-full bg-[var(--theme-dark-2)] m-2 rounded px-4 py-6">
-        <router-view />
+        <router-view/>
         <interaction-table :table="table" v-model:params="interaction_params" @refresh="refresh_data"
-          @change_page="get_data" @change_size="refresh_data" @user_click="pop_modal" />
+                           @change_page="get_data" @change_size="refresh_data" @user_click="pop_modal"/>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onActivated } from "vue";
-import { Notification } from "@arco-design/web-vue";
-import { client } from "@/assets/lib/request";
-import { assertNotEmpty, build_params, flat_query } from "@/assets/lib/utils";
-import { useRoute, useRouter } from "vue-router";
-import { showUserInteractionModal } from "@/components/modal/UserInteractionModal";
-import { UseStore } from "@/store";
-import { storeToRefs } from "pinia";
+import {ref, onActivated} from "vue";
+import {Notification} from "@arco-design/web-vue";
+import {client} from "@/assets/lib/request";
+import {assertNotEmpty, build_params, flat_query} from "@/assets/lib/utils";
+import {useRoute, useRouter} from "vue-router";
+import {showUserInteractionModal} from "@/components/modal/UserInteractionModal";
+import {UseStore} from "@/store";
+import {storeToRefs} from "pinia";
 
 const route = useRoute()
 const router = useRouter()
 const active = ref(route.meta.interaction_key || "all")
-const { interaction_params, today } = storeToRefs(UseStore())
+const {interaction_params, today} = storeToRefs(UseStore())
 
 const table = ref<InteractionTable>({
   count: 0,
   loading: false,
-  extra: { price: 0, total: 0 },
+  extra: {price: 0, total: 0},
   interactions: [],
   award: []
 })
 
 const get_data = async () => {
   table.value.loading = true
-  table.value.extra = { price: 0, total: 0 }
+  table.value.extra = {price: 0, total: 0}
   try {
     if (active.value !== "award") {
       const res = await client.get<PaginatedResponse<Interaction, InteractionResponseExtra>>({
