@@ -2,11 +2,11 @@ import {resolve} from "path";
 import {defineConfig} from "vite"
 import Vue from "@vitejs/plugin-vue"
 import Icons from "unplugin-icons/vite"
+import Components from "unplugin-vue-components/vite"
 import AutoImport from "unplugin-auto-import/vite"
 import IconsResolver from "unplugin-icons/resolver"
-import Components from "unplugin-vue-components/vite"
-import viteCompression from "vite-plugin-compression";
 import {ArcoResolver} from "unplugin-vue-components/resolvers";
+import viteCompression from "vite-plugin-compression";
 import {vitePluginForArco} from "@arco-plugins/vite-vue";
 
 export default defineConfig({
