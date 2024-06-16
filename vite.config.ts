@@ -25,9 +25,11 @@ export default defineConfig({
       theme: "@arco-themes/vue-gi-demo"
     }),
     Components({
+      dts: "src/types/components.d.ts",
       resolvers: [ArcoResolver({sideEffect: true}), IconsResolver()]
     }),
     AutoImport({
+      dts: "src/types/auto-imports.d.ts",
       resolvers: [ArcoResolver(), IconsResolver()]
     })
   ],

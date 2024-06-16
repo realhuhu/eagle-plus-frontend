@@ -5,13 +5,13 @@
 
       <div class="md:flex justify-between items-center w-full">
         <a-tabs type="capsule" size="large" hide-content v-model:active-key="active" @change="switch_data">
-          <a-tab-pane key="all" title="全部"/>
-          <a-tab-pane key="message" title="弹幕"/>
-          <a-tab-pane key="guard" title="上舰"/>
-          <a-tab-pane key="gift" title="礼物"/>
-          <a-tab-pane key="entry" title="入场"/>
-          <a-tab-pane key="chat" title="留言"/>
-          <a-tab-pane key="award" title="抽奖"/>
+          <a-tab-pane key="all" title="全部" :disabled="table.loading"/>
+          <a-tab-pane key="message" title="弹幕" :disabled="table.loading"/>
+          <a-tab-pane key="guard" title="上舰" :disabled="table.loading"/>
+          <a-tab-pane key="gift" title="礼物" :disabled="table.loading"/>
+          <a-tab-pane key="entry" title="入场" :disabled="table.loading"/>
+          <a-tab-pane key="chat" title="留言" :disabled="table.loading"/>
+          <a-tab-pane key="award" title="抽奖" :disabled="table.loading"/>
         </a-tabs>
 
         <div class="md:flex justify-end items-center pt-4">
@@ -68,6 +68,7 @@ const table = ref<InteractionTable>({
 const get_data = async () => {
   table.value.loading = true
   table.value.extra = {price: 0, total: 0}
+  console.log(active.value);
   try {
     if (active.value !== "award") {
       const res = await client.get<PaginatedResponse<Interaction, InteractionResponseExtra>>({
@@ -80,7 +81,7 @@ const get_data = async () => {
       table.value.award = []
     } else {
       const res = await client.get<PaginatedResponse<Award, InteractionResponseExtra>>({
-        url: assertNotEmpty(route.meta.interaction_url, "url为空"),
+        url: "/interaction/award/",
         params: build_params(interaction_params.value, assertNotEmpty(route.meta.interaction_param_fields, "fields为空"))
       })
       table.value.count = res.data.count
