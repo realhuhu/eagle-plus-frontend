@@ -17,12 +17,12 @@ declare global {
     title: string
     cover: string
     timestamp_start: string
-    timestamp_end: string
-    message_num: number
-    chat_price: number
-    gift1_price: number
-    guard_price: number
-    rank: number
+    timestamp_end: string | null
+    message_num: number | null
+    chat_price: number | null
+    gift1_price: number | null
+    guard_price: number | null
+    rank: number | null
   }
 
   type SimpleUser = {
