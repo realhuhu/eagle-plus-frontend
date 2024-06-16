@@ -34,7 +34,7 @@ import type {SeriesOption} from "echarts";
 
 import {client} from "@/assets/lib/request";
 import {UseStore} from "@/store";
-import {time_delta} from "@/assets/lib/utils";
+import {time_delta, unpack} from "@/assets/lib/utils";
 
 const old = () => {
   window.open("https://old.iying.love")
@@ -114,7 +114,7 @@ const get_data = async () => {
         stack: "price",
         yAxisIndex: 0,
         barWidth: 2,
-        data: res.data.map((x, index) => [x.timestamp_start, Number((res.data[index].gift1_price / 1000).toFixed(2))])
+        data: res.data.map((x, index) => [x.timestamp_start, Number((res.data[index].gift1_price || 0 / 1000).toFixed(2))])
       }
     ]
   } finally {

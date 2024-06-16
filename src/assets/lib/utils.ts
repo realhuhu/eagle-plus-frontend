@@ -173,7 +173,7 @@ export const axis_formatter = (value: number) => {
   return value.toString()
 }
 
-export const time_delta = (timestamp1: string, timestamp2: string) => {
+export const time_delta = (timestamp1: string, timestamp2: string | null) => {
   const date1 = new DateParser(timestamp1).date
   const date2 = new DateParser(timestamp2).date
   return Math.abs((date1.getTime() - date2.getTime()) / (60 * 60 * 1000))
