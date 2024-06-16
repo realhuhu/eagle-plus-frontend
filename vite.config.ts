@@ -29,6 +29,7 @@ export default defineConfig({
       resolvers: [ArcoResolver({sideEffect: true}), IconsResolver()]
     }),
     AutoImport({
+      imports: ["vue", "vue-router"],
       dts: "src/types/auto-imports.d.ts",
       resolvers: [ArcoResolver(), IconsResolver()]
     })

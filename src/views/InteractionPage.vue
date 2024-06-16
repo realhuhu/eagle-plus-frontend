@@ -43,14 +43,13 @@
 </template>
 
 <script setup lang="ts">
-import {ref, onActivated} from "vue";
-import {Notification} from "@arco-design/web-vue";
-import {client} from "@/assets/lib/request";
-import {assertNotEmpty, build_params, flat_query} from "@/assets/lib/utils";
-import {useRoute, useRouter} from "vue-router";
-import {showUserInteractionModal} from "@/components/modal/UserInteractionModal";
-import {UseStore} from "@/store";
 import {storeToRefs} from "pinia";
+import {Notification} from "@arco-design/web-vue";
+
+import {client} from "@/assets/lib/request";
+import {UseStore} from "@/store";
+import {showUserInteractionModal} from "@/components/modal/UserInteractionModal";
+import {assertNotEmpty, build_params, flat_query} from "@/assets/lib/utils";
 
 const route = useRoute()
 const router = useRouter()
@@ -68,7 +67,6 @@ const table = ref<InteractionTable>({
 const get_data = async () => {
   table.value.loading = true
   table.value.extra = {price: 0, total: 0}
-  console.log(active.value);
   try {
     if (active.value !== "award") {
       const res = await client.get<PaginatedResponse<Interaction, InteractionResponseExtra>>({

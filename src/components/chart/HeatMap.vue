@@ -4,7 +4,6 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from "vue";
 import VChart from "vue-echarts";
 import {use} from "echarts/core"
 import {HeatmapChart} from "echarts/charts"
@@ -16,6 +15,7 @@ import {
   VisualMapComponent,
   CalendarComponent
 } from "echarts/components"
+
 import {UseStore} from "@/store";
 import {dark, light} from "@/assets/lib/echartThemes";
 

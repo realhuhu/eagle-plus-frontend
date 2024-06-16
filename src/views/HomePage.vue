@@ -30,9 +30,8 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
-import {useRouter} from "vue-router";
 import type {SeriesOption} from "echarts";
+
 import {client} from "@/assets/lib/request";
 import {UseStore} from "@/store";
 import {time_delta} from "@/assets/lib/utils";

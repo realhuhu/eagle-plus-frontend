@@ -46,7 +46,6 @@
 
 <script setup lang="ts">
 import {UseStore} from "@/store";
-import {useRoute, useRouter} from "vue-router";
 
 const store = UseStore()
 const route = useRoute()

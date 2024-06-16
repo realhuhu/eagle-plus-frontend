@@ -7,9 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from "vue";
-import {use} from "echarts/core";
 import VChart from "vue-echarts";
+import {use} from "echarts/core";
 import {CanvasRenderer} from "echarts/renderers";
 import {LineChart, BarChart, ScatterChart} from "echarts/charts";
 import type {
@@ -27,6 +26,7 @@ import {
   TooltipComponent,
   DataZoomComponent
 } from "echarts/components";
+
 import {UseStore} from "@/store";
 import {light, dark} from "@/assets/lib/echartThemes";
 

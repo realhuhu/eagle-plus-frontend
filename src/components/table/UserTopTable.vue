@@ -22,10 +22,11 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
-import {useRouter} from "vue-router";
-import {client} from "@/assets/lib/request";
 import {Notification} from "@arco-design/web-vue";
+
+import {ref} from "vue";
+import {client} from "@/assets/lib/request";
+import {useRouter} from "vue-router";
 
 const router = useRouter()
 const active = ref(0)

@@ -1,4 +1,5 @@
 import axios, {type AxiosInstance, type AxiosRequestConfig} from "axios"
+
 import {api_url} from "@/assets/lib/settings";
 
 interface Request<T> {

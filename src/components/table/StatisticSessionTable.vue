@@ -28,9 +28,6 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from "vue";
-import {client} from "@/assets/lib/request";
-import {assertNotEmpty, axis_formatter, proxy_url, time_delta, unpack} from "@/assets/lib/utils";
 import {Notification} from "@arco-design/web-vue";
 import type {
   SeriesOption,
@@ -39,8 +36,11 @@ import type {
   TooltipComponentOption,
   ElementEvent
 } from "echarts";
-import {showStatisticLiveModal} from "../modal/StatisticLiveModal";
+
+import {client} from "@/assets/lib/request";
 import {UseStore} from "@/store";
+import {showStatisticLiveModal} from "../modal/StatisticLiveModal";
+import {assertNotEmpty, axis_formatter, proxy_url, time_delta} from "@/assets/lib/utils";
 
 const loading = ref(false)
 const current = ref<{
@@ -66,7 +66,7 @@ const tooltip = ref<TooltipComponentOption>({
     const index = v[0].data[0]
     current.value.id = live_data.id[index]
     current.value.title = live_data.title[index]
-    const cover = `<img src='${proxy_url(live_data.cover[index])}'></img>`
+    const cover = `<img src='${proxy_url(live_data.cover[index])}' alt="">`
     const title = `<div>${live_data.title[index].length > 9 ? live_data.title[index].slice(0, 9) + "..." : live_data.title[index]}</div>`
     const time = `<div style="font-size:12px;text-align: center;">${live_data.timestamp_start[index].replace("T", " ").slice(0, 16)}</div><div style="font-size:12px;text-align: center;">${live_data.timestamp_end[index].replace("T", " ").slice(0, 16)}</div>`
     const statistic = v.map(x => `<div style="display: flex;justify-content: space-between;gap: 4px;"><div>${x.marker}${x.seriesName}:</div><div style="font-weight: bolder;">${x.data[1] === null ? "-" : x.data[1].toFixed(2)}</div></div>`).join("")

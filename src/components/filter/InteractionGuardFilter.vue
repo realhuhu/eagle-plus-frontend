@@ -3,8 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
-
 const orderings = ref([
   {field: "-timestamp", text: "最新"},
   {field: "timestamp", text: "最早"},

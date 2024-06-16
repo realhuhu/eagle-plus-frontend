@@ -15,8 +15,6 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
-import {useRouter} from "vue-router";
 import {Notification} from "@arco-design/web-vue";
 
 const name = ref("")

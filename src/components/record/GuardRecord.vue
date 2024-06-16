@@ -22,7 +22,6 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
 import {DateParser} from "@/assets/lib/utils";
 
 const props = defineProps<{ interaction: Interaction, guard: Guard }>()

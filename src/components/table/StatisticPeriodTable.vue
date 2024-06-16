@@ -26,9 +26,9 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from "vue";
 import {Notification} from "@arco-design/web-vue";
 import type {SeriesOption, YAXisComponentOption} from "echarts";
+
 import {client} from "@/assets/lib/request";
 import {UseStore} from "@/store";
 import {axis_formatter, unpack} from "@/assets/lib/utils";

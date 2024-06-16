@@ -57,8 +57,6 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from "vue";
-import {useRoute, useRouter} from "vue-router";
 import {client} from "@/assets/lib/request";
 import {UseStore} from "@/store";
 import {safeBack} from "@/router";

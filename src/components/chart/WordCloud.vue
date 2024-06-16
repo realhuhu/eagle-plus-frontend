@@ -15,7 +15,6 @@
 // eslint-disable-next-line
 // @ts-ignore
 import VueWordCloud from "vuewordcloud";
-import {ref, watch} from "vue";
 
 const props = defineProps<{ words: [string, number][] }>()
 const nums = props.words.map(x => x[1])

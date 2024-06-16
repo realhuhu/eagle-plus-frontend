@@ -75,11 +75,10 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from "vue";
-import {useRouter} from "vue-router";
 import {Notification} from "@arco-design/web-vue";
-import {UseStore} from "@/store";
+
 import {client} from "@/assets/lib/request";
+import {UseStore} from "@/store";
 import {build_params, open_url} from "@/assets/lib/utils";
 
 const store = UseStore()

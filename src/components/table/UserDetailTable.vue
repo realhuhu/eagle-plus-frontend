@@ -15,12 +15,11 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from "vue";
-import {useRoute} from "vue-router";
 import {Notification} from "@arco-design/web-vue";
+
+import {client} from "@/assets/lib/request";
 import {safeBack} from "@/router";
 import {flat_query} from "@/assets/lib/utils";
-import {client} from "@/assets/lib/request";
 
 const route = useRoute()
 const uid = ref(Number(flat_query(route.params.uid)))

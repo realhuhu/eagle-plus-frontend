@@ -45,7 +45,6 @@
 
 <script setup lang="ts">
 import {DateParser, proxy_url, time_delta} from "@/assets/lib/utils";
-import {useRouter} from "vue-router";
 
 const props = defineProps<{ live: Live }>()
 

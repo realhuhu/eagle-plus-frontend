@@ -41,7 +41,6 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
 import {DateParser, number_to_color, proxy_url} from "@/assets/lib/utils";
 
 const props = defineProps<{ interaction: Interaction, message: Message }>()

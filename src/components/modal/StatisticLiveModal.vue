@@ -13,16 +13,14 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
-import {client} from "@/assets/lib/request";
-import {axis_formatter, unpack} from "@/assets/lib/utils";
 import {Notification} from "@arco-design/web-vue";
 import type {SeriesOption, YAXisComponentOption} from "echarts";
 
-const visible = ref(true)
+import {client} from "@/assets/lib/request";
+import {axis_formatter, unpack} from "@/assets/lib/utils";
+
 const props = defineProps<{ live_id: number, title: string }>()
-
-
+const visible = ref(true)
 const loading = ref(false)
 
 const summary = ref<{

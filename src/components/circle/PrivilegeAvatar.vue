@@ -8,7 +8,6 @@
 
 <script setup lang="ts">
 import {proxy_url} from "@/assets/lib/utils";
-import {computed} from "vue";
 
 const props = withDefaults(
     defineProps<{ privilege_type?: 0 | 1 | 2 | 3, avatar: string, size?: number }>(),

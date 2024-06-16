@@ -16,7 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
 import {DateParser, privilege_image} from "@/assets/lib/utils";
 
 const props = defineProps<{ interaction: Interaction, entry: Entry }>()
