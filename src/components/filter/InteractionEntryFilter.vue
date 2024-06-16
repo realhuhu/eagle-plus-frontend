@@ -1,7 +1,7 @@
 <template>
   <interaction-base-filter :orderings="orderings" search_disable>
     <template #foot>
-      <a-form-item label="勋章" class="w-auto md:w-[50%]">
+      <a-form-item label="勋章" class="!w-auto md:!w-[50%]">
         <a-input placeholder="请输入粉丝勋章名称" v-model:model-value="interaction_params.medal" allow-clear/>
       </a-form-item>
 

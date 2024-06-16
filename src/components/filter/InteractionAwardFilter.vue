@@ -1,10 +1,6 @@
 <template>
   <div>
     <div class="md:flex justify-between items-start gap-6">
-      <slot name="head"/>
-    </div>
-
-    <div class="md:flex justify-between items-start gap-6">
       <a-form-item label="搜索" class="w-auto md:w-[50%]">
         <a-input placeholder="请输入搜索内容" v-model:model-value="interaction_params.search" allow-clear/>
       </a-form-item>
@@ -17,6 +13,8 @@
         </a-select>
       </a-form-item>
     </div>
+
+    <div class="text-end text-gray-500">*只统计了2023.8.29后的数据</div>
   </div>
 </template>
 
