@@ -5,7 +5,6 @@
     </div>
 
     <div>新版测试中，旧版本：<a class="text-[#4ebaee] cursor-pointer" @click="old">old.iying.love</a>(将于7月15日下线)</div>
-    <div>直播汇总数据不一定及时更新</div>
 
     <div class="w-full md:my-6 my-2">
       <common-chart title="" class="!h-[200px]" :series="series" :loading="loading" :y-hide="true" :zoom-hide="true"/>
