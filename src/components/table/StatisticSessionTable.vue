@@ -262,37 +262,37 @@ const compute_data = () => {
     {
       name: "弹幕",
       type: "line",
-      yAxisIndex: 0,
+      yAxisIndex: 1,
       data: live_data.message_user_num.map((x, k) => [k, x / factors[k]])
     },
     {
       name: "入场",
       type: "line",
-      yAxisIndex: 0,
+      yAxisIndex: 1,
       data: live_data.entry_user_num.map((x, k) => [k, x / factors[k]])
     },
     {
       name: "留言",
       type: "line",
-      yAxisIndex: 1,
+      yAxisIndex: 0,
       data: live_data.chat_user_num.map((x, k) => [k, x / factors[k]])
     },
     {
       name: "上舰",
       type: "line",
-      yAxisIndex: 1,
+      yAxisIndex: 0,
       data: live_data.guard_user_num.map((x, k) => [k, x / factors[k]])
     },
     {
       name: "免费礼物",
       type: "line",
-      yAxisIndex: 1,
+      yAxisIndex: 0,
       data: live_data.gift0_user_num.map((x, k) => [k, x / factors[k]])
     },
     {
       name: "付费礼物",
       type: "line",
-      yAxisIndex: 1,
+      yAxisIndex: 0,
       data: live_data.gift1_user_num.map((x, k) => [k, x / factors[k]])
     }
   ]
