@@ -1,4 +1,5 @@
 import {Notification} from "@arco-design/web-vue";
+import html2canvas from "html2canvas";
 import type {LocationQueryValue} from "vue-router";
 
 export const fullMap = (o: Record<string, string>) => {
@@ -177,6 +178,39 @@ export const time_delta = (timestamp1: string, timestamp2: string | null) => {
   const date1 = new DateParser(timestamp1).date
   const date2 = new DateParser(timestamp2).date
   return Math.abs((date1.getTime() - date2.getTime()) / (60 * 60 * 1000))
+}
+
+export const div2img = (div: HTMLDivElement) => {
+  const head = div.querySelectorAll(".card-head")[0]
+  const paste = head.querySelectorAll(".paste")[0]
+  head.removeChild(paste)
+
+  html2canvas(div, {
+    backgroundColor: "transparent",
+    allowTaint: true,
+    useCORS: true,
+    scrollY: 0,
+    scrollX: 0,
+    scale: 2 // 处理模糊问题
+  }).then(canvas => {
+    canvas.toBlob(function (blob) {
+      if (!blob) {
+        Notification.warning("生成图片失败")
+        head.appendChild(paste)
+        return
+      }
+      const item = new ClipboardItem({"image/png": blob});
+
+      navigator.clipboard.write([item]).then(function () {
+        head.appendChild(paste)
+        Notification.success("图像已复制到剪贴板");
+      }, function (err) {
+        head.appendChild(paste)
+        Notification.warning("复制失败:", err);
+      });
+    }, "image/png");
+  })
+
 }
 
 export const unpack = <T>(values: T[], periods: string[], process?: (value: T) => T): [string, T][] => values.map((value, index) => [periods[index], process ? process(value) : value])

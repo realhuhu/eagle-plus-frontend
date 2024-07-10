@@ -1,9 +1,11 @@
 <template>
   <div class="md:flex justify-start items-start my-2 w-full">
     <div class="text-[12px] md:text-[14px] flex-shrink-0 mr-2 text-bold"> {{ time }}</div>
-    <div class="card-detail">
+
+    <div class="card-detail" ref="chatRef">
       <div class="card-head" :style="`background-color:${chat.chat_color};border-color: ${chat.chat_bottom_color}`">
         <privilege-avatar :avatar="interaction.user.current_avatar" :privilege_type="interaction.guard_type"/>
+
         <div class="card-info">
           <div class="card-name" @click="emit('user_click',interaction.user)">
             {{ interaction.user.current_name }}
@@ -12,7 +14,14 @@
             <div class="card-price-inner">{{ chat.chat_price * 10 }}电池</div>
           </div>
         </div>
+
+        <div class="paste cursor-pointer" @click="paste">
+          <a-tooltip content="截图该留言并复制到剪贴板">
+            <i-clarity-paste-line class="text-green-600"/>
+          </a-tooltip>
+        </div>
       </div>
+
       <div class="card-body" :style="`background-color:${chat.chat_bottom_color}`">
         <div class="card-content">
           {{ chat.chat_message }}
@@ -23,11 +32,15 @@
 </template>
 
 <script setup lang="ts">
-import {DateParser} from "@/assets/lib/utils";
+import {DateParser, div2img} from "@/assets/lib/utils";
 
+const chatRef = ref()
 const props = defineProps<{ interaction: Interaction, chat: Chat }>()
 const emit = defineEmits(["user_click"])
 const time = computed(() => new DateParser(props.interaction.timestamp).smart())
+const paste = () => {
+  div2img(chatRef.value)
+}
 </script>
 
 <style scoped lang="less">
