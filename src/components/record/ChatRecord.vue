@@ -15,7 +15,7 @@
           </div>
         </div>
 
-        <div class="paste cursor-pointer" @click="paste">
+        <div class="paste cursor-pointer" @click="paste" v-if="!store.is_mobile">
           <a-tooltip content="截图该留言并复制到剪贴板">
             <i-clarity-paste-line class="text-green-600"/>
           </a-tooltip>
@@ -32,11 +32,13 @@
 </template>
 
 <script setup lang="ts">
+import {UseStore} from "@/store";
 import {DateParser, div2img} from "@/assets/lib/utils";
 
 const chatRef = ref()
 const props = defineProps<{ interaction: Interaction, chat: Chat }>()
 const emit = defineEmits(["user_click"])
+const store = UseStore()
 const time = computed(() => new DateParser(props.interaction.timestamp).smart())
 const paste = () => {
   div2img(chatRef.value)

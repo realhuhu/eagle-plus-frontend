@@ -1,8 +1,14 @@
 <template>
-  <interaction-base-filter :orderings="orderings"/>
+  <div>
+    <interaction-base-filter :orderings="orderings"/>
+    <div v-if="!store.is_mobile" class="text-end text-gray-500">*点击留言右上角图标复制留言截图</div>
+  </div>
 </template>
 
 <script setup lang="ts">
+import {UseStore} from "@/store";
+
+const store = UseStore()
 const orderings = ref([
   {field: "-timestamp", text: "最新"},
   {field: "timestamp", text: "最早"},
