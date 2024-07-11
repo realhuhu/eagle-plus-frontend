@@ -5,23 +5,29 @@
       <div class="flex justify-start items-start gap-2 flex-nowrap">
         <a-image :src="proxy_url(live.cover)" class="w-[120px] md:w-[140px] flex-shrink-0"/>
 
-        <div class="md:text-[16px] text-[15px]">
-          <div class="break-all align-top">{{ live.title }}</div>
-          <div class="text-gray-500 text-[12px] md:text-[14px]">
-            <span>{{ time_string(live.timestamp_start) }}</span>
-            <a-divider direction="vertical" :margin="6"/>
-            <span v-if="live.timestamp_end">
-              {{ time_delta(live.timestamp_start, live.timestamp_end).toFixed(2) }}小时
-            </span>
-            <span v-else class="text-red-500">直播中</span>
+        <div class="md:text-[16px] text-[15px] flex flex-col justify-between items-start">
+          <div class="flex flex-col justify-start items-start">
+            <div class="line-clamp-1">{{ live.title }}</div>
+
+            <div class="text-gray-500 text-[12px] md:text-[14px]">
+              <span>{{ time_string(live.timestamp_start) }}</span>
+              <a-divider direction="vertical" :margin="6"/>
+              <span v-if="live.timestamp_end">
+                {{ time_delta(live.timestamp_start, live.timestamp_end).toFixed(2) }}小时
+              </span>
+              <span v-else class="text-red-500">直播中</span>
+            </div>
           </div>
+
+          <i-codicon-graph-line class="mt-2 text-[#4ebaee]" @click.stop="show_statistic"/>
+
         </div>
       </div>
 
       <div class="flex-grow flex justify-around md:justify-end items-center gap-6 w-full md:w-auto ">
         <div class="flex flex-col justify-start items-end gap-3">
           <div class="text-gray-500">弹幕数</div>
-          <div>{{ live.message_num === null ? "--": live.message_num }}</div>
+          <div>{{ live.message_num === null ? "--" : live.message_num }}</div>
         </div>
 
         <div class="flex flex-col justify-start items-end gap-3">
@@ -45,6 +51,7 @@
 
 <script setup lang="ts">
 import {DateParser, proxy_url, time_delta} from "@/assets/lib/utils";
+import {showStatisticLiveModal} from "@/components/modal/StatisticLiveModal";
 
 const props = defineProps<{ live: Live }>()
 
@@ -67,6 +74,10 @@ const to_detail = () => {
     path: "/interaction",
     query
   })
+}
+
+const show_statistic = () => {
+  showStatisticLiveModal(props.live.id, props.live.title)
 }
 </script>
 

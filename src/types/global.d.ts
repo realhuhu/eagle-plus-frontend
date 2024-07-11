@@ -14,6 +14,7 @@ declare global {
   }
 
   type Live = {
+    id: number
     title: string
     cover: string
     timestamp_start: string

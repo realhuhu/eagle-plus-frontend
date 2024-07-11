@@ -5,14 +5,15 @@
      justify-center items-center">
       <div>{{ title }}</div>
 
-      <common-chart :series="summary.series" :loading="loading" :y-axis="summary.y_axis"/>
+      <common-chart :series="summary.series" :loading="loading" :y-axis="summary.y_axis" :y-hide="store.is_mobile"/>
 
-      <common-chart :series="activity.series" :loading="loading" :y-axis="activity.y_axis"/>
+      <common-chart :series="activity.series" :loading="loading" :y-axis="activity.y_axis" :y-hide="store.is_mobile"/>
     </div>
   </a-modal>
 </template>
 
 <script setup lang="ts">
+import {UseStore} from "@/store";
 import {Notification} from "@arco-design/web-vue";
 import type {SeriesOption, YAXisComponentOption} from "echarts";
 
@@ -20,6 +21,7 @@ import {client} from "@/assets/lib/request";
 import {axis_formatter, unpack} from "@/assets/lib/utils";
 
 const props = defineProps<{ live_id: number, title: string }>()
+const store = UseStore()
 const visible = ref(true)
 const loading = ref(false)
 
@@ -149,5 +151,6 @@ get_data()
 <style lang="less">
 .arco-modal-body {
   padding: 0;
+  overflow: visible;
 }
 </style>

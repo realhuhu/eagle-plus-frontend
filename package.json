@@ -27,6 +27,7 @@
     "@arco-themes/vue-gi-demo": "^0.0.48",
     "@iconify-json/bxs": "^1.1.10",
     "@iconify-json/clarity": "^1.1.13",
+    "@iconify-json/codicon": "^1.1.49",
     "@iconify-json/ph": "^1.1.13",
     "@iconify-json/solar": "^1.1.9",
     "@iconify-json/tdesign": "^1.1.4",

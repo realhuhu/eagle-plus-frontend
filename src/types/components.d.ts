@@ -23,6 +23,7 @@ declare module 'vue' {
     IBxsSun: typeof import('~icons/bxs/sun')['default']
     IBxsUser: typeof import('~icons/bxs/user')['default']
     IClarityPasteLine: typeof import('~icons/clarity/paste-line')['default']
+    ICodiconGraphLine: typeof import('~icons/codicon/graph-line')['default']
     InteractionAllFilter: typeof import('./../components/filter/InteractionAllFilter.vue')['default']
     InteractionAwardFilter: typeof import('./../components/filter/InteractionAwardFilter.vue')['default']
     InteractionBaseFilter: typeof import('./../components/filter/InteractionBaseFilter.vue')['default']
