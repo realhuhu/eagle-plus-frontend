@@ -183,7 +183,7 @@ export const time_delta = (timestamp1: string, timestamp2: string | null) => {
 export const div2img = (div: HTMLDivElement) => {
   const head = div.querySelectorAll(".card-head")[0]
   const paste = head.querySelectorAll(".paste")[0]
-  head.removeChild(paste)
+  paste.setAttribute("style", "visibility: hidden; opacity: 0");
 
   html2canvas(div, {
     backgroundColor: "transparent",
@@ -196,16 +196,16 @@ export const div2img = (div: HTMLDivElement) => {
     canvas.toBlob(function (blob) {
       if (!blob) {
         Notification.warning("生成图片失败")
-        head.appendChild(paste)
+        paste.removeAttribute("style")
         return
       }
       const item = new ClipboardItem({"image/png": blob});
 
       navigator.clipboard.write([item]).then(function () {
-        head.appendChild(paste)
+        paste.removeAttribute("style")
         Notification.success("图像已复制到剪贴板");
       }, function (err) {
-        head.appendChild(paste)
+        paste.removeAttribute("style")
         Notification.warning("复制失败:", err);
       });
     }, "image/png");

@@ -3,7 +3,7 @@
     <div class="flex justify-start items-center flex-wrap cursor-pointer hover:bg-[var(--theme-dark-3)] duration-200"
          @click="to_detail">
       <div class="flex justify-start items-start gap-2 flex-nowrap">
-        <a-image :src="proxy_url(live.cover)" class="w-[120px] md:w-[140px] flex-shrink-0"/>
+        <a-image :src="proxy_url(live.cover)" class="w-[120px] md:w-[140px] flex-shrink-0" :preview="false"/>
 
         <div class="md:text-[16px] text-[15px] flex flex-col justify-between items-start">
           <div class="flex flex-col justify-start items-start">
@@ -19,7 +19,8 @@
             </div>
           </div>
 
-          <i-codicon-graph-line class="mt-2 text-[#4ebaee]" @click.stop="show_statistic"/>
+          <i-codicon-graph-line class="mt-2 text-[#4ebaee] hover:text-green-500 duration-200"
+                                @click.stop="show_statistic"/>
 
         </div>
       </div>

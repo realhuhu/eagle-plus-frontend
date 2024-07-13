@@ -36,9 +36,9 @@ export const light = {
       "borderWidth": 1
     },
     "lineStyle": {
-      "width": 2
+      "width": 1.5
     },
-    "symbolSize": 3,
+    "symbolSize": 0,
     "symbol": "emptyCircle",
     "smooth": false
   },
@@ -331,9 +331,9 @@ export const dark = {
       "borderWidth": 1
     },
     "lineStyle": {
-      "width": 2
+      "width": 1.5
     },
-    "symbolSize": 3,
+    "symbolSize": 0,
     "symbol": "emptyCircle",
     "smooth": false
   },

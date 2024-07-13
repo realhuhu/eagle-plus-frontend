@@ -119,8 +119,11 @@ const activity = ref<{
 }>({
   y_axis: [
     {
-      type: "log",
-      name: "平均数量",
+      name: "人数",
+      axisLabel: {formatter: axis_formatter}
+    },
+    {
+      name: "人数",
       axisLabel: {formatter: axis_formatter}
     },
     {
@@ -128,7 +131,8 @@ const activity = ref<{
       name: "最高排名",
       min: 1,
       inverse: true,
-      nameLocation: "start"
+      nameLocation: "start",
+      show: false
     }
   ],
   series: []
@@ -189,7 +193,7 @@ const get_data = async () => {
         name: "价值",
         type: "bar",
         yAxisIndex: 1,
-        color: "rgba(247,244,148,0.5)",
+        color: "rgba(255,215,0,0.5)",
         itemStyle: {
           borderRadius: [10]
         },
@@ -215,7 +219,7 @@ const get_data = async () => {
         stack: "price",
         yAxisIndex: 1,
         type: "bar",
-        color: "rgba(247,244,148,0.5)",
+        color: "rgba(255,215,0,0.5)",
         itemStyle: {
           borderRadius: [10]
         },
@@ -226,6 +230,7 @@ const get_data = async () => {
         stack: "price",
         yAxisIndex: 1,
         type: "bar",
+        color: "rgba(192,192,192,1)",
         itemStyle: {
           borderRadius: [10]
         },
@@ -259,7 +264,7 @@ const get_data = async () => {
         name: "价值",
         type: "bar",
         yAxisIndex: 1,
-        color: "rgba(247,244,148,0.5)",
+        color: "rgba(255,215,0,0.5)",
         itemStyle: {
           borderRadius: [10]
         },
@@ -275,26 +280,26 @@ const get_data = async () => {
         data: unpack(res.data.watch, res.data.period).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
       },
       {
-        name: "在线数",
-        type: "line",
-        yAxisIndex: 0,
-        data: unpack(res.data.rank, res.data.period).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
-      },
-      {
-        name: "粉丝团",
-        type: "line",
-        yAxisIndex: 0,
-        data: unpack(res.data.fans, res.data.period).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
-      },
-      {
         name: "点赞数",
         type: "line",
         yAxisIndex: 0,
         data: unpack(res.data.like, res.data.period).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
       },
       {
-        name: "人气排名",
+        name: "在线数",
+        type: "line",
         yAxisIndex: 1,
+        data: unpack(res.data.rank, res.data.period).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
+      },
+      {
+        name: "粉丝团",
+        type: "line",
+        yAxisIndex: 1,
+        data: unpack(res.data.fans, res.data.period).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
+      },
+      {
+        name: "人气排名",
+        yAxisIndex: 2,
         type: "scatter",
         data: unpack(res.data.popular, res.data.period).filter(x => x[0] > "2023-08-25" && x[1] && x[1] > 0)
       }

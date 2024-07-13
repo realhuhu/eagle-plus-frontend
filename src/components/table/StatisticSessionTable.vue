@@ -198,8 +198,11 @@ const activity = ref<{
   },
   y_axis: [
     {
-      type: "log",
-      name: "平均数量",
+      name: "人数",
+      axisLabel: {formatter: axis_formatter}
+    },
+    {
+      name: "人数",
       axisLabel: {formatter: axis_formatter}
     },
     {
@@ -207,7 +210,8 @@ const activity = ref<{
       name: "最高排名",
       min: 1,
       inverse: true,
-      nameLocation: "start"
+      nameLocation: "start",
+      show: false
     }
   ],
   series: []
@@ -308,7 +312,7 @@ const compute_data = () => {
       name: "价值",
       type: "bar",
       yAxisIndex: 1,
-      color: "rgba(247,244,148,0.5)",
+      color: "rgba(255,215,0,0.5)",
       itemStyle: {
         borderRadius: [10]
       },
@@ -334,7 +338,7 @@ const compute_data = () => {
       stack: "price",
       yAxisIndex: 1,
       type: "bar",
-      color: "rgba(247,244,148,0.5)",
+      color: "rgba(255,215,0,0.6)",
       itemStyle: {
         borderRadius: [10]
       },
@@ -345,7 +349,7 @@ const compute_data = () => {
       stack: "price",
       yAxisIndex: 1,
       type: "bar",
-      color: "rgba(192,192,192,0.5)",
+      color: "rgba(192,192,192,1)",
       itemStyle: {
         borderRadius: [10]
       },
@@ -380,7 +384,7 @@ const compute_data = () => {
       name: "价值",
       type: "bar",
       yAxisIndex: 1,
-      color: "rgba(247,244,148,0.5)",
+      color: "rgba(255,215,0,0.5)",
       itemStyle: {
         borderRadius: [10]
       },
@@ -397,26 +401,26 @@ const compute_data = () => {
       data: live_data.watch.map((x, k) => [k, x]).filter(x => x[1])
     },
     {
-      name: "在线数",
-      type: "line",
-      yAxisIndex: 0,
-      data: live_data.rank.map((x, k) => [k, x]).filter(x => x[1])
-    },
-    {
-      name: "粉丝团",
-      type: "line",
-      yAxisIndex: 0,
-      data: live_data.fans.map((x, k) => [k, x]).filter(x => x[1])
-    },
-    {
       name: "点赞数",
       type: "line",
       yAxisIndex: 0,
       data: live_data.like.map((x, k) => [k, x]).filter(x => x[1])
     },
     {
-      name: "人气排名",
+      name: "在线数",
+      type: "line",
       yAxisIndex: 1,
+      data: live_data.rank.map((x, k) => [k, x]).filter(x => x[1])
+    },
+    {
+      name: "粉丝团",
+      type: "line",
+      yAxisIndex: 1,
+      data: live_data.fans.map((x, k) => [k, x]).filter(x => x[1])
+    },
+    {
+      name: "人气排名",
+      yAxisIndex: 2,
       type: "scatter",
       data: live_data.popular.map((x, k) => [k, x]).filter(x => x[1])
     }
