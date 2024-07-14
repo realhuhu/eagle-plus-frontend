@@ -4,8 +4,6 @@
       IYING.LOVE
     </div>
 
-    <div>新版测试中，旧版本：<a class="text-[#4ebaee] cursor-pointer" @click="old">old.iying.love</a>(将于7月15日下线)</div>
-
     <div class="w-full md:my-6 my-2">
       <common-chart title="" class="!h-[200px]" :series="series" :loading="loading" :y-hide="true" :zoom-hide="true"/>
       <heat-map v-if="!store.is_mobile" :series="map" :loading="loading"/>
@@ -35,9 +33,6 @@ import {client} from "@/assets/lib/request";
 import {UseStore} from "@/store";
 import {time_delta} from "@/assets/lib/utils";
 
-const old = () => {
-  window.open("https://old.iying.love")
-}
 
 const store = UseStore()
 const router = useRouter()

@@ -23,8 +23,12 @@
               </div>
             </div>
 
-            <div class="absolute md:right-[24px] right-[8px] md:px-[16px] px-[8px] top-[50%] bg-[var(--color-bg-2)]"
-                 style="transform: translateY(-50%)">
+            <div
+                class="absolute md:right-[24px] right-[8px] md:px-[16px] px-[8px] top-[50%] bg-[var(--color-bg-2)] flex gap-3"
+                style="transform: translateY(-50%)">
+              <a-button v-if="!store.is_mobile" type="outline" size="small" @click="emit('download')"
+                        :disabled="table.loading">导出
+              </a-button>
               <a-button status="success" size="small" @click="emit('refresh')">更新</a-button>
             </div>
           </div>
@@ -75,7 +79,7 @@ import {UseStore} from "@/store";
 
 defineProps<{ table: InteractionTable }>()
 const params = defineModel<InteractionParams>("params", {required: true})
-const emit = defineEmits(["change_page", "change_size", "refresh", "user_click"])
+const emit = defineEmits(["change_page", "change_size", "refresh", "user_click", "download"])
 const store = UseStore()
 
 const on_user_click = (user: User) => {

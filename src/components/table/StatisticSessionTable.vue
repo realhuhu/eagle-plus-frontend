@@ -446,6 +446,7 @@ const get_data = async () => {
 
 const pop = (params: ElementEvent) => {
   if (!params.topTarget) return
+  if (Object.getPrototypeOf(params.topTarget).type === "path") return
   if (Object.getPrototypeOf(params.topTarget).type === "rect") return
   if (Object.getPrototypeOf(params.topTarget).type === "tspan") return
   if (store.is_mobile) return

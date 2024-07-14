@@ -1,6 +1,7 @@
 import {Notification} from "@arco-design/web-vue";
 import html2canvas from "html2canvas";
 import type {LocationQueryValue} from "vue-router";
+import * as XLSX from "xlsx";
 
 export const fullMap = (o: Record<string, string>) => {
   return !Object.values(o).filter(x => !x).length
@@ -210,7 +211,37 @@ export const div2img = (div: HTMLDivElement) => {
       });
     }, "image/png");
   })
+}
 
+export const field_formatter = <T extends {}>(
+  items: T[],
+  map: Partial<Record<keyof T, string>>
+): Record<string, string | number | boolean | null>[] => {
+  return items.map(item => {
+    const result = {};
+    for (const oldKey in map) {
+      const newKey = map[oldKey]
+      // eslint-disable-next-line
+      // @ts-ignore
+      result[newKey] = item[oldKey];
+    }
+    return result;
+  });
+};
+
+
+export const to_excel = (data: Record<string, Record<string, string | number | boolean | null>[]>, name?: string) => {
+  const wb = XLSX.utils.book_new()
+  for (const name in data) {
+    if (!data[name].length) continue;
+    XLSX.utils.book_append_sheet(
+      wb,
+      XLSX.utils.json_to_sheet(data[name], {header: Object.keys(data[name][0])}),
+      name
+    )
+  }
+
+  XLSX.writeFile(wb, `${name || new Date().getTime()}.xlsx`)
 }
 
 export const unpack = <T>(values: T[], periods: string[], process?: (value: T) => T): [string, T][] => values.map((value, index) => [periods[index], process ? process(value) : value])
