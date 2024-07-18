@@ -1,23 +1,28 @@
 <template>
   <div class="w-full flex flex-col justify-start items-end">
-    <a-select class="mb-3 w-[468px] max-w-full" placeholder="请选择" v-model="period_id">
-      <a-option :value="0">每日</a-option>
-      <a-option :value="1">每周</a-option>
-      <a-option :value="2">每月</a-option>
-    </a-select>
+    <div class="mb-3 flex justify-between items-center gap-6 w-full">
+      <a-checkbox v-model="chart_connect" class="flex-shrink-0">多图联动</a-checkbox>
+
+      <a-select class="max-w-[256px]" placeholder="请选择" v-model="period_id">
+        <a-option :value="0">每日</a-option>
+        <a-option :value="1">每周</a-option>
+        <a-option :value="2">每月</a-option>
+      </a-select>
+    </div>
+
 
     <div class="flex flex-col justify-center items-center gap-6 w-full">
       <common-chart title="总览" :series="summary.series" :loading="loading" :y-axis="summary.y_axis"
-                    :y-hide="store.is_mobile"/>
+                    :y-hide="store.is_mobile" group="period"/>
 
       <common-chart title="留言" :series="chat.series" :loading="loading" :y-axis="chat.y_axis"
-                    :y-hide="store.is_mobile"/>
+                    :y-hide="store.is_mobile" group="period"/>
 
       <common-chart title="礼物" :series="gift.series" :loading="loading" :y-axis="gift.y_axis"
-                    :y-hide="store.is_mobile"/>
+                    :y-hide="store.is_mobile" group="period"/>
 
       <common-chart title="上舰" :series="guard.series" :loading="loading" :y-axis="guard.y_axis"
-                    :y-hide="store.is_mobile"/>
+                    :y-hide="store.is_mobile" group="period"/>
 
       <common-chart title="活跃" :series="activity.series" :loading="loading" :y-axis="activity.y_axis"
                     :y-hide="store.is_mobile"/>
@@ -27,12 +32,15 @@
 
 <script setup lang="ts">
 import {Notification} from "@arco-design/web-vue";
+import {connect, disconnect} from "echarts/core"
 import type {SeriesOption, YAXisComponentOption} from "echarts";
 
 import {client} from "@/assets/lib/request";
 import {UseStore} from "@/store";
 import {axis_formatter, unpack} from "@/assets/lib/utils";
+import CommonChart from "@/components/chart/CommonChart.vue";
 
+const chart_connect = ref(false)
 const period_id = ref(1)
 const loading = ref(false)
 const store = UseStore()
@@ -311,6 +319,14 @@ const get_data = async () => {
     loading.value = false
   }
 }
+
+watch(chart_connect, (newVal) => {
+  if (newVal) {
+    connect("period")
+  } else {
+    disconnect("period")
+  }
+})
 
 watch(period_id, () => get_data(), {deep: true})
 

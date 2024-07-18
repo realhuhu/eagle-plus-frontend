@@ -5,9 +5,11 @@
      justify-center items-center">
       <div>{{ title }}</div>
 
-      <common-chart :series="summary.series" :loading="loading" :y-axis="summary.y_axis" :y-hide="store.is_mobile"/>
+      <common-chart :series="summary.series" :loading="loading" :y-axis="summary.y_axis" :y-hide="store.is_mobile"
+                    group="live"/>
 
-      <common-chart :series="activity.series" :loading="loading" :y-axis="activity.y_axis" :y-hide="store.is_mobile"/>
+      <common-chart :series="activity.series" :loading="loading" :y-axis="activity.y_axis" :y-hide="store.is_mobile"
+                    group="live"/>
     </div>
   </a-modal>
 </template>
@@ -15,6 +17,7 @@
 <script setup lang="ts">
 import {UseStore} from "@/store";
 import {Notification} from "@arco-design/web-vue";
+import {connect} from "echarts/core"
 import type {SeriesOption, YAXisComponentOption} from "echarts";
 
 import {client} from "@/assets/lib/request";
@@ -148,6 +151,10 @@ const get_data = async () => {
     loading.value = false
   }
 }
+
+onMounted(() => {
+  connect("live")
+})
 
 get_data()
 </script>

@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full md:h-[400px] h-[60vw] py-2">
+  <div class="w-full md:h-[375px] h-[50vw] py-2">
     <v-chart class="chart h-full shadow-around duration-500" :option="option" :loading="props.loading"
-             :theme="store.dark ? dark : light" :autoresize="true" @zr:click="on_click"/>
+             :group="props.group" :theme="store.dark ? dark : light" :autoresize="true" @zr:click="on_click"/>
     <div class="text-center font-bold">{{ props.title }}</div>
   </div>
 </template>
@@ -46,7 +46,6 @@ use([
 ])
 
 const emit = defineEmits(["click"])
-
 const store = UseStore()
 const props = defineProps<{
   loading: boolean
@@ -57,6 +56,7 @@ const props = defineProps<{
   tooltip?: TooltipComponentOption
   yHide?: boolean
   zoomHide?: boolean
+  group?: string
 }>()
 
 
@@ -65,7 +65,7 @@ const option = ref<EChartsOption>({
     left: "center",
     top: "10px"
   },
-  toolbox: {
+  toolbox: store.is_mobile ? undefined : {
     show: true,
     feature: {
       dataZoom: {
@@ -74,7 +74,8 @@ const option = ref<EChartsOption>({
           zoom: "框选",
           back: "还原"
         },
-        filterMode: "filter"
+        filterMode: "filter",
+        yAxisIndex: false
       },
       saveAsImage: {
         show: true,
@@ -141,26 +142,27 @@ watch(() => props.series, () => {
   option.value.series = props.series
 
   const grid: {
+    top?: number
     left?: number
     right?: number
     bottom?: number
   } = {}
-
+  grid.top = 70
 
   if (!props.zoomHide) {
     option.value.dataZoom = [
       {
-        type: "inside",
-        start: 0,
-        end: 100
-      },
-      {
+        type: "slider",
+        show: true,
+        height: 10,
+        bottom: 15,
         start: 0,
         end: 100
       }
     ]
+    grid.bottom = 50
   } else {
-    grid.bottom = 30
+    grid.bottom = 25
   }
 
   if (props.yHide) {
@@ -168,6 +170,8 @@ watch(() => props.series, () => {
       option.value.yAxis = props.yAxis.map(x => ({...x, show: false}))
     }
     grid.left = grid.right = 10
+  } else {
+    grid.left = grid.right = 60
   }
 
   option.value.grid = grid

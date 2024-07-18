@@ -1,34 +1,36 @@
 <template>
   <div class="w-full flex flex-col justify-start items-end">
     <div class="mb-3 flex justify-end items-center gap-6">
+      <a-checkbox v-model="chart_connect">多图联动</a-checkbox>
       <a-checkbox v-model="average.user">平均每人</a-checkbox>
       <a-checkbox v-model="average.hour">平均每小时</a-checkbox>
     </div>
 
     <div class="flex flex-col justify-center items-center gap-6 w-full">
-      <common-chart title="总览" :series="summary.series" :loading="loading" :x-axis="summary.x_axis"
-                    :y-hide="store.is_mobile" :y-axis="summary.y_axis" :tooltip="tooltip" @click="pop"/>
+      <common-chart title="总览" :series="summary.series" :loading="loading" :y-hide="store.is_mobile" @click="pop"
+                    :x-axis="summary.x_axis" :y-axis="summary.y_axis" :tooltip="tooltip" group="session"/>
 
-      <common-chart title="人数" :series="user.series" :loading="loading" :x-axis="user.x_axis" :y-axis="user.y_axis"
-                    :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop"/>
+      <common-chart title="人数" :series="user.series" :loading="loading" :y-hide="store.is_mobile" @click="pop"
+                    :x-axis="user.x_axis" :y-axis="user.y_axis" :tooltip="tooltip" group="session"/>
 
-      <common-chart title="留言" :series="chat.series" :loading="loading" :x-axis="chat.x_axis" :y-axis="chat.y_axis"
-                    :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop"/>
+      <common-chart title="留言" :series="chat.series" :loading="loading" :y-hide="store.is_mobile" @click="pop"
+                    :x-axis="chat.x_axis" :y-axis="chat.y_axis" :tooltip="tooltip" group="session"/>
 
-      <common-chart title="礼物" :series="gift.series" :loading="loading" :x-axis="gift.x_axis" :y-axis="gift.y_axis"
-                    :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop"/>
+      <common-chart title="礼物" :series="gift.series" :loading="loading" :y-hide="store.is_mobile" @click="pop"
+                    :x-axis="gift.x_axis" :y-axis="gift.y_axis" :tooltip="tooltip" group="session"/>
 
-      <common-chart title="上舰" :series="guard.series" :loading="loading" :x-axis="guard.x_axis" :y-axis="guard.y_axis"
-                    :y-hide="store.is_mobile" :tooltip="tooltip" @click="pop"/>
+      <common-chart title="上舰" :series="guard.series" :loading="loading" :y-hide="store.is_mobile" @click="pop"
+                    :x-axis="guard.x_axis" :y-axis="guard.y_axis" :tooltip="tooltip" group="session"/>
 
-      <common-chart title="活跃" :series="activity.series" :loading="loading" :x-axis="activity.x_axis"
-                    :y-hide="store.is_mobile" :y-axis="activity.y_axis" :tooltip="tooltip" @click="pop"/>
+      <common-chart title="活跃" :series="activity.series" :loading="loading" :y-hide="store.is_mobile" @click="pop"
+                    :x-axis="activity.x_axis" :y-axis="activity.y_axis" :tooltip="tooltip"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import {Notification} from "@arco-design/web-vue";
+import {connect, disconnect} from "echarts/core"
 import type {
   SeriesOption,
   XAXisComponentOption,
@@ -42,6 +44,7 @@ import {UseStore} from "@/store";
 import {showStatisticLiveModal} from "../modal/StatisticLiveModal";
 import {assertNotEmpty, axis_formatter, proxy_url, time_delta} from "@/assets/lib/utils";
 
+const chart_connect = ref(false)
 const loading = ref(false)
 const current = ref<{
   id: number
@@ -87,10 +90,12 @@ const summary = ref<{
   y_axis: [
     {
       type: "value",
+      axisLabel: {formatter: axis_formatter},
       name: "数量"
     },
     {
       type: "value",
+      axisLabel: {formatter: axis_formatter},
       name: "价值"
     }
   ],
@@ -109,10 +114,12 @@ const user = ref<{
   y_axis: [
     {
       type: "value",
+      axisLabel: {formatter: axis_formatter},
       name: "人数"
     },
     {
       type: "value",
+      axisLabel: {formatter: axis_formatter},
       name: "人数"
     }
   ],
@@ -131,10 +138,12 @@ const chat = ref<{
   y_axis: [
     {
       type: "value",
+      axisLabel: {formatter: axis_formatter},
       name: "数量"
     },
     {
       type: "value",
+      axisLabel: {formatter: axis_formatter},
       name: "价值"
     }
   ],
@@ -153,10 +162,12 @@ const gift = ref<{
   y_axis: [
     {
       type: "value",
+      axisLabel: {formatter: axis_formatter},
       name: "数量"
     },
     {
       type: "value",
+      axisLabel: {formatter: axis_formatter},
       name: "瓜子数"
     }
   ],
@@ -452,6 +463,15 @@ const pop = (params: ElementEvent) => {
   if (store.is_mobile) return
   if (current.value.id) showStatisticLiveModal(current.value.id, current.value.title)
 }
+
+
+watch(chart_connect, (newVal) => {
+  if (newVal) {
+    connect("session")
+  } else {
+    disconnect("session")
+  }
+})
 
 watch(average, () => {
   loading.value = true

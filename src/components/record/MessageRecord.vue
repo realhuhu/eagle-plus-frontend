@@ -9,6 +9,9 @@
       <div v-if="message.admin_type == 1"
            class="p-0.5 rounded-md text-[#FFB027] border border-[#FFB027] flex-shrink-0 mr-1">房
       </div>
+      <div v-else-if="message.admin_type == 2"
+           class="p-0.5 rounded-md text-red-500 border border-red-500 flex-shrink-0 mr-1">妈
+      </div>
 
       <div :style="{ color: `${message.name_color}` }" @click="emit('user_click', interaction.user)"
            class="font-bold hover:text-[#4ebaee] cursor-pointer duration-100 truncate mr-1">
@@ -33,8 +36,7 @@
       </span>
 
       <span v-else>
-        <a-image :width="message.text_emoticon.width / 3" :height="message.text_emoticon.height / 3"
-                 :src="proxy_url(message.text_emoticon.url)"/>
+        <a-image :width="50" :src="proxy_url(message.text_emoticon.url)"/>
       </span>
     </span>
   </div>
