@@ -1,13 +1,13 @@
 <template>
   <div class="w-full flex flex-col justify-start items-end">
     <div class="mb-3 flex justify-between items-center gap-6 w-full">
-      <a-checkbox v-model="chart_connect" class="flex-shrink-0">多图联动</a-checkbox>
-
       <a-select class="max-w-[256px]" placeholder="请选择" v-model="period_id">
         <a-option :value="0">每日</a-option>
         <a-option :value="1">每周</a-option>
         <a-option :value="2">每月</a-option>
       </a-select>
+
+      <a-checkbox v-model="chart_connect" class="flex-shrink-0">多图联动</a-checkbox>
     </div>
 
 
@@ -138,6 +138,7 @@ const activity = ref<{
       type: "value",
       name: "最高排名",
       min: 1,
+      max: 100,
       inverse: true,
       nameLocation: "start",
       show: false

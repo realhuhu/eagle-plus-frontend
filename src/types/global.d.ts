@@ -13,7 +13,7 @@ declare global {
     results: T[]
   }
 
-  type Live = {
+  type SimpleLive = {
     id: number
     title: string
     cover: string
@@ -25,6 +25,37 @@ declare global {
     guard_price: number | null
     rank: number | null
   }
+
+  type Live = {
+    id: number;
+    title: string;
+    cover: string;
+    timestamp_start: string;
+    timestamp_end: string;
+    message_num: number;
+    message_user_num: number;
+    entry_num: number;
+    entry_user_num: number;
+    gift0_num: number;
+    gift0_user_num: number;
+    gift0_price: number;
+    gift1_num: number;
+    gift1_user_num: number;
+    gift1_price: number;
+    chat_num: number;
+    chat_user_num: number;
+    chat_price: number;
+    guard3_num: number;
+    guard2_num: number;
+    guard1_num: number;
+    guard_user_num: number;
+    guard_price: number;
+    watch: number;
+    rank: number;
+    fans: number;
+    like: number;
+    popular: number;
+  };
 
   type SimpleUser = {
     uid: number

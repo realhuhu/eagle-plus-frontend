@@ -37,14 +37,14 @@ import {time_delta} from "@/assets/lib/utils";
 const store = UseStore()
 const router = useRouter()
 const loading = ref(false)
-const lives = ref<Live[]>([]);
+const lives = ref<SimpleLive[]>([]);
 const map = ref<SeriesOption>({})
 const series = ref<SeriesOption[]>([])
 
 const get_data = async () => {
   loading.value = true
   try {
-    const res = await client.get<Live[]>({url: "/statistic/live"})
+    const res = await client.get<SimpleLive[]>({url: "/statistic/live"})
     lives.value = res.data
 
     const pairs = res.data.filter(

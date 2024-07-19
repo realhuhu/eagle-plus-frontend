@@ -19,8 +19,15 @@
             </div>
           </div>
 
-          <i-codicon-graph-line class="mt-2 text-[#4ebaee] hover:text-green-500 duration-200"
-                                @click.stop="show_statistic"/>
+          <div class="flex justify-start items-center mt-2">
+            <i-codicon-graph-line class="text-[#4ebaee] hover:text-green-500 duration-200"
+                                  @click.stop="show_graph"/>
+
+            <a-divider direction="vertical" :margin="8"/>
+
+            <i-codicon-code-oss v-if="live.timestamp_end" class="text-[#4ebaee] hover:text-green-500 duration-200"
+                                @click.stop="show_info"/>
+          </div>
 
         </div>
       </div>
@@ -52,9 +59,10 @@
 
 <script setup lang="ts">
 import {DateParser, proxy_url, time_delta} from "@/assets/lib/utils";
-import {showStatisticLiveModal} from "@/components/modal/StatisticLiveModal";
+import {showLiveGraphModal} from "@/components/modal/LiveGraphModal";
+import {showLiveInfoModal} from "@/components/modal/LiveInfoModal";
 
-const props = defineProps<{ live: Live }>()
+const props = defineProps<{ live: SimpleLive }>()
 
 const router = useRouter()
 const time_string = (timestamp: string) => new DateParser(timestamp).all()
@@ -77,8 +85,12 @@ const to_detail = () => {
   })
 }
 
-const show_statistic = () => {
-  showStatisticLiveModal(props.live.id, props.live.title)
+const show_graph = () => {
+  showLiveGraphModal(props.live.id, props.live.title)
+}
+
+const show_info = () => {
+  showLiveInfoModal(props.live.id)
 }
 </script>
 

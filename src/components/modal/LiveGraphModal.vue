@@ -23,7 +23,7 @@ import type {SeriesOption, YAXisComponentOption} from "echarts";
 import {client} from "@/assets/lib/request";
 import {axis_formatter, unpack} from "@/assets/lib/utils";
 
-const props = defineProps<{ live_id: number, title: string }>()
+const props = defineProps<{ live_id: number, title: string, unmount: () => void }>()
 const store = UseStore()
 const visible = ref(true)
 const loading = ref(false)
@@ -64,6 +64,7 @@ const activity = ref<{
       type: "value",
       name: "最高排名",
       min: 1,
+      max: 100,
       inverse: true,
       nameLocation: "start",
       show: false
@@ -75,7 +76,7 @@ const activity = ref<{
 const get_data = async () => {
   loading.value = true
   try {
-    const res = await client.get<StatisticLiveData>({url: `statistic/live/?id=${props.live_id}`})
+    const res = await client.get<StatisticLiveData>({url: `statistic/live/${props.live_id}/graph`})
     summary.value.series = [
       {
         name: "弹幕",
@@ -156,6 +157,9 @@ onMounted(() => {
   connect("live")
 })
 
+watch(visible, (new_val: boolean) => {
+  if (!new_val) props.unmount()
+})
 get_data()
 </script>
 

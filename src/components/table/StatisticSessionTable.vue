@@ -41,7 +41,7 @@ import type {
 
 import {client} from "@/assets/lib/request";
 import {UseStore} from "@/store";
-import {showStatisticLiveModal} from "../modal/StatisticLiveModal";
+import {showLiveGraphModal} from "../modal/LiveGraphModal";
 import {assertNotEmpty, axis_formatter, proxy_url, time_delta} from "@/assets/lib/utils";
 
 const chart_connect = ref(false)
@@ -220,6 +220,7 @@ const activity = ref<{
       type: "value",
       name: "最高排名",
       min: 1,
+      max: 100,
       inverse: true,
       nameLocation: "start",
       show: false
@@ -461,7 +462,7 @@ const pop = (params: ElementEvent) => {
   if (Object.getPrototypeOf(params.topTarget).type === "rect") return
   if (Object.getPrototypeOf(params.topTarget).type === "tspan") return
   if (store.is_mobile) return
-  if (current.value.id) showStatisticLiveModal(current.value.id, current.value.title)
+  if (current.value.id) showLiveGraphModal(current.value.id, current.value.title)
 }
 
 
