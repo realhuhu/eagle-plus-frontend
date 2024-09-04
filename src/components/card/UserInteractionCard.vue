@@ -5,7 +5,7 @@
       <a-spin tip="加载中..."/>
     </div>
     <interaction-table v-else :table="table" v-model:params="params" @refresh="refresh_data" @change_page="get_data"
-                       @change_size="refresh_data" @download="download"/>
+                       @change_size="refresh_data" @download="download" :search="params.search"/>
   </div>
 </template>
 

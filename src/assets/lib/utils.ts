@@ -244,4 +244,11 @@ export const to_excel = (data: Record<string, Record<string, string | number | b
   XLSX.writeFile(wb, `${name || new Date().getTime()}.xlsx`)
 }
 
+export const highlightKeyword = (originalString: string, keyword?: string) => {
+  if (!keyword) return originalString
+  const regex = new RegExp(keyword, "gi")
+  return originalString.replace(regex, "<span style=\"background-color: #ff9632;color: black\">$&</span>")
+}
+
+
 export const unpack = <T>(values: T[], periods: string[], process?: (value: T) => T): [string, T][] => values.map((value, index) => [periods[index], process ? process(value) : value])

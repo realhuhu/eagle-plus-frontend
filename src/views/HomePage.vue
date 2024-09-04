@@ -108,7 +108,7 @@ const get_data = async () => {
         stack: "price",
         yAxisIndex: 0,
         barWidth: 2,
-        data: res.data.map((x, index) => [x.timestamp_start, Number((res.data[index].gift1_price || 0 / 1000).toFixed(2))])
+        data: res.data.map((x, index) => [x.timestamp_start, Number(((res.data[index].gift1_price || 0) / 1000).toFixed(2))])
       }
     ]
   } finally {

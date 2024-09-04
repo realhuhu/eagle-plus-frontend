@@ -42,7 +42,7 @@
           <div v-for="(interaction, k) in table.interactions" :key="k">
             <transition enter-active-class="animate__animated animate__fadeIn" appear>
               <message-record v-if="interaction.message" :interaction="interaction" :message="interaction.message"
-                              @user_click="on_user_click"/>
+                              @user_click="on_user_click" :highlight="search"/>
               <guard-record v-else-if="interaction.guard" :interaction="interaction" :guard="interaction.guard"
                             @user_click="on_user_click"/>
               <gift-record v-else-if="interaction.gift" :interaction="interaction" :gift="interaction.gift"
@@ -50,13 +50,13 @@
               <entry-record v-else-if="interaction.entry" :interaction="interaction" :entry="interaction.entry"
                             @user_click="on_user_click"/>
               <chat-record v-else-if="interaction.chat" :interaction="interaction" :chat="interaction.chat"
-                           @user_click="on_user_click"/>
+                           @user_click="on_user_click" :highlight="search"/>
             </transition>
           </div>
 
           <div v-for="(award, k) in table.award" :key="k">
             <transition enter-active-class="animate__animated animate__fadeIn" appear>
-              <award-record :award="award" @user_click="on_user_click"/>
+              <award-record :award="award" @user_click="on_user_click" :highlight="search"/>
             </transition>
           </div>
 
@@ -77,7 +77,7 @@
 <script setup lang="ts">
 import {UseStore} from "@/store";
 
-defineProps<{ table: InteractionTable }>()
+defineProps<{ table: InteractionTable, search?: string }>()
 const params = defineModel<InteractionParams>("params", {required: true})
 const emit = defineEmits(["change_page", "change_size", "refresh", "user_click", "download"])
 const store = UseStore()

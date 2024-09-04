@@ -31,9 +31,8 @@
     </div>
 
     <span>
-      <span v-if="!message.text_emoticon.url" :style="{ color: number_to_color(message.text_color, true) }">
-        {{ message.text }}
-      </span>
+      <span v-if="!message.text_emoticon.url" :style="{ color: number_to_color(message.text_color, true) }"
+            v-html="highlightKeyword(message.text,highlight)"/>
 
       <span v-else>
         <a-image :width="50" :src="proxy_url(message.text_emoticon.url)"/>
@@ -43,9 +42,9 @@
 </template>
 
 <script setup lang="ts">
-import {DateParser, number_to_color, proxy_url} from "@/assets/lib/utils";
+import {DateParser, highlightKeyword, number_to_color, proxy_url} from "@/assets/lib/utils";
 
-const props = defineProps<{ interaction: Interaction, message: Message }>()
+const props = defineProps<{ interaction: Interaction, message: Message, highlight?: string }>()
 const emit = defineEmits(["user_click"])
 const time = computed(() => new DateParser(props.interaction.timestamp).smart())
 </script>

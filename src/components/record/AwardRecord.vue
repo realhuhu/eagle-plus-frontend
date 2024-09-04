@@ -3,7 +3,7 @@
     <div class="text-[12px] md:text-[14px] flex-shrink-0 mr-2"> {{ time }}</div>
 
     <div class="flex-col justify-center items-center">
-      <div class="text-[14px] font-bold text-[#4ebaee] mb-1">{{ award.title }}</div>
+      <div class="text-[14px] font-bold text-[#4ebaee] mb-1" v-html="highlightKeyword(award.title,highlight)"/>
       <div v-for="(user, k) in award.users" :key="k" class="flex justify-start items-center">
         <privilege-avatar :avatar="user.current_avatar" :size="34" class="mr-2"/>
 
@@ -17,9 +17,9 @@
 </template>
 
 <script setup lang="ts">
-import {DateParser} from "@/assets/lib/utils";
+import {DateParser, highlightKeyword} from "@/assets/lib/utils";
 
-const props = defineProps<{ award: Award }>()
+const props = defineProps<{ award: Award, highlight?: string }>()
 const emit = defineEmits(["user_click"])
 const time = computed(() => new DateParser(props.award.timestamp).smart())
 </script>

@@ -34,7 +34,7 @@
              class="w-[50%] md:w-[25%] md:px-4 px-2 py-4 flex justify-start items-center cursor-pointer hover:bg-[var(--theme-dark-2)] duration-100">
           <privilege-avatar :avatar="user.current_avatar" :size="36" class="mr-2 flex-shrink-0"/>
           <div class="flex flex-col justify-between items-start flex-grow overflow-hidden">
-            <div class="line-clamp-1 pr-3">{{ user.current_name }}</div>
+            <div class="line-clamp-1 pr-3" v-html="highlightKeyword(user.current_name,name)"/>
             <div
                 class="line-clamp-1 break-all text-[10px] bg-[var(--color-primary-light-1)] border-[#4ebaee] border px-1 rounded">
               UID:{{ user.uid }}
@@ -60,7 +60,7 @@
 import {client} from "@/assets/lib/request";
 import {UseStore} from "@/store";
 import {safeBack} from "@/router";
-import {assertNotEmpty, flat_query} from "@/assets/lib/utils";
+import {assertNotEmpty, flat_query, highlightKeyword} from "@/assets/lib/utils";
 
 const route = useRoute()
 const router = useRouter()

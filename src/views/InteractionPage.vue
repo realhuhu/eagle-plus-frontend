@@ -38,6 +38,7 @@
         <interaction-table
             :table="table" v-model:params="interaction_params" @refresh="refresh_data" @download="download"
             @change_page="get_data" @change_size="refresh_data" @user_click="pop_modal"
+            :search="interaction_params.search"
         />
       </div>
     </div>

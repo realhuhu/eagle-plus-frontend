@@ -23,9 +23,7 @@
       </div>
 
       <div class="card-body" :style="`background-color:${chat.chat_bottom_color}`">
-        <div class="card-content">
-          {{ chat.chat_message }}
-        </div>
+        <div class="card-content" v-html="highlightKeyword(chat.chat_message,highlight)"/>
       </div>
     </div>
   </div>
@@ -33,10 +31,10 @@
 
 <script setup lang="ts">
 import {UseStore} from "@/store";
-import {DateParser, div2img} from "@/assets/lib/utils";
+import {DateParser, div2img, highlightKeyword} from "@/assets/lib/utils";
 
 const chatRef = ref()
-const props = defineProps<{ interaction: Interaction, chat: Chat }>()
+const props = defineProps<{ interaction: Interaction, chat: Chat, highlight?: string }>()
 const emit = defineEmits(["user_click"])
 const store = UseStore()
 const time = computed(() => new DateParser(props.interaction.timestamp).smart())
